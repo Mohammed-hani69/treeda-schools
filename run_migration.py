@@ -3,7 +3,7 @@ import sqlite3
 import sys
 import os
 
-db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'treeda.db')
+db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'school_exhibition.db')
 
 if not os.path.exists(db_path):
     print(f'❌ Database not found at {db_path}')
