@@ -2,6 +2,27 @@
 {% block title %}بناء الصفحة الرئيسية - {{ site_name }}{% endblock %}
 {% block extra_css %}
 <link href="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.css" rel="stylesheet">
+<style>
+.section-content-preview {
+    background: var(--surface-secondary);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+}
+.section-content-preview .badge-count {
+    background: var(--brand-primary-10);
+    color: var(--brand-primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+</style>
 {% endblock %}
 {% block content %}
 <div class="admin-layout">
@@ -13,34 +34,35 @@
                 <p>ترتيب وتخصيص أقسام الصفحة الرئيسية</p>
             </div>
             <div class="d-flex gap-2">
-                <a href="{{ url_for('admin.hero_section') }}" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> تعديل الهيرو</a>
                 <a href="{{ url_for('admin.create_section') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة قسم</a>
-            </div>
-        </div>
-
-        <div class="modern-card mb-4">
-            <div class="card-body-custom">
-                <div class="d-flex align-items-center gap-3">
-                    <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary));border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;flex-shrink:0;">
-                        <i class="bi bi-eye"></i>
-                    </div>
-                    <div>
-                        <h5 style="font-weight:700;margin-bottom:0.15rem;">القسم الرئيسي — Hero Section</h5>
-                        <p style="color:var(--text-secondary);margin-bottom:0;font-size:0.85rem;">{{ hero.title if hero else 'لم يتم إعداد الهيرو بعد' }}</p>
-                    </div>
-                    <a href="{{ url_for('admin.hero_section') }}" class="btn btn-sm btn-outline-primary me-auto">تعديل</a>
-                </div>
             </div>
         </div>
 
         <div id="sortableSections">
             {% for section in sections %}
+            {% set builtin = section.section_type.startswith('builtin_') %}
+            {% set mgmt_url = content_urls.get(section.section_type) %}
+            {% set count = content_counts.get(section.section_type) %}
+
             <div class="modern-card mb-3" data-id="{{ section.id }}" data-aos="fade-up">
                 <div class="card-body-custom">
                     <div class="d-flex align-items-center gap-3">
                         <div class="drag-handle" style="cursor:grab;color:var(--text-tertiary);"><i class="bi bi-grip-vertical" style="font-size:1.3rem;"></i></div>
+
+                        {# Icon #}
                         <div style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--brand-primary-10);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);font-size:1.1rem;flex-shrink:0;">
-                            {% if section.section_type == 'text' %}<i class="bi bi-font"></i>
+                            {% if section.section_type == 'builtin_hero' %}<i class="bi bi-eye"></i>
+                            {% elif section.section_type == 'builtin_stats' %}<i class="bi bi-bar-chart"></i>
+                            {% elif section.section_type == 'builtin_features' %}<i class="bi bi-stars"></i>
+                            {% elif section.section_type == 'builtin_categories' %}<i class="bi bi-grid-3x3"></i>
+                            {% elif section.section_type == 'builtin_featured_schools' %}<i class="bi bi-building"></i>
+                            {% elif section.section_type == 'builtin_gallery' %}<i class="bi bi-images"></i>
+                            {% elif section.section_type == 'builtin_steps' %}<i class="bi bi-diagram-3"></i>
+                            {% elif section.section_type == 'builtin_pricing' %}<i class="bi bi-currency-dollar"></i>
+                            {% elif section.section_type == 'builtin_testimonials' %}<i class="bi bi-chat-quote"></i>
+                            {% elif section.section_type == 'builtin_faq' %}<i class="bi bi-question-circle"></i>
+                            {% elif section.section_type == 'builtin_cta' %}<i class="bi bi-megaphone"></i>
+                            {% elif section.section_type == 'text' %}<i class="bi bi-font"></i>
                             {% elif section.section_type == 'image_text' %}<i class="bi bi-image"></i>
                             {% elif section.section_type == 'video_text' %}<i class="bi bi-play-circle"></i>
                             {% elif section.section_type in ['image_slider', 'gallery'] %}<i class="bi bi-images"></i>
@@ -52,17 +74,57 @@
                             {% elif section.section_type == 'image_links' %}<i class="bi bi-link-45deg"></i>
                             {% endif %}
                         </div>
-                        <div>
-                            <h6 style="font-weight:700;margin-bottom:0.15rem;">{{ section.title or '(بدون عنوان)' }}</h6>
+
+                        {# Title + Type + Preview #}
+                        <div style="flex:1;min-width:0;">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <h6 style="font-weight:700;margin:0;">{{ section.title or section.get_type_display() }}</h6>
+                                <span class="badge {% if builtin %}bg-primary{% else %}bg-secondary{% endif %}" style="font-size:0.65rem;">
+                                    {% if builtin %}مدمج{% else %}مخصص{% endif %}
+                                </span>
+                            </div>
                             <small style="color:var(--text-tertiary);">{{ section.get_type_display() }} — ترتيب {{ section.sort_order }}</small>
+
+                            {# Content preview for built-in sections #}
+                            {% if builtin and count is not none %}
+                            <div class="section-content-preview">
+                                <span class="badge-count">{{ count }}</span>
+                                <span style="color:var(--text-secondary);">
+                                    {% if section.section_type == 'builtin_features' %}ميزة مسجلة
+                                    {% elif section.section_type == 'builtin_stats' %}إحصائية مسجلة
+                                    {% elif section.section_type == 'builtin_steps' %}خطوة مسجلة
+                                    {% elif section.section_type == 'builtin_testimonials' %}توصية مسجلة
+                                    {% elif section.section_type == 'builtin_faq' %}سؤال مسجل
+                                    {% elif section.section_type == 'builtin_categories' %}قسم مسجل
+                                    {% elif section.section_type == 'builtin_pricing' %}باقة مسجلة
+                                    {% elif section.section_type == 'builtin_featured_schools' %}مدرسة مميزة
+                                    {% else %}محتوى مسجل{% endif %}
+                                </span>
+                                {% if mgmt_url %}
+                                <a href="{{ mgmt_url }}" class="btn btn-sm btn-outline-primary me-auto" style="font-size:0.75rem;padding:0.15rem 0.5rem;">
+                                    <i class="bi bi-pencil"></i> إدارة المحتوى
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="me-auto d-flex gap-1">
-                            <a href="{{ url_for('admin.edit_section', id=section.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
-                            <a href="{{ url_for('admin.section_content', id=section.id) }}" class="btn btn-sm btn-outline-info"><i class="bi bi-gear"></i> المحتوى</a>
-                            <form method="POST" action="{{ url_for('admin.delete_section', id=section.id) }}" class="delete-form">
+
+                        {# Actions #}
+                        <div class="d-flex gap-1" style="flex-shrink:0;">
+                            <form method="POST" action="{{ url_for('admin.toggle_section', id=section.id) }}" style="display:inline;">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm {% if section.is_active %}btn-success{% else %}btn-outline-secondary{% endif %}" title="{% if section.is_active %}مفعل{% else %}معطل{% endif %}">
+                                    <i class="bi {% if section.is_active %}bi-eye{% else %}bi-eye-slash{% endif %}"></i>
+                                </button>
                             </form>
+                            <a href="{{ url_for('admin.edit_section', id=section.id) }}" class="btn btn-sm btn-outline-primary" title="تعديل الإعدادات"><i class="bi bi-gear"></i></a>
+                            {% if not builtin %}
+                            <a href="{{ url_for('admin.section_content', id=section.id) }}" class="btn btn-sm btn-outline-info" title="المحتوى"><i class="bi bi-file-text"></i></a>
+                            <form method="POST" action="{{ url_for('admin.delete_section', id=section.id) }}" class="delete-form" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger" title="حذف"><i class="bi bi-trash"></i></button>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

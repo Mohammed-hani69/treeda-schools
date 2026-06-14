@@ -505,7 +505,36 @@ def delete_category(id):
 def home_builder():
     hero = HeroSection.query.first()
     sections = HomeSection.query.order_by(HomeSection.sort_order).all()
-    return render_template('admin/home_builder.html', hero=hero, sections=sections)
+
+    from app.models.home_content import Feature, Stat, Step, Testimonial, FaqItem
+    from app.models.plan import Plan
+    from app.models.category import Category
+    from app.models.school import School
+
+    content_counts = {
+        'builtin_features': Feature.query.count(),
+        'builtin_stats': Stat.query.count(),
+        'builtin_steps': Step.query.count(),
+        'builtin_testimonials': Testimonial.query.count(),
+        'builtin_faq': FaqItem.query.count(),
+        'builtin_categories': Category.query.count(),
+        'builtin_pricing': Plan.query.count(),
+        'builtin_featured_schools': School.query.filter_by(is_featured=True).count(),
+    }
+    content_urls = {
+        'builtin_features': url_for('admin.features'),
+        'builtin_stats': url_for('admin.stats'),
+        'builtin_steps': url_for('admin.steps'),
+        'builtin_testimonials': url_for('admin.testimonials'),
+        'builtin_faq': url_for('admin.faq'),
+        'builtin_categories': url_for('admin.categories'),
+        'builtin_pricing': url_for('admin.plans'),
+        'builtin_featured_schools': url_for('admin.schools'),
+        'builtin_gallery': url_for('admin.gallery'),
+        'builtin_hero': url_for('admin.hero_section'),
+    }
+    return render_template('admin/home_builder.html', hero=hero, sections=sections,
+                           content_counts=content_counts, content_urls=content_urls)
 
 
 @admin_bp.route('/home/hero', methods=['GET', 'POST'])
@@ -634,6 +663,17 @@ def reorder_sections():
         db.session.commit()
         return jsonify({'success': True})
     return jsonify({'error': 'Invalid data'}), 400
+
+
+@admin_bp.route('/home/sections/toggle/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def toggle_section(id):
+    section = HomeSection.query.get_or_404(id)
+    section.is_active = not section.is_active
+    db.session.commit()
+    flash('تم تحديث حالة القسم', 'success')
+    return redirect(url_for('admin.home_builder'))
 
 
 @admin_bp.route('/users')
