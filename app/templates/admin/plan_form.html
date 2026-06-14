@@ -8,7 +8,7 @@
             <div class="form-header">
                 <h4><i class="bi bi-box-seam" style="color:var(--brand-primary);"></i> {{ title }}</h4>
             </div>
-            <form method="POST" class="form-body">
+            <form method="POST" enctype="multipart/form-data" class="form-body">
                 {{ form.hidden_tag() }}
                 <div class="row g-3">
                     <div class="col-md-6">
