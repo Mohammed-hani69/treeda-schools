@@ -205,6 +205,22 @@
     "featured": {"ar": "مميزة", "en": "Featured"}
   },
 
+  "school": {
+    "views": {"ar": "مشاهدة", "en": "views"},
+    "about_title": {"ar": "عن المدرسة", "en": "About the School"},
+    "contact_info": {"ar": "معلومات الاتصال", "en": "Contact Information"},
+    "grades": {"ar": "المراحل", "en": "Grades"},
+    "grades_title": {"ar": "المراحل التعليمية", "en": "Educational Stages"},
+    "gallery": {"ar": "المعرض", "en": "Gallery"},
+    "videos": {"ar": "الفيديو", "en": "Videos"},
+    "activities": {"ar": "الأنشطة", "en": "Activities"},
+    "activities_title": {"ar": "الأنشطة المدرسية", "en": "School Activities"},
+    "services": {"ar": "الخدمات", "en": "Services"},
+    "services_title": {"ar": "الخدمات المقدمة", "en": "Services Offered"},
+    "contact": {"ar": "تواصل", "en": "Contact"},
+    "social": {"ar": "التواصل الاجتماعي", "en": "Social Media"}
+  },
+
   "school_type_fallback": {"ar": "مدارس خاصة", "en": "Private Schools"},
   "city_fallback": {"ar": "الرياض", "en": "Riyadh"},
 
