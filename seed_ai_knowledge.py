@@ -34,7 +34,7 @@ KNOWLEDGE = [
     {
         "keywords": "تسجيل, اشتراك, حساب جديد, إنشاء حساب, register, signup, create account, new account",
         "answer_ar": "للتسجيل كولي أمر: 1) اضغط على 'تسجيل' في أعلى الصفحة. 2) اختر 'ولي أمر'. 3) املأ البيانات المطلوبة (الاسم، البريد الإلكتروني، رقم الجوال، كلمة المرور). 4) اضغط 'إنشاء حساب'. للتسجيل كمدرسة: يمكنك التواصل معنا عبر نموذج الاتصال أو الاتصال على الرقم 01097000010.",
-        "answer_en": "To register as a parent: 1) Click 'Register' at the top of the page. 2) Choose 'Parent'. 3) Fill in the required information (name, email, phone number, password). 4) Click 'Create Account'. To register as a school: you can contact us via the contact form or call +201145425207.",
+        "answer_en": "To register as a parent: 1) Click 'Register' at the top of the page. 2) Choose 'Parent'. 3) Fill in the required information (name, email, phone number, password). 4) Click 'Create Account'. To register as a school: you can contact us via the contact form or call +201097000010.",
         "category": "التسجيل",
         "sort_order": 4
     },
@@ -48,7 +48,7 @@ KNOWLEDGE = [
     {
         "keywords": "نسيت كلمة المرور, تغيير كلمة المرور, forget password, reset password, change password",
         "answer_ar": "إذا نسيت كلمة المرور: 1) اضغط على 'دخول'. 2) اضغط على 'نسيت كلمة المرور'. 3) أدخل بريدك الإلكتروني المسجل. 4) ستتلقى رابط إعادة تعيين كلمة المرور على بريدك الإلكتروني (قريباً). يمكنك أيضاً التواصل معنا عبر الهاتف 01097000010 للمساعدة.",
-        "answer_en": "If you forgot your password: 1) Click 'Login'. 2) Click 'Forgot Password'. 3) Enter your registered email. 4) You'll receive a password reset link on your email (coming soon). You can also contact us at +201145425207 for assistance.",
+        "answer_en": "If you forgot your password: 1) Click 'Login'. 2) Click 'Forgot Password'. 3) Enter your registered email. 4) You'll receive a password reset link on your email (coming soon). You can also contact us at +201097000010 for assistance.",
         "category": "التسجيل",
         "sort_order": 6
     },
@@ -71,14 +71,14 @@ KNOWLEDGE = [
     {
         "keywords": "ترقية الباقة, تغيير الباقة, تطوير الاشتراك, upgrade plan, change plan, subscription upgrade",
         "answer_ar": "لترقية باقتك، تواصل مع إدارة المنصة عبر: 1) الذهاب إلى صفحة الباقات في لوحة تحكم المدرسة. 2) اختيار الباقة التي تريد الترقية إليها. 3) التواصل معنا عبر الهاتف 01097000010 أو البريد الإلكتروني لتأكيد الترقية.",
-        "answer_en": "To upgrade your plan, contact platform management via: 1) Go to the Plans page in the school dashboard. 2) Choose the plan you want to upgrade to. 3) Contact us at +201145425207 or via email to confirm the upgrade.",
+        "answer_en": "To upgrade your plan, contact platform management via: 1) Go to the Plans page in the school dashboard. 2) Choose the plan you want to upgrade to. 3) Contact us at +201097000010 or via email to confirm the upgrade.",
         "category": "الباقات",
         "sort_order": 9
     },
     {
         "keywords": "إلغاء الاشتراك, إلغاء الباقة, cancel subscription, cancel plan",
         "answer_ar": "يمكنك إلغاء اشتراكك في أي وقت. للقيام بذلك، تواصل معنا عبر الهاتف 01097000010 أو عبر البريد الإلكتروني. سيتم إلغاء الاشتراك في نهاية دورة الفوترة الحالية.",
-        "answer_en": "You can cancel your subscription at any time. To do so, contact us at +201145425207 or via email. The subscription will be cancelled at the end of the current billing cycle.",
+        "answer_en": "You can cancel your subscription at any time. To do so, contact us at +201097000010 or via email. The subscription will be cancelled at the end of the current billing cycle.",
         "category": "الباقات",
         "sort_order": 10
     },
@@ -129,7 +129,7 @@ KNOWLEDGE = [
     {
         "keywords": "مدرسة, تسجيل مدرسة, إضافة مدرسة, إدراج مدرسة, add school, register school, list school",
         "answer_ar": "لتسجيل مدرستك في المنصة: 1) تواصل معنا عبر نموذج الاتصال في الصفحة الرئيسية. 2) أو اتصل بنا على الرقم 01097000010. 3) أو راسلنا على البريد الإلكتروني. سنقوم بمساعدتك في إنشاء حساب المدرسة واختيار الباقة المناسبة.",
-        "answer_en": "To register your school on the platform: 1) Contact us via the contact form on the homepage. 2) Or call us at +201145425207. 3) Or email us. We will help you create a school account and choose the right plan.",
+        "answer_en": "To register your school on the platform: 1) Contact us via the contact form on the homepage. 2) Or call us at +201097000010. 3) Or email us. We will help you create a school account and choose the right plan.",
         "category": "المدارس",
         "sort_order": 17
     },
@@ -161,7 +161,7 @@ KNOWLEDGE = [
     {
         "keywords": "مشكلة تقنية, مشكلة, خطأ, bug, error, technical issue, problem, not working",
         "answer_ar": "إذا واجهتك أي مشكلة تقنية، يرجى المحاولة أولاً بـ: 1) تحديث الصفحة (F5). 2) مسح كاش المتصفح (Cache). 3) تجربة متصفح آخر. إذا استمرت المشكلة، تواصل معنا عبر الهاتف 01097000010 أو عبر نموذج الاتصال مع توضيح المشكلة بالتفصيل.",
-        "answer_en": "If you encounter any technical issue, please first try: 1) Refreshing the page (F5). 2) Clearing your browser cache. 3) Trying another browser. If the problem persists, contact us at +201145425207 or via the contact form with a detailed description.",
+        "answer_en": "If you encounter any technical issue, please first try: 1) Refreshing the page (F5). 2) Clearing your browser cache. 3) Trying another browser. If the problem persists, contact us at +201097000010 or via the contact form with a detailed description.",
         "category": "تقني",
         "sort_order": 21
     },
@@ -183,8 +183,8 @@ KNOWLEDGE = [
     # ───── Contact & Support ─────
     {
         "keywords": "اتصال, تواصل, دعم, contact, support, help, customer service",
-        "answer_ar": "يمكنك التواصل معنا عبر:\n📞 الهاتف: 01097000010\n📧 البريد الإلكتروني: support@treeda-expo.com\n💬 واتساب: +201145425207\n📍 العنوان: الرياض، المملكة العربية السعودية\nنحن متاحون من الأحد إلى الخميس، 9 صباحاً - 5 مساءً.",
-        "answer_en": "You can contact us via:\n📞 Phone: +201145425207\n📧 Email: support@treeda-expo.com\n💬 WhatsApp: +201145425207\n📍 Address: Riyadh, Saudi Arabia\nWe are available Sunday to Thursday, 9 AM - 5 PM.",
+        "answer_ar": "يمكنك التواصل معنا عبر:\n📞 الهاتف: 01097000010\n📧 البريد الإلكتروني: support@treeda-expo.com\n💬 واتساب: +201097000010\n📍 العنوان: الرياض، المملكة العربية السعودية\nنحن متاحون من الأحد إلى الخميس، 9 صباحاً - 5 مساءً.",
+        "answer_en": "You can contact us via:\n📞 Phone: +201097000010\n📧 Email: support@treeda-expo.com\n💬 WhatsApp: +201097000010\n📍 Address: Riyadh, Saudi Arabia\nWe are available Sunday to Thursday, 9 AM - 5 PM.",
         "category": "الدعم",
         "sort_order": 24
     },

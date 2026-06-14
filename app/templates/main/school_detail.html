@@ -124,7 +124,7 @@
       <h1>{{ school.name }}</h1>
       <div class="meta">
         {% if school.views %}
-        <span><i class="bi bi-eye"></i> {{ school.views }} مشاهدة</span>
+        <span><i class="bi bi-eye"></i> {{ school.views }} {{ _('school.views') }}</span>
         {% endif %}
         {% if school.city %}
         <span><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}</span>
@@ -133,7 +133,7 @@
         <span><i class="bi bi-calendar3"></i> {{ school.founded_year }}</span>
         {% endif %}
         {% if school.gender %}
-        <span><i class="bi bi-people"></i> {{ {'male':'بنين','female':'بنات','both':'مشترك'}.get(school.gender, school.gender) }}</span>
+        <span><i class="bi bi-people"></i> {{ {'male': _('schools_page.male'), 'female': _('schools_page.female'), 'both': _('schools_page.both')}.get(school.gender, school.gender) }}</span>
         {% endif %}
       </div>
     </div>
@@ -144,14 +144,14 @@
       <div class="col-lg-8">
         {% if school.about %}
         <div class="modern-card p-4 mb-4">
-          <h5 class="fw-bold mb-3">عن المدرسة</h5>
+          <h5 class="fw-bold mb-3">{{ _('school.about_title') }}</h5>
           <p class="text-secondary">{{ school.about }}</p>
         </div>
         {% endif %}
       </div>
       <div class="col-lg-4">
         <div class="modern-card p-4">
-          <h5 class="fw-bold mb-3">معلومات الاتصال</h5>
+          <h5 class="fw-bold mb-3">{{ _('school.contact_info') }}</h5>
           <ul class="list-unstyled mb-0">
             {% if school.phone %}
             <li class="mb-2"><i class="bi bi-telephone text-primary ms-2"></i> {{ school.phone }}</li>

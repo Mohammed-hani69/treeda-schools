@@ -121,7 +121,7 @@
       <h1>{{ school.name }}</h1>
       <div class="meta">
         {% if school.views %}
-        <span><i class="bi bi-eye"></i> {{ school.views }} مشاهدة</span>
+        <span><i class="bi bi-eye"></i> {{ school.views }} {{ _('school.views') }}</span>
         {% endif %}
         {% if school.city %}
         <span><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}</span>
@@ -130,7 +130,7 @@
         <span><i class="bi bi-calendar3"></i> {{ school.founded_year }}</span>
         {% endif %}
         {% if school.gender %}
-        <span><i class="bi bi-people"></i> {{ {'male':'بنين','female':'بنات','both':'مشترك'}.get(school.gender, school.gender) }}</span>
+        <span><i class="bi bi-people"></i> {{ {'male': _('schools_page.male'), 'female': _('schools_page.female'), 'both': _('schools_page.both')}.get(school.gender, school.gender) }}</span>
         {% endif %}
       </div>
     </div>
@@ -139,23 +139,23 @@
 
 {# ─── Virtual Tour Navigation ─── #}
 <nav class="tour-nav" id="tourNav">
-  <a href="#about" class="tour-dot" data-section="about"><span class="dot"></span><span class="dot-label">عن المدرسة</span></a>
+  <a href="#about" class="tour-dot" data-section="about"><span class="dot"></span><span class="dot-label">{{ _('school.about_title') }}</span></a>
   {% if school.grades.count() > 0 %}
-  <a href="#grades" class="tour-dot" data-section="grades"><span class="dot"></span><span class="dot-label">المراحل</span></a>
+  <a href="#grades" class="tour-dot" data-section="grades"><span class="dot"></span><span class="dot-label">{{ _('school.grades') }}</span></a>
   {% endif %}
   {% if images %}
-  <a href="#gallery" class="tour-dot" data-section="gallery"><span class="dot"></span><span class="dot-label">المعرض</span></a>
+  <a href="#gallery" class="tour-dot" data-section="gallery"><span class="dot"></span><span class="dot-label">{{ _('school.gallery') }}</span></a>
   {% endif %}
   {% if videos %}
-  <a href="#videos" class="tour-dot" data-section="videos"><span class="dot"></span><span class="dot-label">الفيديو</span></a>
+  <a href="#videos" class="tour-dot" data-section="videos"><span class="dot"></span><span class="dot-label">{{ _('school.videos') }}</span></a>
   {% endif %}
   {% if school.activities.count() > 0 %}
-  <a href="#activities" class="tour-dot" data-section="activities"><span class="dot"></span><span class="dot-label">الأنشطة</span></a>
+  <a href="#activities" class="tour-dot" data-section="activities"><span class="dot"></span><span class="dot-label">{{ _('school.activities') }}</span></a>
   {% endif %}
   {% if school.services.count() > 0 %}
-  <a href="#services" class="tour-dot" data-section="services"><span class="dot"></span><span class="dot-label">الخدمات</span></a>
+  <a href="#services" class="tour-dot" data-section="services"><span class="dot"></span><span class="dot-label">{{ _('school.services') }}</span></a>
   {% endif %}
-  <a href="#contact-section" class="tour-dot" data-section="contact"><span class="dot"></span><span class="dot-label">تواصل</span></a>
+  <a href="#contact-section" class="tour-dot" data-section="contact"><span class="dot"></span><span class="dot-label">{{ _('school.contact') }}</span></a>
 </nav>
 
 {# ─── Content Sections ─── #}
@@ -173,8 +173,8 @@
             <div class="scene-header">
               <span class="scene-number">01</span>
               <div>
-                <span class="scene-tag">تعرف على</span>
-                <h2>نبذة عن المدرسة</h2>
+                <span class="scene-tag">{{ _('school.learn_tag') }}</span>
+                <h2>{{ _('school.about_school') }}</h2>
               </div>
             </div>
             <p class="scene-text">{{ school.about }}</p>
@@ -197,8 +197,8 @@
             <div class="scene-header">
               <span class="scene-number">02</span>
               <div>
-                <span class="scene-tag">المراحل</span>
-                <h2>المراحل التعليمية</h2>
+                <span class="scene-tag">{{ _('school.stages_tag') }}</span>
+                <h2>{{ _('school.grades_title') }}</h2>
               </div>
             </div>
             <div class="d-flex gap-3 flex-wrap">
@@ -226,8 +226,8 @@
         <div class="scene-header">
           <span class="scene-number">03</span>
           <div>
-                <span class="scene-tag">استكشف</span>
-                <h2>معرض الصور</h2>
+                <span class="scene-tag">{{ _('school.explore_tag') }}</span>
+                <h2>{{ _('school.gallery_title') }}</h2>
           </div>
         </div>
         <div class="gallery-3d-grid">
@@ -237,7 +237,7 @@
               <img src="{{ url_for('static', filename='uploads/media/' + img.filename) }}" alt="">
               <div class="gallery-3d-overlay">
                 <div class="gallery-3d-icon"><i class="bi bi-arrows-angle-expand"></i></div>
-                <span>مشاهدة</span>
+                <span>{{ _('school.view') }}</span>
               </div>
             </div>
           </div>
@@ -258,8 +258,8 @@
         <div class="scene-header">
           <span class="scene-number">04</span>
           <div>
-            <span class="scene-tag">جولة</span>
-                <h2>الجولة الافتراضية</h2>
+            <span class="scene-tag">{{ _('school.tour_tag') }}</span>
+                <h2>{{ _('school.virtual_tour') }}</h2>
           </div>
         </div>
         <div class="gallery-3d-grid">
@@ -289,8 +289,8 @@
         <div class="scene-header">
           <span class="scene-number">05</span>
           <div>
-                <span class="scene-tag">أنشطة</span>
-                <h2>الأنشطة المدرسية</h2>
+                <span class="scene-tag">{{ _('school.activities_tag') }}</span>
+                <h2>{{ _('school.activities_title') }}</h2>
           </div>
         </div>
         <div class="row g-4">
@@ -319,8 +319,8 @@
         <div class="scene-header">
           <span class="scene-number">06</span>
           <div>
-                <span class="scene-tag">خدمات</span>
-                <h2>الخدمات المقدمة</h2>
+                <span class="scene-tag">{{ _('school.services_tag') }}</span>
+                <h2>{{ _('school.services_title') }}</h2>
           </div>
         </div>
         <div class="row g-4">
@@ -350,8 +350,8 @@
             <div class="scene-header">
               <span class="scene-number">07</span>
               <div>
-                <span class="scene-tag">تواصل</span>
-                <h2>معلومات الاتصال</h2>
+                <span class="scene-tag">{{ _('school.contact_tag') }}</span>
+                <h2>{{ _('school.contact_info') }}</h2>
               </div>
             </div>
             <div class="row g-4">
@@ -360,31 +360,31 @@
                   {% if school.phone %}
                   <a href="tel:{{ school.phone }}" class="contact-3d-item">
                     <div class="contact-icon bg-primary"><i class="bi bi-telephone-fill"></i></div>
-                    <div><small>رقم الجوال</small><strong>{{ school.phone }}</strong></div>
+                    <div><small>{{ _('school.phone_label') }}</small><strong>{{ school.phone }}</strong></div>
                   </a>
                   {% endif %}
                   {% if school.phone2 %}
                   <a href="tel:{{ school.phone2 }}" class="contact-3d-item">
                     <div class="contact-icon bg-primary"><i class="bi bi-telephone-fill"></i></div>
-                    <div><small>رقم آخر</small><strong>{{ school.phone2 }}</strong></div>
+                    <div><small>{{ _('school.phone_other_label') }}</small><strong>{{ school.phone2 }}</strong></div>
                   </a>
                   {% endif %}
                   {% if school.email %}
                   <a href="mailto:{{ school.email }}" class="contact-3d-item">
                     <div class="contact-icon bg-pink"><i class="bi bi-envelope-fill"></i></div>
-                    <div><small>البريد</small><strong>{{ school.email }}</strong></div>
+                    <div><small>{{ _('school.email_label') }}</small><strong>{{ school.email }}</strong></div>
                   </a>
                   {% endif %}
                   {% if school.address %}
                   <div class="contact-3d-item">
                     <div class="contact-icon bg-cyan"><i class="bi bi-geo-alt-fill"></i></div>
-                    <div><small>العنوان</small><strong>{{ school.address }}</strong></div>
+                    <div><small>{{ _('school.address_label') }}</small><strong>{{ school.address }}</strong></div>
                   </div>
                   {% endif %}
                   {% if school.website %}
                   <a href="{{ school.website }}" target="_blank" class="contact-3d-item">
                     <div class="contact-icon bg-green"><i class="bi bi-globe"></i></div>
-                    <div><small>الموقع</small><strong>{{ school.website }}</strong></div>
+                    <div><small>{{ _('school.website_label') }}</small><strong>{{ school.website }}</strong></div>
                   </a>
                   {% endif %}
                   {% if school.whatsapp %}
@@ -399,7 +399,7 @@
                 {% if school.facebook or school.twitter or school.instagram or school.youtube %}
                 <div class="mb-4">
                   <h6 class="fw-bold mb-3" style="color:var(--text-secondary);font-size:0.9rem;">
-                    <i class="bi bi-share"></i> التواصل الاجتماعي
+                    <i class="bi bi-share"></i> {{ _('school.social') }}
                   </h6>
                   <div class="d-flex gap-3 flex-wrap">
                     {% if school.facebook %}<a href="{{ school.facebook }}" class="social-3d" style="--social:#1877f2;" target="_blank"><i class="bi bi-facebook"></i></a>{% endif %}
@@ -412,7 +412,7 @@
                 {% if school.map_lat and school.map_lng %}
                 <div class="map-3d-container">
                   <h6 class="fw-bold mb-3" style="color:var(--text-secondary);font-size:0.9rem;">
-                    <i class="bi bi-map"></i> الموقع على الخريطة
+                    <i class="bi bi-map"></i> {{ _('school.map_location') }}
                   </h6>
                   <div class="map-3d">
                     <iframe width="100%" height="100%" frameborder="0" style="border:0;border-radius:var(--radius-xl);"
@@ -437,7 +437,7 @@
   <button class="viewer-close" onclick="closeViewer()"><i class="bi bi-x-lg"></i></button>
   <div class="viewer-3d-content" onclick="event.stopPropagation()">
     <img id="viewerImage" src="" alt="">
-    <div class="viewer-3d-hint"><i class="bi bi-arrows-move"></i> حرك المؤشر للتنقل</div>
+    <div class="viewer-3d-hint"><i class="bi bi-arrows-move"></i> {{ _('school.move_cursor') }}</div>
   </div>
 </div>
 
