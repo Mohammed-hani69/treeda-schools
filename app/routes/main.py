@@ -134,6 +134,7 @@ def school_detail(slug):
                          school=school, images=images, videos=videos)
 
 
+@main_bp.route('/pricing')
 @main_bp.route('/plans')
 def plans():
     plans = Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()
