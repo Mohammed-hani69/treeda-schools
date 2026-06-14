@@ -1452,7 +1452,7 @@ a:hover { color: var(--brand-primary-hover); }
   line-height: 1.7;
   display: none;
 }
-.faq-item-modern.active .faq-answer { display: block; }
+.faq-item-modern.active .faq-answer { display: block !important; }
 
 /* ─── CTA Section ─── */
 .cta-section-modern {
