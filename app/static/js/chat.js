@@ -69,14 +69,9 @@ async function sendChatMessage() {
   const answer = await fetchAnswer(msg);
   const indicator = document.getElementById('typingIndicator');
   if (indicator) indicator.remove();
-  if (answer) {
-    addMessage('bot', answer);
-  } else {
-    const fallback = getLang() === 'en'
-      ? '🤔 I couldn\'t find a specific answer. Please contact us at +201145425207 or use the contact form below.'
-      : '🤔 لم أجد إجابة محددة لسؤالك. يمكنك التواصل معنا عبر الهاتف 01097000010 أو مراسلتنا عبر نموذج الاتصال في الأسفل.';
-    addMessage('bot', fallback);
-  }
+  addMessage('bot', answer || (getLang() === 'en'
+    ? '🤔 I couldn\'t find a specific answer. Please contact us at +201145425207 or use the contact form below.'
+    : '🤔 لم أجد إجابة محددة لسؤالك. يمكنك التواصل معنا عبر الهاتف 01097000010 أو مراسلتنا عبر نموذج الاتصال في الأسفل.'));
 }
 
 document.addEventListener('DOMContentLoaded', function() {

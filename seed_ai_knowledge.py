@@ -236,6 +236,29 @@ KNOWLEDGE = [
         "category": "المدارس",
         "sort_order": 30
     },
+
+    # ───── AI Assistant / Chatbot ─────
+    {
+        "keywords": "المساعد الذكي, الذكاء الاصطناعي, الذكاء, ai, chatbot, chat bot, ai assistant, مساعد, بوت, robot, assistant",
+        "answer_ar": "أنا المساعد الذكي لتريدا أكسبو 🤖! أستطيع الإجابة عن أسئلتك حول المنصة، الباقات، التسجيل، المدارس، وأي استفسار آخر. فقط اكتب سؤالك وسأحاول مساعدتك. إذا لم أتمكن من الإجابة، يمكنك التواصل مع فريق الدعم البشري.",
+        "answer_en": "I am the Treeda Expo AI assistant 🤖! I can answer your questions about the platform, plans, registration, schools, and any other inquiries. Just type your question and I'll try to help. If I can't answer, you can contact the human support team.",
+        "category": "عام",
+        "sort_order": 31
+    },
+    {
+        "keywords": "كيف يعمل المساعد الذكي, كيف يعمل الذكاء الاصطناعي, كيف يعمل البوت, كيف تعمل, how does ai work, how does chatbot work, how do you work",
+        "answer_ar": "أعمل من خلال البحث في قاعدة معرفية تضم أكثر من 30 سؤالاً وإجابة عن المنصة. عندما تسألني سؤالاً، أبحث عن الكلمات المفتاحية المطابقة وأعرض لك الإجابة المناسبة. أنا لا أستخدم ذكاءً اصطناعياً توليدياً (مثل ChatGPT)، بل أعتمد على قاعدة معرفية محدثة باستمرار من قبل إدارة المنصة.",
+        "answer_en": "I work by searching a knowledge base of over 30 questions and answers about the platform. When you ask me a question, I search for matching keywords and show you the appropriate answer. I don't use generative AI (like ChatGPT), but rely on a knowledge base that is constantly updated by the platform administration.",
+        "category": "عام",
+        "sort_order": 32
+    },
+    {
+        "keywords": "ماذا تستطيع, ماذا يمكنك, ماذا تعرف, ماذا تفعل, what can you do, what do you know, capabilities, features of ai",
+        "answer_ar": "أستطيع الإجابة عن أسئلتك في هذه المجالات:\n1) معلومات عن المنصة ومميزاتها.\n2) طريقة التسجيل كولي أمر أو مدرسة.\n3) الباقات والأسعار وطرق الدفع.\n4) البحث عن المدارس وأنواعها.\n5) الأنشطة والخدمات والوسائط.\n6) معلومات الاتصال والدعم الفني.\n7) أي استفسار آخر عن المنصة!",
+        "answer_en": "I can answer your questions in these areas:\n1) Platform information and features.\n2) Registration as a parent or school.\n3) Plans, pricing, and payment methods.\n4) School search and types.\n5) Activities, services, and media.\n6) Contact information and technical support.\n7) Any other platform-related inquiry!",
+        "category": "عام",
+        "sort_order": 33
+    },
 ]
 
 

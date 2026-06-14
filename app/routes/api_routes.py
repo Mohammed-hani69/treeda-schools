@@ -4,6 +4,7 @@ from app import db, csrf
 from app.models.school import School, SchoolMedia
 from app.models.notification import Notification
 from app.models.ai_knowledge import AiKnowledge
+from app.utils.translations import _ as _t
 
 api_bp = Blueprint('api', __name__)
 
@@ -106,6 +107,7 @@ def chat():
 
     if best_match and best_count > 0:
         answer = best_match.answer_en if lang == 'en' else best_match.answer_ar
-        return jsonify({'answer': answer})
+        return jsonify({'answer': answer, 'fallback': False})
 
-    return jsonify({'answer': None})
+    fallback = _t('chat.fallback', lang)
+    return jsonify({'answer': fallback, 'fallback': True})

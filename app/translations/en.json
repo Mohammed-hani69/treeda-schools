@@ -244,7 +244,9 @@
 
   "chat": {
     "title": {"ar": "المساعد الذكي - تريدا أكسبو", "en": "AI Assistant - Treeda Expo"},
-    "placeholder": {"ar": "اكتب سؤالك هنا...", "en": "Type your question here..."}
+    "placeholder": {"ar": "اكتب سؤالك هنا...", "en": "Type your question here..."},
+    "fallback": {"ar": "لم أجد إجابة محددة لسؤالك. يمكنك التواصل معنا عبر الهاتف 01097000010 أو مراسلتنا عبر نموذج الاتصال في الأسفل.", "en": "I couldn't find a specific answer. Please contact us at +201145425207 or use the contact form below."},
+    "greeting": {"ar": "مرحباً! أنا مساعد تريدا أكسبو الذكي. أسألني عن المنصة، الباقات، التسجيل، أو أي شيء تريد معرفته!", "en": "Hello! I am the Treeda Expo AI assistant. Ask me about the platform, plans, registration, or anything you'd like to know!"}
   },
 
   "contact": {
