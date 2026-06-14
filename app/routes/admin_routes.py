@@ -473,13 +473,16 @@ def edit_category(id):
     category = Category.query.get_or_404(id)
     form = CategoryForm(obj=category)
     if form.validate_on_submit():
+        old_image = category.image
         form.populate_obj(category)
         if form.image.data:
-            if category.image:
-                delete_file(category.image, 'categories')
+            if old_image:
+                delete_file(old_image, 'categories')
             filename = save_file(form.image.data, 'categories')
             if filename:
                 category.image = filename
+        else:
+            category.image = old_image
         db.session.commit()
         flash('تم تحديث القسم', 'success')
         return redirect(url_for('admin.categories'))
