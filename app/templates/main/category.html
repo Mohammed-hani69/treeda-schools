@@ -44,7 +44,7 @@
         </style>
         <div class="row g-4">
             {% for school in schools %}
-            <div class="col-lg-4 col-md-6">
+            <div class="col-12">
                 <a href="{{ url_for('main.school_detail', slug=school.slug) }}" class="category-school-card">
                     <img class="card-img" src="{{ url_for('static', filename='uploads/schools/' + school.image) if school.image else url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/600x400/0F71F0/white?text=School' }}" alt="{{ school.name }}" loading="lazy">
                     <div class="card-body">
