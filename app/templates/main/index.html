@@ -76,9 +76,12 @@
             <div class="demo-widget-url"><span>{{ request.host }}</span></div>
           </div>
           <div class="demo-widget-grid">
-            <div class="demo-widget-main">
+              <div class="demo-widget-main">
               {% if hero and hero.demo_video %}
               <video src="{{ url_for('static', filename='uploads/home/' + hero.demo_video) }}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+              <button class="btn btn-sm btn-light demo-show-btn" onclick="openDemoVideo('{{ url_for('static', filename='uploads/home/' + hero.demo_video) }}')">
+                <i class="bi bi-play-circle-fill me-1"></i> {{ _('hero.show') }}
+              </button>
               {% else %}
               <img src="{{ url_for('static', filename='images/Best-School.jpg') }}" alt="">
               {% endif %}
@@ -253,5 +256,64 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+</script>
+
+<div class="demo-video-modal" id="demoVideoModal" onclick="closeDemoVideo()">
+  <div class="demo-video-modal-content" onclick="event.stopPropagation()">
+    <button class="demo-video-close" onclick="closeDemoVideo()"><i class="bi bi-x-lg"></i></button>
+    <video id="demoVideoPlayer" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+  </div>
+</div>
+
+<style>
+.demo-show-btn {
+  position:absolute; bottom:1rem; left:1rem; z-index:5;
+  border-radius:var(--radius-lg); font-weight:600;
+  backdrop-filter:blur(8px); background:rgba(255,255,255,0.9);
+  border:1px solid rgba(0,0,0,0.06); padding:0.4rem 1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  cursor:pointer; transition:all 0.2s;
+}
+.demo-show-btn:hover { background:#fff; transform:scale(1.05); }
+.demo-video-modal {
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+}
+.demo-video-modal.open { display:flex; }
+.demo-video-modal-content {
+  position:relative; width:90%; max-width:960px; height:70%;
+  border-radius:var(--radius-xl); overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.demo-video-close {
+  position:absolute; top:0.75rem; right:0.75rem; z-index:10;
+  width:36px; height:36px; border-radius:50%; border:none;
+  background:rgba(0,0,0,0.5); color:#fff; font-size:1.1rem;
+  cursor:pointer; transition:all 0.2s;
+}
+.demo-video-close:hover { background:rgba(255,0,0,0.7); }
+</style>
+
+<script>
+function openDemoVideo(src) {
+  var modal = document.getElementById('demoVideoModal');
+  var player = document.getElementById('demoVideoPlayer');
+  if (modal && player) {
+    player.src = src;
+    player.muted = false;
+    modal.classList.add('open');
+    player.play();
+  }
+}
+function closeDemoVideo() {
+  var modal = document.getElementById('demoVideoModal');
+  var player = document.getElementById('demoVideoPlayer');
+  if (modal && player) {
+    modal.classList.remove('open');
+    player.pause();
+    player.src = '';
+  }
+}
 </script>
 {% endblock %}

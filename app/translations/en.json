@@ -49,7 +49,8 @@
     "support_title": {"ar": "دعم وتواصل مباشر", "en": "Direct Support"},
     "support_sub": {"ar": "تحدث مع الإدارة فوراً", "en": "Chat with management instantly"},
     "rating_title": {"ar": "أعلى تقييم موثق", "en": "Top Documented Rating"},
-    "rating_sub": {"ar": "مدارس دولية ونموذجية مميزة", "en": "Distinguished international & exemplary schools"}
+    "rating_sub": {"ar": "مدارس دولية ونموذجية مميزة", "en": "Distinguished international & exemplary schools"},
+    "show": {"ar": "عرض", "en": "Show"}
   },
 
   "stats": {
