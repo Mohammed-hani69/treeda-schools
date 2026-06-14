@@ -9,7 +9,7 @@
                 <h4><i class="bi bi-building"></i> إدارة المدارس</h4>
                 <p>إجمالي {{ schools.total }} مدرسة — عرض وإدارة جميع المدارس المسجلة</p>
             </div>
-            <div class="d-flex gap-2 align-items-center flex-wrap">
+            <div class="d-flex gap-2 align-items-center flex-wrap" style="flex:1;justify-content:flex-end;">
                 <a href="{{ url_for('admin.create_school') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة مدرسة</a>
                 <div class="filter-tabs">
                 <a href="{{ url_for('admin.schools') }}" class="btn {% if status == 'all' %}active{% endif %}"><i class="bi bi-list"></i> الكل</a>
@@ -26,7 +26,8 @@
         </form>
 
         <div class="modern-card">
-            <div class="table-responsive">
+            <div class="card-body-custom p-0">
+                <div class="table-responsive">
                 <table class="modern-table">
                     <thead>
                         <tr>
@@ -105,6 +106,10 @@
                                             <i class="bi bi-{% if school.is_active %}pause-fill{% else %}play-fill{% endif %}"></i>
                                         </button>
                                     </form>
+                                    <form method="POST" action="{{ url_for('admin.delete_school', id=school.id) }}" class="delete-form" onsubmit="return confirm('هل أنت متأكد من حذف مدرسة {{ school.name }}؟ هذا الإجراء نهائي ولا يمكن التراجع عنه.');">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-outline-danger" title="حذف"><i class="bi bi-trash"></i></button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -113,6 +118,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
             </div>
         </div>
 

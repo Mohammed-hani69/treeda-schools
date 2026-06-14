@@ -168,6 +168,21 @@ def feature_school(id):
     return redirect(url_for('admin.schools'))
 
 
+@admin_bp.route('/schools/delete/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def delete_school(id):
+    school = School.query.get_or_404(id)
+    name = school.name
+    user = User.query.get(school.user_id)
+    db.session.delete(school)
+    if user:
+        db.session.delete(user)
+    db.session.commit()
+    flash(f'تم حذف مدرسة {name} نهائياً', 'success')
+    return redirect(url_for('admin.schools'))
+
+
 @admin_bp.route('/schools/create', methods=['GET', 'POST'])
 @login_required
 @admin_required

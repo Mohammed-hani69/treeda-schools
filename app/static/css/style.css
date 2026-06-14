@@ -2738,6 +2738,12 @@ a:hover { color: var(--brand-primary-hover); }
   background: var(--surface-secondary);
 }
 
+@media (min-width: 1400px) {
+  .admin-content {
+    padding: 1.5rem 3rem;
+  }
+}
+
 .admin-content-header {
   display: flex;
   justify-content: space-between;
@@ -2811,6 +2817,10 @@ a:hover { color: var(--brand-primary-hover); }
 
 .modern-card .card-body-custom {
   padding: 1.5rem;
+}
+
+.modern-card .card-body-custom.p-0 {
+  padding: 0;
 }
 
 /* ─── Stat Cards ─── */
@@ -2921,8 +2931,15 @@ a:hover { color: var(--brand-primary-hover); }
 /* ─── Modern Tables ─── */
 .modern-table {
   width: 100%;
+  min-width: 900px;
   border-collapse: separate;
   border-spacing: 0;
+}
+
+@media (min-width: 1200px) {
+  .modern-table {
+    min-width: 1000px;
+  }
 }
 
 .modern-table thead th {
@@ -3143,7 +3160,7 @@ a:hover { color: var(--brand-primary-hover); }
 /* ─── Search Bar ─── */
 .admin-search {
   position: relative;
-  max-width: 400px;
+  max-width: 480px;
 }
 
 .admin-search .form-control {
