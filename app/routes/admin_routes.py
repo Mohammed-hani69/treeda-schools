@@ -475,7 +475,7 @@ def edit_category(id):
     if form.validate_on_submit():
         old_image = category.image
         form.populate_obj(category)
-        if form.image.data:
+        if form.image.data and hasattr(form.image.data, 'filename'):
             if old_image:
                 delete_file(old_image, 'categories')
             filename = save_file(form.image.data, 'categories')
@@ -514,19 +514,25 @@ def hero_section():
 
     form = HeroSectionForm(obj=hero)
     if form.validate_on_submit():
+        old_bg_image = hero.background_image
+        old_bg_video = hero.background_video
         form.populate_obj(hero)
-        if form.background_image.data:
-            if hero.background_image:
-                delete_file(hero.background_image, 'home')
+        if form.background_image.data and hasattr(form.background_image.data, 'filename'):
+            if old_bg_image:
+                delete_file(old_bg_image, 'home')
             filename = save_file(form.background_image.data, 'home')
             if filename:
                 hero.background_image = filename
-        if form.background_video.data:
-            if hero.background_video:
-                delete_file(hero.background_video, 'home')
+        else:
+            hero.background_image = old_bg_image
+        if form.background_video.data and hasattr(form.background_video.data, 'filename'):
+            if old_bg_video:
+                delete_file(old_bg_video, 'home')
             filename = save_file(form.background_video.data, 'home')
             if filename:
                 hero.background_video = filename
+        else:
+            hero.background_video = old_bg_video
         db.session.commit()
         flash('تم تحديث القسم الرئيسي', 'success')
 
@@ -809,16 +815,18 @@ def edit_gallery_item(id):
     item = GalleryItem.query.get_or_404(id)
     form = GalleryItemForm(obj=item)
     if form.validate_on_submit():
+        old_image = item.image
         form.populate_obj(item)
         if form.image_url.data:
             item.image = form.image_url.data
-            item.image_url = form.image_url.data
-        elif form.image.data:
-            if item.image and not item.image.startswith('http'):
-                delete_file(item.image, 'gallery')
+        elif form.image.data and hasattr(form.image.data, 'filename'):
+            if old_image and not old_image.startswith('http'):
+                delete_file(old_image, 'gallery')
             filename = save_file(form.image.data, 'gallery')
             if filename:
                 item.image = filename
+        else:
+            item.image = old_image
         db.session.commit()
         flash('تم تحديث العنصر', 'success')
         return redirect(url_for('admin.gallery'))
@@ -928,15 +936,18 @@ def edit_testimonial(id):
     testimonial = Testimonial.query.get_or_404(id)
     form = TestimonialForm(obj=testimonial)
     if form.validate_on_submit():
+        old_image = testimonial.image
         form.populate_obj(testimonial)
         if form.image_url.data:
             testimonial.image = form.image_url.data
-        elif form.image.data:
-            if testimonial.image and not testimonial.image.startswith('http'):
-                delete_file(testimonial.image, 'testimonials')
+        elif form.image.data and hasattr(form.image.data, 'filename'):
+            if old_image and not old_image.startswith('http'):
+                delete_file(old_image, 'testimonials')
             filename = save_file(form.image.data, 'testimonials')
             if filename:
                 testimonial.image = filename
+        else:
+            testimonial.image = old_image
         db.session.commit()
         flash('تم تحديث التوصية', 'success')
         return redirect(url_for('admin.testimonials'))
