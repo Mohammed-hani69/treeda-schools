@@ -172,7 +172,12 @@ def feature_school(id):
 @login_required
 @admin_required
 def create_school():
+    from app.models.category import Category
     form = AdminSchoolCreateForm()
+    form.category_id.choices = [(c.id, c.name) for c in Category.query.filter_by(is_active=True).order_by(Category.name).all()]
+    if not form.category_id.choices:
+        form.category_id.choices = [(0, '— لا توجد أقسام —')]
+
     if form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).first():
             flash('البريد الإلكتروني مستخدم بالفعل', 'danger')
@@ -192,6 +197,12 @@ def create_school():
         db.session.add(user)
         db.session.flush()
 
+        logo_filename = save_file(form.logo.data, 'schools') if form.logo.data else None
+        cover_filename = save_file(form.cover.data, 'schools') if form.cover.data else None
+        image_filename = save_file(form.image.data, 'schools') if form.image.data else None
+
+        category_id = form.category_id.data if form.category_id.data and form.category_id.data > 0 else None
+
         school = School(
             user_id=user.id,
             name=form.name.data,
@@ -203,8 +214,11 @@ def create_school():
             phone=form.phone.data,
             email=form.email.data,
             website=form.website.data,
-            school_type=form.school_type.data or None,
+            category_id=category_id,
             gender=form.gender.data or None,
+            logo=logo_filename,
+            cover=cover_filename,
+            image=image_filename,
             is_approved=True,
             is_active=True
         )

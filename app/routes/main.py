@@ -107,8 +107,13 @@ def category_detail(slug):
         'quran-schools': 'quran',
     }
     school_type = type_map.get(slug)
-    schools = School.query.filter_by(
-        school_type=school_type, is_approved=True, is_active=True
+    schools = School.query.filter(
+        db.or_(
+            School.category_id == category.id,
+            School.school_type == school_type if school_type else False
+        ),
+        School.is_approved == True,
+        School.is_active == True
     ).order_by(School.is_featured.desc(), School.name).all()
     return render_template('main/category.html', category=category, schools=schools)
 

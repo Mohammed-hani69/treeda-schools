@@ -193,8 +193,8 @@
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
         <div class="school-card-modern">
           <div class="cover">
-            <img src="{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop' }}" alt="{{ school.name }}">
-            <span class="type-badge">{{ school.school_type or _('school_type_fallback') }}</span>
+            <img src="{{ url_for('static', filename='uploads/schools/' + school.image if school.image else school.cover) if school.image or school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop' }}" alt="{{ school.name }}">
+            <span class="type-badge">{{ school.category.name if school.category else (school.school_type or _('school_type_fallback')) }}</span>
             <span class="trust-badge"><i class="bi bi-patch-check-fill"></i> {{ _('featured_schools.trust_badge') }}</span>
           </div>
           <div class="body">
@@ -209,7 +209,7 @@
             <h3>{{ school.name }}</h3>
             <div class="location"><i class="bi bi-geo-alt"></i><span>{{ school.city or _('city_fallback') }}</span></div>
             <div class="tags">
-              {% if school.school_type %}<span>{{ school.school_type }}</span>{% endif %}
+              {% if school.category %}<span>{{ school.category.name }}</span>{% elif school.school_type %}<span>{{ school.school_type }}</span>{% endif %}
               {% if school.city %}<span>{{ school.city }}</span>{% endif %}
             </div>
             {% if school.about %}<p class="description">{{ school.about[:150] }}{% if school.about|length > 150 %}...{% endif %}</p>{% endif %}

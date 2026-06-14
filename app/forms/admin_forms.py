@@ -206,19 +206,16 @@ class AdminSchoolCreateForm(FlaskForm):
     phone = StringField('رقم الجوال', validators=[Optional(), Length(max=20)])
     email = StringField('البريد الإلكتروني', validators=[DataRequired(), Email()])
     website = StringField('الموقع الإلكتروني', validators=[Optional(), URL()])
-    school_type = SelectField('نوع المدرسة', choices=[
-        ('', 'اختر النوع'),
-        ('government', 'حكومية'),
-        ('private', 'أهلية'),
-        ('international', 'دولية'),
-        ('quran', 'تحفيظ قرآن'),
-    ])
+    category_id = SelectField('القسم', coerce=int, choices=[])
     gender = SelectField('نوع الطلاب', choices=[
         ('', 'اختر النوع'),
         ('male', 'بنين'),
         ('female', 'بنات'),
         ('both', 'مشترك'),
     ])
+    logo = FileField('اللوجو', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp'])])
+    cover = FileField('صورة الغلاف', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp'])])
+    image = FileField('الصورة الخارجية', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp'])])
     username = StringField('اسم المستخدم', validators=[DataRequired(), Length(max=100)])
     password = PasswordField('كلمة المرور', validators=[DataRequired(), Length(min=6)])
     submit = SubmitField('حفظ')
