@@ -1,15 +1,62 @@
 {% extends "layouts/base.html" %}
 {% block title %}{{ school.name }} - {{ site_name }}{% endblock %}
 
+{% block extra_css %}
+<style>
+@media (min-width: 992px) {
+  .school-cover-3d { perspective: 1200px; }
+  .school-cover-3d .school-cover-wrap {
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .school-cover-3d .school-cover-wrap:hover {
+    transform: rotateX(3deg) rotateY(-2deg) scale(1.02);
+  }
+  .school-cover-3d .school-cover-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: var(--radius-xl);
+  }
+}
+@media (max-width: 576px) {
+  .school-section { padding-top: 0 !important; }
+  .school-section .container { padding: 0 !important; }
+  .school-section .back-btn { margin: 0.75rem 1rem; display: inline-block; }
+  .school-section .school-cover-wrap {
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .school-section .school-cover-wrap img { aspect-ratio: 16/9; }
+  .school-section .info-wrap .container { padding: 0 1rem !important; }
+  .school-section .school-info-bar { flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 0; margin-bottom: 1.25rem !important; }
+}
+@media (max-width: 400px) {
+  .school-section .school-cover-wrap img { aspect-ratio: 4/3; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 {# ─── Cover Image ─── #}
-<section style="padding:6rem 0 1.5rem;">
-  <div class="container">
+<section class="school-section" style="padding:6rem 0 1.5rem;overflow:hidden;">
+  <div class="back-btn">
     <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4"><i class="bi bi-arrow-right"></i> العودة</a>
-    <div class="school-cover-wrap" style="border-radius:var(--radius-xl);overflow:hidden;margin-bottom:1.5rem;">
+  </div>
+
+  <div class="school-cover-3d">
+    <div class="school-cover-wrap" style="border-radius:var(--radius-xl);overflow:hidden;margin-bottom:1.5rem;position:relative;">
       <img src="{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/1200x400/0F71F0/white?text=School' }}" alt="{{ school.name }}" loading="lazy" style="width:100%;aspect-ratio:3/1;object-fit:cover;display:block;background:var(--surface-secondary);">
     </div>
+  </div>
+
+  <div class="info-wrap">
+  <div class="container px-0">
     <div class="school-info-bar" style="display:flex;align-items:center;gap:1.25rem;padding:1.25rem 0;border-bottom:1px solid var(--border-light);margin-bottom:2rem;">
       <div style="width:72px;height:72px;border-radius:var(--radius-lg);background-size:cover;background-position:center;border:2px solid var(--border);flex-shrink:0;background-color:var(--surface-secondary);background-image:url('{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://placehold.co/72x72/e9ecef/ccc?text=' }}');"></div>
       <div>
@@ -22,8 +69,7 @@
         </p>
       </div>
     </div>
-          </div>
-    </div>
+  </div>
   </div>
 </section>
 
