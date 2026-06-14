@@ -86,28 +86,28 @@
                             <td>
                                 <div class="table-actions">
                                     {% if not school.is_approved %}
-                                    <form method="POST" action="{{ url_for('admin.approve_school', id=school.id) }}" class="delete-form">
+                                    <form method="POST" action="{{ url_for('admin.approve_school', id=school.id) }}">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-success" title="قبول"><i class="bi bi-check-lg"></i></button>
                                     </form>
-                                    <form method="POST" action="{{ url_for('admin.reject_school', id=school.id) }}" class="delete-form" onsubmit="var r=prompt('سبب الرفض:');if(r){this.querySelector('[name=reason]').value=r;return true}return false">
+                                    <form method="POST" action="{{ url_for('admin.reject_school', id=school.id) }}" class="reject-form" onsubmit="var r=prompt('سبب الرفض:');if(r){this.querySelector('[name=reason]').value=r;return true}return false">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="reason" value="">
                                         <button class="btn btn-sm btn-danger" title="رفض"><i class="bi bi-x-lg"></i></button>
                                     </form>
                                     {% endif %}
-                                    <form method="POST" action="{{ url_for('admin.feature_school', id=school.id) }}" class="delete-form">
+                                    <form method="POST" action="{{ url_for('admin.feature_school', id=school.id) }}">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-{% if school.is_featured %}warning{% else %}outline-warning{% endif %}" title="تمييز"><i class="bi bi-star{% if not school.is_featured %}-{% endif %}fill"></i></button>
                                     </form>
 
-                                    <form method="POST" action="{{ url_for('admin.toggle_school', id=school.id) }}" class="delete-form">
+                                    <form method="POST" action="{{ url_for('admin.toggle_school', id=school.id) }}">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-{% if school.is_active %}danger{% else %}success{% endif %}" title="{% if school.is_active %}إيقاف{% else %}تفعيل{% endif %}">
                                             <i class="bi bi-{% if school.is_active %}pause-fill{% else %}play-fill{% endif %}"></i>
                                         </button>
                                     </form>
-                                    <form method="POST" action="{{ url_for('admin.delete_school', id=school.id) }}" class="delete-form" onsubmit="return confirm('هل أنت متأكد من حذف مدرسة {{ school.name }}؟ هذا الإجراء نهائي ولا يمكن التراجع عنه.');">
+                                    <form method="POST" action="{{ url_for('admin.delete_school', id=school.id) }}" onsubmit="return confirm('هل أنت متأكد من حذف مدرسة {{ school.name }}؟ هذا الإجراء نهائي ولا يمكن التراجع عنه.');">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-outline-danger" title="حذف"><i class="bi bi-trash"></i></button>
                                     </form>
