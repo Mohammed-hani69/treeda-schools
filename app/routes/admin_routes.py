@@ -14,7 +14,7 @@ from app.models.setting import Setting
 from app.models.ai_knowledge import AiKnowledge
 from app.utils.decorators import admin_required
 from app.utils.helpers import save_file, delete_file, allowed_file, generate_slug
-from app.forms.admin_forms import (PlanForm, CategoryForm, HeroSectionForm,
+from app.forms.admin_forms import (PlanForm, CategoryForm, HeroSectionForm, AdminSchoolCreateForm,
     FeatureForm, StatForm, GalleryItemForm, StepForm, TestimonialForm, FaqItemForm, SchoolEditForm)
 from sqlalchemy import func, desc
 from datetime import datetime, timedelta
@@ -166,6 +166,54 @@ def feature_school(id):
     db.session.commit()
     flash('تم تعديل حالة التميز', 'success')
     return redirect(url_for('admin.schools'))
+
+
+@admin_bp.route('/schools/create', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def create_school():
+    form = AdminSchoolCreateForm()
+    if form.validate_on_submit():
+        if User.query.filter_by(email=form.email.data).first():
+            flash('البريد الإلكتروني مستخدم بالفعل', 'danger')
+            return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
+        if User.query.filter_by(username=form.username.data).first():
+            flash('اسم المستخدم مستخدم بالفعل', 'danger')
+            return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
+
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role='school',
+            is_active=True,
+            is_verified=True
+        )
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.flush()
+
+        school = School(
+            user_id=user.id,
+            name=form.name.data,
+            slug=generate_slug(form.name.data, School),
+            about=form.about.data,
+            address=form.address.data,
+            city=form.city.data,
+            district=form.district.data,
+            phone=form.phone.data,
+            email=form.email.data,
+            website=form.website.data,
+            school_type=form.school_type.data or None,
+            gender=form.gender.data or None,
+            is_approved=True,
+            is_active=True
+        )
+        db.session.add(school)
+        db.session.commit()
+        flash(f'تم إنشاء مدرسة {school.name} بنجاح', 'success')
+        return redirect(url_for('admin.schools'))
+
+    return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
 
 
 @admin_bp.route('/schools/views/<int:id>', methods=['POST'])

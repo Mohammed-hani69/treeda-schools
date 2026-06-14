@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, BooleanField, SubmitField, IntegerField, FloatField, SelectField, URLField, DateTimeField
+from wtforms import StringField, TextAreaField, BooleanField, SubmitField, IntegerField, FloatField, SelectField, URLField, DateTimeField, PasswordField
 from wtforms.validators import DataRequired, Length, Optional, Email, URL
 
 
@@ -194,6 +194,33 @@ class SchoolEditForm(FlaskForm):
     telegram = StringField('تيليغرام', validators=[Optional(), URL()])
     map_lat = FloatField('خط العرض', validators=[Optional()])
     map_lng = FloatField('خط الطول', validators=[Optional()])
+    submit = SubmitField('حفظ')
+
+
+class AdminSchoolCreateForm(FlaskForm):
+    name = StringField('اسم المدرسة', validators=[DataRequired(), Length(max=200)])
+    about = TextAreaField('نبذة عن المدرسة')
+    address = StringField('العنوان', validators=[Optional(), Length(max=300)])
+    city = StringField('المدينة', validators=[Optional(), Length(max=100)])
+    district = StringField('الحي', validators=[Optional(), Length(max=100)])
+    phone = StringField('رقم الجوال', validators=[Optional(), Length(max=20)])
+    email = StringField('البريد الإلكتروني', validators=[DataRequired(), Email()])
+    website = StringField('الموقع الإلكتروني', validators=[Optional(), URL()])
+    school_type = SelectField('نوع المدرسة', choices=[
+        ('', 'اختر النوع'),
+        ('government', 'حكومية'),
+        ('private', 'أهلية'),
+        ('international', 'دولية'),
+        ('quran', 'تحفيظ قرآن'),
+    ])
+    gender = SelectField('نوع الطلاب', choices=[
+        ('', 'اختر النوع'),
+        ('male', 'بنين'),
+        ('female', 'بنات'),
+        ('both', 'مشترك'),
+    ])
+    username = StringField('اسم المستخدم', validators=[DataRequired(), Length(max=100)])
+    password = PasswordField('كلمة المرور', validators=[DataRequired(), Length(min=6)])
     submit = SubmitField('حفظ')
 
 
