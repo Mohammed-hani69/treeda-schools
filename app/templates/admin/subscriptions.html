@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+{% block title %}الاشتراكات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-credit-card-2-front"></i> إدارة الاشتراكات</h4>
+                <p>جميع اشتراكات المدارس</p>
+            </div>
+            <a href="{{ url_for('admin.create_subscription') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> اشتراك جديد</a>
+        </div>
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead><tr><th>المدرسة</th><th>الباقة</th><th>تاريخ البداية</th><th>تاريخ النهاية</th><th>المبلغ</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                    <tbody>
+                        {% for sub in subscriptions %}
+                        <tr>
+                            <td><strong>{{ sub.school.name }}</strong></td>
+                            <td>{{ sub.plan.name if sub.plan else '-' }}</td>
+                            <td><small>{{ sub.start_date.strftime('%Y-%m-%d') if sub.start_date else '-' }}</small></td>
+                            <td><small>{{ sub.end_date.strftime('%Y-%m-%d') if sub.end_date else '-' }}</small></td>
+                            <td>{{ sub.price_paid or '-' }}</td>
+                            <td>
+                                {% if sub.status == 'active' %}
+                                <span class="badge-status badge-approved">نشط</span>
+                                {% elif sub.status == 'pending' %}
+                                <span class="badge-status badge-pending">قيد الانتظار</span>
+                                {% elif sub.is_expired %}
+                                <span class="badge-status badge-inactive">منتهي</span>
+                                {% else %}
+                                <span class="badge-status badge-inactive">{{ sub.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="{{ url_for('admin.edit_subscription', id=sub.id) }}" class="btn" title="تعديل"><i class="bi bi-pencil"></i></a>
+                                    <form method="POST" action="{{ url_for('admin.toggle_subscription', id=sub.id) }}" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn" title="تفعيل/إيقاف"><i class="bi bi-toggle-on"></i></button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('admin.delete_subscription', id=sub.id) }}" class="delete-form d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn text-danger" title="حذف"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="7"><div class="empty-state"><i class="bi bi-credit-card-2-front"></i><h5>لا توجد اشتراكات</h5></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

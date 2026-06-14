@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+{% block title %}بناء الصفحة الرئيسية - {{ site_name }}{% endblock %}
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-layout-three-columns"></i> بناء الصفحة الرئيسية</h4>
+                <p>ترتيب وتخصيص أقسام الصفحة الرئيسية</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('admin.hero_section') }}" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> تعديل الهيرو</a>
+                <a href="{{ url_for('admin.create_section') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة قسم</a>
+            </div>
+        </div>
+
+        <div class="modern-card mb-4">
+            <div class="card-body-custom">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--brand-primary),var(--brand-secondary));border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;flex-shrink:0;">
+                        <i class="bi bi-eye"></i>
+                    </div>
+                    <div>
+                        <h5 style="font-weight:700;margin-bottom:0.15rem;">القسم الرئيسي — Hero Section</h5>
+                        <p style="color:var(--text-secondary);margin-bottom:0;font-size:0.85rem;">{{ hero.title if hero else 'لم يتم إعداد الهيرو بعد' }}</p>
+                    </div>
+                    <a href="{{ url_for('admin.hero_section') }}" class="btn btn-sm btn-outline-primary me-auto">تعديل</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="sortableSections">
+            {% for section in sections %}
+            <div class="modern-card mb-3" data-id="{{ section.id }}" data-aos="fade-up">
+                <div class="card-body-custom">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="drag-handle" style="cursor:grab;color:var(--text-tertiary);"><i class="bi bi-grip-vertical" style="font-size:1.3rem;"></i></div>
+                        <div style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--brand-primary-10);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);font-size:1.1rem;flex-shrink:0;">
+                            {% if section.section_type == 'text' %}<i class="bi bi-font"></i>
+                            {% elif section.section_type == 'image_text' %}<i class="bi bi-image"></i>
+                            {% elif section.section_type == 'video_text' %}<i class="bi bi-play-circle"></i>
+                            {% elif section.section_type in ['image_slider', 'gallery'] %}<i class="bi bi-images"></i>
+                            {% elif section.section_type == 'video_slider' %}<i class="bi bi-collection-play"></i>
+                            {% elif section.section_type == 'cards' %}<i class="bi bi-grid-3x3"></i>
+                            {% elif section.section_type == 'stats' %}<i class="bi bi-bar-chart"></i>
+                            {% elif section.section_type == 'faq' %}<i class="bi bi-question-circle"></i>
+                            {% elif section.section_type == 'cta' %}<i class="bi bi-megaphone"></i>
+                            {% elif section.section_type == 'image_links' %}<i class="bi bi-link-45deg"></i>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h6 style="font-weight:700;margin-bottom:0.15rem;">{{ section.title or '(بدون عنوان)' }}</h6>
+                            <small style="color:var(--text-tertiary);">{{ section.get_type_display() }} — ترتيب {{ section.sort_order }}</small>
+                        </div>
+                        <div class="me-auto d-flex gap-1">
+                            <a href="{{ url_for('admin.edit_section', id=section.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ url_for('admin.section_content', id=section.id) }}" class="btn btn-sm btn-outline-info"><i class="bi bi-gear"></i> المحتوى</a>
+                            <form method="POST" action="{{ url_for('admin.delete_section', id=section.id) }}" class="delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="bi bi-plus-square"></i>
+                <h5>لا توجد أقسام بعد</h5>
+                <p>أضف القسم الأول في الصفحة الرئيسية</p>
+                <a href="{{ url_for('admin.create_section') }}" class="btn btn-primary">إضافة قسم</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+<script>
+initSortable('sortableSections', '{{ url_for("admin.reorder_sections") }}');
+</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ _('nav.schools') }} - {{ site_name }}{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="section-header-custom" data-aos="fade-up">
+            <span class="section-tag">{{ _('nav.schools') }}</span>
+            <h2>{{ _('schools_page.title')|safe }}</h2>
+            <p>{{ _('schools_page.desc') }}</p>
+        </div>
+
+        <form method="GET" class="mb-4" data-aos="fade-up">
+            <div class="admin-search mb-3" style="max-width:100%;">
+                <i class="bi bi-search"></i>
+                <input type="text" name="search" class="form-control" placeholder="{{ _('schools_page.search_placeholder') }}" value="{{ search }}">
+            </div>
+            <div class="filter-tabs" style="justify-content:flex-start;gap:0.5rem;flex-wrap:wrap;">
+                <select name="city" class="form-select" style="width:auto;min-width:150px;border-radius:var(--radius-md);">
+                    <option value="">{{ _('schools_page.all_cities') }}</option>
+                    {% for c in cities %}
+                    <option value="{{ c }}" {% if city == c %}selected{% endif %}>{{ c }}</option>
+                    {% endfor %}
+                </select>
+                <select name="type" class="form-select" style="width:auto;min-width:150px;border-radius:var(--radius-md);">
+                    <option value="">{{ _('schools_page.all_types') }}</option>
+                    <option value="government" {% if school_type == 'government' %}selected{% endif %}>{{ _('schools_page.government') }}</option>
+                    <option value="private" {% if school_type == 'private' %}selected{% endif %}>{{ _('schools_page.private') }}</option>
+                    <option value="international" {% if school_type == 'international' %}selected{% endif %}>{{ _('schools_page.international') }}</option>
+                    <option value="quran" {% if school_type == 'quran' %}selected{% endif %}>{{ _('schools_page.quran') }}</option>
+                </select>
+                <select name="gender" class="form-select" style="width:auto;min-width:150px;border-radius:var(--radius-md);">
+                    <option value="">{{ _('schools_page.all_genders') }}</option>
+                    <option value="male" {% if gender == 'male' %}selected{% endif %}>{{ _('schools_page.male') }}</option>
+                    <option value="female" {% if gender == 'female' %}selected{% endif %}>{{ _('schools_page.female') }}</option>
+                    <option value="both" {% if gender == 'both' %}selected{% endif %}>{{ _('schools_page.both') }}</option>
+                </select>
+                <button class="btn btn-primary" style="border-radius:var(--radius-md);padding:0.5rem 1.25rem;"><i class="bi bi-funnel"></i> {{ _('browse_features') }}</button>
+            </div>
+        </form>
+
+        <div class="row g-4">
+            {% for school in schools.items %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
+                <div class="school-card-modern">
+                    <div class="cover">
+                        <img src="{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop' }}" alt="{{ school.name }}">
+                        <span class="type-badge">{{ school.school_type or _('school_type_fallback') }}</span>
+                        {% if school.is_featured %}
+                        <span class="trust-badge"><i class="bi bi-star-fill"></i> {{ _('schools_page.featured') }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="body">
+                        <div class="logo">
+                            <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69d28?q=80&w=150&auto=format&fit=crop' }}" alt="{{ school.name }}">
+                        </div>
+                        <div class="rating">
+                            <span class="stars">{% for i in range(5) %}<i class="bi bi-star-fill"></i>{% endfor %}</span>
+                            <strong>4.8</strong>
+                            <span>({{ school.views or 0 }})</span>
+                        </div>
+                        <h3>{{ school.name }}</h3>
+                        <div class="location"><i class="bi bi-geo-alt"></i><span>{{ school.city or _('city_fallback') }}</span></div>
+                        <div class="tags">
+                            <span>{{ school.school_type or '' }}</span>
+                            <span>{{ school.city or '' }}</span>
+                        </div>
+                        {% if school.about %}<p class="description">{{ school.about[:120] }}{% if school.about|length > 120 %}...{% endif %}</p>{% endif %}
+                    </div>
+                    <div class="footer">
+                        <a href="{{ url_for('parent.school_detail', slug=school.slug) }}" class="btn-view">
+                            <i class="bi bi-eye"></i> {{ _('schools_page.view_profile') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="bi bi-search"></i>
+                    <h5>{{ _('schools_page.no_results') }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if schools.pages > 1 %}
+        <div class="pagination-custom" data-aos="fade-up">
+            {% for page in schools.iter_pages() %}
+            {% if page %}
+            <a href="?page={{ page }}&search={{ search }}&city={{ city }}&type={{ school_type }}&gender={{ gender }}" class="{% if page == schools.page %}active{% endif %}">{{ page }}</a>
+            {% else %}
+            <span class="dots">...</span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

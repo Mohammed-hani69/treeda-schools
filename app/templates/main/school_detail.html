@@ -1,0 +1,106 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ school.name }} - {{ site_name }}{% endblock %}
+{% block extra_css %}
+<style>
+  .school-hero {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .school-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+  }
+  .school-hero-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 2rem;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+  .school-hero-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-lg);
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #fff;
+    box-shadow: var(--shadow-lg);
+    flex-shrink: 0;
+  }
+  .school-hero-text h1 {
+    color: #fff;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .school-hero-text p {
+    color: rgba(255,255,255,0.9);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 576px) {
+    .school-hero { height: 280px; border-radius: var(--radius-lg); }
+    .school-hero-content { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1.25rem; }
+    .school-hero-logo { width: 64px; height: 64px; }
+    .school-hero-text h1 { font-size: 1.25rem; }
+  }
+</style>
+{% endblock %}
+{% block content %}
+<section style="padding:6rem 0 3rem;">
+    <div class="container">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4"><i class="bi bi-arrow-right"></i> العودة</a>
+
+        <div class="school-hero" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/1200x400/0F71F0/white?text=School' }}');">
+            <div class="school-hero-content">
+                <div class="school-hero-logo" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://placehold.co/100x100/0F71F0/white?text=' }}');"></div>
+                <div class="school-hero-text">
+                    <h1>{{ school.name }}</h1>
+                    {% if school.city %}<p><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                {% if school.about %}
+                <div class="modern-card p-4 mb-4">
+                    <h5 class="fw-bold mb-3">عن المدرسة</h5>
+                    <p class="text-secondary">{{ school.about }}</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <div class="modern-card p-4">
+                    <h5 class="fw-bold mb-3">معلومات الاتصال</h5>
+                    <ul class="list-unstyled mb-0">
+                        {% if school.phone %}
+                        <li class="mb-2"><i class="bi bi-telephone text-primary ms-2"></i> {{ school.phone }}</li>
+                        {% endif %}
+                        {% if school.email %}
+                        <li class="mb-2"><i class="bi bi-envelope text-primary ms-2"></i> {{ school.email }}</li>
+                        {% endif %}
+                        {% if school.website %}
+                        <li class="mb-2"><i class="bi bi-globe text-primary ms-2"></i> {{ school.website }}</li>
+                        {% endif %}
+                        {% if school.address %}
+                        <li class="mb-2"><i class="bi bi-geo-alt text-primary ms-2"></i> {{ school.address }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+        <i class="bi bi-building" style="font-size:1.3rem;color:var(--brand-primary);"></i>
+        <span>لوحة المدرسة</span>
+        <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sidebar-section-title">لوحة المدرسة</div>
+    <a class="sidebar-link {% if request.endpoint == 'school.dashboard' %}active{% endif %}" href="{{ url_for('school.dashboard') }}">
+        <i class="bi bi-speedometer2"></i> الرئيسية
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.analytics' %}active{% endif %}" href="{{ url_for('school.analytics') }}">
+        <i class="bi bi-graph-up"></i> التحليلات
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.profile' %}active{% endif %}" href="{{ url_for('school.profile') }}">
+        <i class="bi bi-person-badge"></i> الملف الشخصي
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.media' %}active{% endif %}" href="{{ url_for('school.media') }}">
+        <i class="bi bi-images"></i> الوسائط
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.activities' %}active{% endif %}" href="{{ url_for('school.activities') }}">
+        <i class="bi bi-activity"></i> الأنشطة
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.services' %}active{% endif %}" href="{{ url_for('school.services') }}">
+        <i class="bi bi-gear"></i> الخدمات
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'school.grades' %}active{% endif %}" href="{{ url_for('school.grades') }}">
+        <i class="bi bi-layers"></i> المراحل
+    </a>
+    <div class="sidebar-section-title">الإعدادات</div>
+    <a class="sidebar-link {% if request.endpoint == 'school.notifications' %}active{% endif %}" href="{{ url_for('school.notifications') }}">
+        <i class="bi bi-bell"></i> الإشعارات
+        {% if unread_count > 0 %}
+        <span class="badge bg-danger ms-auto">{{ unread_count }}</span>
+        {% endif %}
+    </a>
+    <a class="sidebar-link" href="{{ url_for('main.index') }}">
+        <i class="bi bi-house-door"></i> عرض الموقع
+    </a>
+</aside>

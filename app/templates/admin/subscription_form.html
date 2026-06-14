@@ -1,0 +1,62 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ title }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <h4><i class="bi bi-credit-card-2-front"></i> {{ title }}</h4>
+            <a href="{{ url_for('admin.subscriptions') }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-right"></i> العودة</a>
+        </div>
+
+        <div class="admin-form-card">
+            <div class="form-header">
+                <h5>{% if sub %}تعديل الاشتراك{% else %}اشتراك جديد{% endif %}</h5>
+            </div>
+            <div class="form-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.school_id.label }}</label>
+                            {{ form.school_id(class="form-select") }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.plan_id.label }}</label>
+                            {{ form.plan_id(class="form-select") }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.start_date.label }}</label>
+                            {{ form.start_date(class="form-control", placeholder="2026-01-01 00:00") }}
+                            <div class="form-text">صيغة التاريخ: YYYY-MM-DD HH:MM</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.end_date.label }}</label>
+                            {{ form.end_date(class="form-control", placeholder="2027-01-01 00:00") }}
+                            <div class="form-text">صيغة التاريخ: YYYY-MM-DD HH:MM</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">{{ form.status.label }}</label>
+                            {{ form.status(class="form-select") }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">{{ form.price_paid.label }}</label>
+                            {{ form.price_paid(class="form-control", placeholder="0.00") }}
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                {{ form.auto_renew(class="form-check-input") }}
+                                <label class="form-check-label">{{ form.auto_renew.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('admin.subscriptions') }}" class="btn btn-outline-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

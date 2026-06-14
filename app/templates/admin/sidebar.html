@@ -1,0 +1,70 @@
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+        <img src="{{ url_for('static', filename='uploads/settings/' + setting.logo) if setting and setting.logo else 'https://treedaonline.com/wp-content/uploads/2026/06/cropped-IMG-20231013-WA0381-126x42.jpg' }}" alt="{{ site_name }}">
+        <span>{{ site_name }}</span>
+        <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sidebar-section-title">الرئيسية</div>
+    <a class="sidebar-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}" href="{{ url_for('admin.dashboard') }}">
+        <i class="bi bi-speedometer2"></i> لوحة التحكم
+    </a>
+    <div class="sidebar-section-title">الإدارة</div>
+    <a class="sidebar-link {% if request.endpoint == 'admin.schools' %}active{% endif %}" href="{{ url_for('admin.schools') }}">
+        <i class="bi bi-building"></i> المدارس
+        {% if pending_schools is defined and pending_schools > 0 %}
+        <span class="badge bg-warning text-dark ms-auto">{{ pending_schools }}</span>
+        {% endif %}
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'admin.media' %}active{% endif %}" href="{{ url_for('admin.media') }}">
+        <i class="bi bi-images"></i> الوسائط
+        {% if pending_media is defined and pending_media > 0 %}
+        <span class="badge bg-danger ms-auto">{{ pending_media }}</span>
+        {% endif %}
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.parents'] %}active{% endif %}" href="{{ url_for('admin.parents') }}">
+        <i class="bi bi-people"></i> أولياء الأمور
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.users'] %}active{% endif %}" href="{{ url_for('admin.users') }}">
+        <i class="bi bi-person-badge"></i> المستخدمين
+    </a>
+    <div class="sidebar-section-title">الباقات والاشتراكات</div>
+    <a class="sidebar-link {% if request.endpoint in ['admin.plans'] %}active{% endif %}" href="{{ url_for('admin.plans') }}">
+        <i class="bi bi-box-seam"></i> الباقات
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.subscriptions'] %}active{% endif %}" href="{{ url_for('admin.subscriptions') }}">
+        <i class="bi bi-credit-card-2-front"></i> الاشتراكات
+    </a>
+    <div class="sidebar-section-title">محتوى الموقع</div>
+    <a class="sidebar-link {% if request.endpoint == 'admin.categories' %}active{% endif %}" href="{{ url_for('admin.categories') }}">
+        <i class="bi bi-collection"></i> الأقسام
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.home_builder', 'admin.hero_section', 'admin.create_section', 'admin.edit_section', 'admin.section_content'] %}active{% endif %}" href="{{ url_for('admin.home_builder') }}">
+        <i class="bi bi-layout-three-columns"></i> بناء الصفحة الرئيسية
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.features'] %}active{% endif %}" href="{{ url_for('admin.features') }}">
+        <i class="bi bi-stars"></i> الميزات
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.stats'] %}active{% endif %}" href="{{ url_for('admin.stats') }}">
+        <i class="bi bi-bar-chart-line"></i> الإحصائيات
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.gallery'] %}active{% endif %}" href="{{ url_for('admin.gallery') }}">
+        <i class="bi bi-card-image"></i> معرض الصور
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.steps'] %}active{% endif %}" href="{{ url_for('admin.steps') }}">
+        <i class="bi bi-signpost-2"></i> خطوات العمل
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.testimonials'] %}active{% endif %}" href="{{ url_for('admin.testimonials') }}">
+        <i class="bi bi-chat-quote"></i> التوصيات
+    </a>
+    <a class="sidebar-link {% if request.endpoint in ['admin.faq'] %}active{% endif %}" href="{{ url_for('admin.faq') }}">
+        <i class="bi bi-question-circle"></i> الأسئلة الشائعة
+    </a>
+    <div class="sidebar-section-title">النظام</div>
+    <a class="sidebar-link {% if request.endpoint in ['admin.notifications', 'admin.send_notification'] %}active{% endif %}" href="{{ url_for('admin.notifications') }}">
+        <i class="bi bi-bell"></i> الإشعارات
+    </a>
+    <a class="sidebar-link {% if request.endpoint == 'admin.settings' %}active{% endif %}" href="{{ url_for('admin.settings') }}">
+        <i class="bi bi-gear-wide-connected"></i> الإعدادات
+    </a>
+</aside>

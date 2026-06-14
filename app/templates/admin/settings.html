@@ -1,0 +1,90 @@
+{% extends "layouts/base.html" %}
+{% block title %}الإعدادات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card" style="max-width:850px;">
+            <div class="form-header">
+                <h4><i class="bi bi-gear-wide-connected" style="color:var(--brand-primary);"></i> إعدادات المنصة</h4>
+                <p>تخصيص إعدادات الموقع العامة</p>
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="form-body">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">اسم الموقع</label>
+                        <input type="text" name="site_name" class="form-control" value="{{ setting.site_name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">اسم الموقع (إنجليزي)</label>
+                        <input type="text" name="site_name_en" class="form-control" value="{{ setting.site_name_en }}">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">وصف الموقع</label>
+                        <textarea name="site_description" class="form-control" rows="3">{{ setting.site_description }}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">شعار الموقع</label>
+                        <input type="file" name="logo" class="form-control">
+                        {% if setting.logo %}<div class="form-text">{{ setting.logo }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">أيقونة الموقع</label>
+                        <input type="file" name="favicon" class="form-control">
+                        {% if setting.favicon %}<div class="form-text">{{ setting.favicon }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">البريد الإلكتروني للتواصل</label>
+                        <input type="email" name="contact_email" class="form-control" value="{{ setting.contact_email }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رقم الجوال للتواصل</label>
+                        <input type="text" name="contact_phone" class="form-control" value="{{ setting.contact_phone }}">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">العنوان</label>
+                        <input type="text" name="address" class="form-control" value="{{ setting.address }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رابط فيسبوك</label>
+                        <input type="url" name="facebook" class="form-control" value="{{ setting.facebook }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رابط تويتر</label>
+                        <input type="url" name="twitter" class="form-control" value="{{ setting.twitter }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رابط انستغرام</label>
+                        <input type="url" name="instagram" class="form-control" value="{{ setting.instagram }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رقم واتساب</label>
+                        <input type="text" name="whatsapp" class="form-control" value="{{ setting.whatsapp }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">اللون الأساسي</label>
+                        <input type="color" name="primary_color" class="form-control form-control-color" value="{{ setting.primary_color or '#0F71F0' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">اللون الثانوي</label>
+                        <input type="color" name="secondary_color" class="form-control form-control-color" value="{{ setting.secondary_color or '#ec4899' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">المظهر الافتراضي</label>
+                        <select name="theme" class="form-select">
+                            <option value="light" {% if setting.theme == 'light' %}selected{% endif %}>فاتح</option>
+                            <option value="dark" {% if setting.theme == 'dark' %}selected{% endif %}>داكن</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">العملة الافتراضية</label>
+                        <input type="text" name="currency" class="form-control" value="{{ setting.currency or 'SAR' }}" placeholder="SAR">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">حفظ الإعدادات</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

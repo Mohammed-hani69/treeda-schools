@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ title }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card">
+            <div class="form-header">
+                <h4><i class="bi bi-signpost-2" style="color:var(--brand-primary);"></i> {{ title }}</h4>
+            </div>
+            <form method="POST" class="form-body">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label class="form-label">الأيقونة</label>
+                    {{ form.icon(class="form-control") }}
+                    <div class="form-text">مثال: search, chat-dots, check-circle, person-plus</div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">العنوان</label>
+                        {{ form.title(class="form-control") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">العنوان (إنجليزي)</label>
+                        {{ form.title_en(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">الوصف</label>
+                        {{ form.description(class="form-control", rows=3) }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">الوصف (إنجليزي)</label>
+                        {{ form.description_en(class="form-control", rows=3) }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">الترتيب</label>
+                        {{ form.sort_order(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">التصنيف</label>
+                        {{ form.tag(class="form-control") }}
+                        <div class="form-text">مثال: إجراء فوري</div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end gap-3 pb-1">
+                        <div class="form-check">{{ form.is_active(class="form-check-input") }} <label class="form-check-label" style="font-size:0.88rem;">ظاهر</label></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">{{ form.submit.label.text }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+{% block title %}الباقات - {{ site_name }}{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>الباقات <span>والاشتراكات</span></h2>
+            <div class="section-divider"></div>
+            <p>اختر الباقة المناسبة لمدرستك</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for plan in plans %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="plan-card {% if plan.is_featured %}featured{% endif %}" style="{% if plan.color %}border-color:{{ plan.color }}{% endif %}">
+                    {% if plan.is_featured %}<div class="plan-badge">الأكثر طلباً</div>{% endif %}
+                    <div class="plan-name">{{ plan.name }}</div>
+                    <div class="plan-price mb-2">{{ plan.price }} <span>{{ plan.currency }}</span></div>
+                    <p class="text-secondary mb-3">مدة الاشتراك: {{ plan.duration_days }} يوم</p>
+                    <ul class="plan-features">
+                        {% for feature in plan.get_features_list() %}
+                        <li><i class="bi bi-check-circle-fill"></i> {{ feature }}</li>
+                        {% endfor %}
+                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_images }} صورة</li>
+                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_videos }} فيديو</li>
+                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.storage_mb }} ميجابايت تخزين</li>
+                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_employees }} موظف</li>
+                    </ul>
+                    <a href="{{ url_for('auth.register_school') }}" class="btn btn-primary w-100 py-3">اشترك الآن</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+{% block title %}خطوات العمل - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-signpost-2"></i> إدارة خطوات العمل</h4>
+                <p>قسم "كيف تعمل المنصة" — خطوات بسيطة تشرح آلية العمل</p>
+            </div>
+            <a href="{{ url_for('admin.create_step') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة خطوة</a>
+        </div>
+        <div class="row g-4">
+            {% for step in steps %}
+            <div class="col-lg-4 col-md-6">
+                <div class="modern-card">
+                    <div class="card-body-custom">
+                        <div style="font-size:2rem;color:var(--brand-primary);margin-bottom:0.5rem;"><i class="bi bi-{{ step.icon }}"></i></div>
+                        <h5 style="font-weight:700;">#{{ loop.index }} {{ step.title }}</h5>
+                        {% if step.description %}<p style="font-size:0.85rem;color:var(--text-secondary);">{{ step.description[:100] }}</p>{% endif %}
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{{ url_for('admin.edit_step', id=step.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <form method="POST" action="{{ url_for('admin.delete_step', id=step.id) }}" class="delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12"><div class="empty-state"><i class="bi bi-signpost-2"></i><h5>لا توجد خطوات</h5></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

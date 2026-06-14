@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ category.name }} - {{ site_name }}{% endblock %}
+{% block content %}
+<section style="padding:6rem 0 3rem;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold mb-2">{{ category.name }}</h1>
+            {% if category.description %}
+            <p class="text-secondary" style="max-width:600px;margin:0 auto;">{{ category.description }}</p>
+            {% endif %}
+        </div>
+
+        {% if schools %}
+        <div class="row g-4">
+            {% for school in schools %}
+            <div class="col-lg-4 col-md-6">
+                <a href="{{ url_for('main.school_detail', slug=school.slug) }}" class="text-decoration-none">
+                    <div class="school-card-modern">
+                        <div class="cover" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/600x400/0F71F0/white?text=School' }}');"></div>
+                        <div class="body">
+                            <div class="logo" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://placehold.co/80x80/0F71F0/white?text=' }}');"></div>
+                            <h3>{{ school.name }}</h3>
+                            {% if school.city %}
+                            <p><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}</p>
+                            {% endif %}
+                            <div class="d-flex align-items-center gap-3 mt-2">
+                                <span class="badge-status badge-approved">{% if school.school_type == 'government' %}حكومية{% elif school.school_type == 'private' %}أهلية{% elif school.school_type == 'international' %}دولية{% else %}تحفيظ{% endif %}</span>
+                                {% if school.is_featured %}
+                                <span class="badge-status" style="background:var(--brand-primary);color:#fff;">مميزة</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-building" style="font-size:3rem;color:var(--text-tertiary);"></i>
+            <p class="text-secondary mt-3">لا توجد مدارس في هذا القسم بعد.</p>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary"><i class="bi bi-arrow-right"></i> العودة للرئيسية</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

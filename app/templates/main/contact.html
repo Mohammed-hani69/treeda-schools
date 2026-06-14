@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ _('contact.page_title') }} - {{ site_name }}{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show m-0 rounded-0 text-center" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<section class="py-5">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>{{ _('contact.title') }}</h2>
+            <div class="section-divider"></div>
+            <p>{{ _('contact.subtitle') }}</p>
+        </div>
+        <div class="row g-5 justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="modern-card p-5">
+                    <form method="POST" action="{{ url_for('main.contact') }}" class="modern-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label">{{ _('contact.name') }}</label>
+                                <input type="text" name="name" class="form-control" placeholder="{{ _('contact.name_placeholder') }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">{{ _('contact.email') }}</label>
+                                <input type="email" name="email" class="form-control" placeholder="example@email.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{ _('contact.subject') }}</label>
+                                <input type="text" name="subject" class="form-control" placeholder="{{ _('contact.subject_placeholder') }}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">{{ _('contact.message') }}</label>
+                                <textarea name="message" class="form-control" rows="5" placeholder="{{ _('contact.message_placeholder') }}" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">{{ _('contact.send') }} <i class="bi bi-send"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

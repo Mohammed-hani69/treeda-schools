@@ -1,0 +1,74 @@
+{% extends "layouts/base.html" %}
+{% block title %}عن المنصة - {{ site_name }}{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2>عن <span>المنصة</span></h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="bg-light rounded-4 overflow-hidden">
+                    <div style="height:400px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;">
+                        <i class="bi bi-mortarboard-fill" style="font-size:6rem;color:rgba(255,255,255,0.3);"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="fw-bold mb-4">منصة المعرض الإلكتروني للمدارس</h3>
+                <p class="lead text-secondary" style="line-height:1.8;">
+                    منصة رقمية مبتكرة تهدف إلى ربط أولياء الأمور بالمدارس بطريقة عصرية وسهلة.
+                    نقدم بيئة متكاملة للمدارس لعرض إمكانياتها وبرامجها التعليمية.
+                </p>
+                <div class="row g-3 mt-4">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width:48px;height:48px;background:rgba(99,102,241,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);">
+                                <i class="bi bi-eye"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">شفافية كاملة</h6>
+                                <small class="text-secondary">معلومات دقيقة عن المدارس</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width:48px;height:48px;background:rgba(236,72,153,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--secondary);">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">محتوى موثوق</h6>
+                                <small class="text-secondary">بإشراف وإدارة المنصة</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width:48px;height:48px;background:rgba(16,185,129,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--success);">
+                                <i class="bi bi-search"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">بحث متقدم</h6>
+                                <small class="text-secondary">تصفية حسب المدينة والنوع</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width:48px;height:48px;background:rgba(6,182,212,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--accent);">
+                                <i class="bi bi-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">تصفح سهل</h6>
+                                <small class="text-secondary">متوافق مع جميع الأجهزة</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

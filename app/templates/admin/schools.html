@@ -1,0 +1,128 @@
+{% extends "layouts/base.html" %}
+{% block title %}إدارة المدارس - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-building"></i> إدارة المدارس</h4>
+                <p>إجمالي {{ schools.total }} مدرسة — عرض وإدارة جميع المدارس المسجلة</p>
+            </div>
+            <div class="filter-tabs">
+                <a href="{{ url_for('admin.schools') }}" class="btn {% if status == 'all' %}active{% endif %}"><i class="bi bi-list"></i> الكل</a>
+                <a href="{{ url_for('admin.schools') }}?status=pending" class="btn {% if status == 'pending' %}active{% endif %}"><i class="bi bi-clock"></i> قيد المراجعة</a>
+                <a href="{{ url_for('admin.schools') }}?status=approved" class="btn {% if status == 'approved' %}active{% endif %}"><i class="bi bi-check-circle"></i> المقبولة</a>
+            </div>
+        </div>
+
+        <form class="mb-4">
+            <div class="admin-search">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" name="search" class="form-control" placeholder="ابحث عن مدرسة بالاسم..." value="{{ search }}">
+            </div>
+        </form>
+
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>المدرسة</th>
+                            <th>المدينة</th>
+                            <th>الباقة</th>
+                            <th>الوسائط</th>
+                            <th>الزيارات</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for school in schools.items %}
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    {% if school.logo %}
+                                    <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) }}" alt="">
+                                    {% endif %}
+                                    <div class="user-info">
+                                        <strong>{{ school.name }}</strong>
+                                        <small>{{ school.email }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ school.city or '-' }}</td>
+                            <td>
+                                {% if school.subscription and school.subscription.plan %}
+                                <span class="badge-status badge-approved">{{ school.subscription.plan.name }}</span>
+                                {% else %}
+                                <span class="badge-status badge-inactive">بدون</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <small>{{ school.media.filter_by(media_type='image').count() }} صورة<br>{{ school.media.filter_by(media_type='video').count() }} فيديو</small>
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ url_for('admin.update_school_views', id=school.id) }}" class="d-flex align-items-center gap-1" style="direction:ltr;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <input type="number" name="views" value="{{ school.views or 0 }}" class="form-control form-control-sm" style="width:70px;border-radius:6px;font-size:0.82rem;" min="0">
+                                    <button class="btn btn-sm btn-outline-primary" title="حفظ" style="border-radius:6px;"><i class="bi bi-check-lg"></i></button>
+                                </form>
+                            </td>
+                            <td>
+                                {% if not school.is_approved %}
+                                <span class="badge-status badge-pending">قيد المراجعة</span>
+                                {% elif school.is_featured %}
+                                <span class="badge-status badge-featured">مميز</span>
+                                {% elif school.is_active %}
+                                <span class="badge-status badge-approved">نشط</span>
+                                {% else %}
+                                <span class="badge-status badge-inactive">موقوف</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="table-actions">
+                                    {% if not school.is_approved %}
+                                    <form method="POST" action="{{ url_for('admin.approve_school', id=school.id) }}" class="delete-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-success" title="قبول"><i class="bi bi-check-lg"></i></button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('admin.reject_school', id=school.id) }}" class="delete-form" onsubmit="var r=prompt('سبب الرفض:');if(r){this.querySelector('[name=reason]').value=r;return true}return false">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="reason" value="">
+                                        <button class="btn btn-sm btn-danger" title="رفض"><i class="bi bi-x-lg"></i></button>
+                                    </form>
+                                    {% endif %}
+                                    <form method="POST" action="{{ url_for('admin.feature_school', id=school.id) }}" class="delete-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-{% if school.is_featured %}warning{% else %}outline-warning{% endif %}" title="تمييز"><i class="bi bi-star{% if not school.is_featured %}-{% endif %}fill"></i></button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('admin.toggle_school', id=school.id) }}" class="delete-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-{% if school.is_active %}danger{% else %}success{% endif %}" title="{% if school.is_active %}إيقاف{% else %}تفعيل{% endif %}">
+                                            <i class="bi bi-{% if school.is_active %}pause-fill{% else %}play-fill{% endif %}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="7"><div class="empty-state"><i class="bi bi-building"></i><h5>لا توجد مدارس</h5><p>لم يتم تسجيل أي مدارس بعد</p></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% if schools.pages > 1 %}
+        <nav class="pagination-custom">
+            {% for page in schools.iter_pages() %}
+            <div class="page-item {% if page == schools.page %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}&status={{ status }}&search={{ search }}">{{ page }}</a>
+            </div>
+            {% endfor %}
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

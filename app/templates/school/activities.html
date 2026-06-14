@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+{% block title %}الأنشطة - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "school/sidebar.html" %}
+    <div class="admin-content">
+        <h4 class="fw-bold mb-4"><i class="bi bi-activity"></i> الأنشطة المدرسية</h4>
+        <div class="modern-card p-4 mb-4">
+            <form method="POST" action="{{ url_for('school.add_activity') }}" class="modern-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="row g-3">
+                    <div class="col-md-4"><input type="text" name="title" class="form-control" placeholder="عنوان النشاط" required></div>
+                    <div class="col-md-6"><input type="text" name="description" class="form-control" placeholder="وصف النشاط"></div>
+                    <div class="col-md-2"><button class="btn btn-primary w-100"><i class="bi bi-plus"></i> إضافة</button></div>
+                </div>
+            </form>
+        </div>
+        <div class="row g-4">
+            {% for activity in activities %}
+            <div class="col-md-6 col-lg-4">
+                <div class="modern-card p-4">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="fw-bold">{{ activity.title }}</h6>
+                        <form method="POST" action="{{ url_for('school.delete_activity', id=activity.id) }}" class="delete-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                        </form>
+                    </div>
+                    {% if activity.description %}<p class="text-secondary small mt-2">{{ activity.description }}</p>{% endif %}
+                    <small class="text-secondary">{{ activity.created_at.strftime('%Y-%m-%d') }}</small>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 text-center py-5"><p class="text-secondary">لا توجد أنشطة</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "layouts/base.html" %}
+{% block title %}محتوى القسم - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card" style="max-width:850px;">
+            <div class="form-header">
+                <h4><i class="bi bi-gear" style="color:var(--brand-primary);"></i> محتوى القسم</h4>
+                <p>{{ section.title or section.get_type_display() }} — {{ section.get_type_display() }}</p>
+            </div>
+            <form method="POST" class="form-body">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                {% if section.section_type == 'text' %}
+                <div class="mb-3">
+                    <label class="form-label">المحتوى النصي</label>
+                    <textarea name="content[body]" class="form-control" rows="8">{{ section.content.get('body', '') if section.content else '' }}</textarea>
+                </div>
+
+                {% elif section.section_type in ['image_text', 'video_text'] %}
+                <div class="mb-3">
+                    <label class="form-label">رابط {{ 'الصورة' if section.section_type == 'image_text' else 'الفيديو' }}</label>
+                    <input type="text" name="content[media_url]" class="form-control" value="{{ section.content.get('media_url', '') if section.content else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">الجانب</label>
+                    <select name="content[side]" class="form-select">
+                        <option value="right" {% if section.content and section.content.get('side') == 'right' %}selected{% endif %}>يمين</option>
+                        <option value="left" {% if section.content and section.content.get('side') == 'left' %}selected{% endif %}>يسار</option>
+                    </select>
+                </div>
+
+                {% elif section.section_type == 'cards' %}
+                <div id="cardsContainer" class="d-flex flex-column gap-3">
+                    {% for card in (section.content.get('cards', []) if section.content else []) %}
+                    <div class="modern-card p-3">
+                        <div class="row g-2">
+                            <div class="col-4"><input type="text" name="content[cards][{{ loop.index0 }}][icon]" class="form-control" placeholder="رمز الأيقونة" value="{{ card.get('icon', '') }}"></div>
+                            <div class="col-4"><input type="text" name="content[cards][{{ loop.index0 }}][title]" class="form-control" placeholder="العنوان" value="{{ card.get('title', '') }}"></div>
+                            <div class="col-4"><input type="text" name="content[cards][{{ loop.index0 }}][description]" class="form-control" placeholder="الوصف" value="{{ card.get('description', '') }}"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="addCard()"><i class="bi bi-plus"></i> إضافة بطاقة</button>
+
+                {% elif section.section_type == 'stats' %}
+                <div id="statsContainer" class="d-flex flex-column gap-3">
+                    {% for stat in (section.content.get('stats', []) if section.content else []) %}
+                    <div class="modern-card p-3">
+                        <div class="row g-2">
+                            <div class="col-6"><input type="text" name="content[stats][{{ loop.index0 }}][value]" class="form-control" placeholder="الرقم" value="{{ stat.get('value', '') }}"></div>
+                            <div class="col-6"><input type="text" name="content[stats][{{ loop.index0 }}][label]" class="form-control" placeholder="التسمية" value="{{ stat.get('label', '') }}"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="addStat()"><i class="bi bi-plus"></i> إضافة إحصائية</button>
+
+                {% elif section.section_type == 'faq' %}
+                <div id="faqsContainer" class="d-flex flex-column gap-3">
+                    {% for faq in (section.content.get('faqs', []) if section.content else []) %}
+                    <div class="modern-card p-3">
+                        <div class="row g-2">
+                            <div class="col-6"><input type="text" name="content[faqs][{{ loop.index0 }}][question]" class="form-control" placeholder="السؤال" value="{{ faq.get('question', '') }}"></div>
+                            <div class="col-6"><textarea name="content[faqs][{{ loop.index0 }}][answer]" class="form-control" placeholder="الإجابة" rows="2">{{ faq.get('answer', '') }}</textarea></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="addFaq()"><i class="bi bi-plus"></i> إضافة سؤال</button>
+
+                {% elif section.section_type in ['image_slider', 'gallery'] %}
+                <div class="mb-3">
+                    <label class="form-label">روابط الصور (كل رابط في سطر)</label>
+                    <textarea name="content[images]" class="form-control" rows="5">{{ section.content.get('images', []) | join('\n') if section.content and section.content.get('images') else '' }}</textarea>
+                </div>
+
+                {% elif section.section_type == 'cta' %}
+                <div class="mb-3">
+                    <label class="form-label">نص الزر</label>
+                    <input type="text" name="content[button_text]" class="form-control" value="{{ section.content.get('button_text', '') if section.content else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">رابط الزر</label>
+                    <input type="text" name="content[button_link]" class="form-control" value="{{ section.content.get('button_link', '') if section.content else '' }}">
+                </div>
+
+                {% elif section.section_type == 'image_links' %}
+                <div id="imageLinksContainer" class="d-flex flex-column gap-3">
+                    {% for item in (section.content.get('items', []) if section.content else []) %}
+                    <div class="modern-card p-3">
+                        <div class="row g-2">
+                            <div class="col-4"><input type="text" name="content[items][{{ loop.index0 }}][title]" class="form-control" placeholder="العنوان" value="{{ item.get('title', '') }}"></div>
+                            <div class="col-4"><input type="text" name="content[items][{{ loop.index0 }}][image]" class="form-control" placeholder="رابط الصورة" value="{{ item.get('image', '') }}"></div>
+                            <div class="col-4"><input type="text" name="content[items][{{ loop.index0 }}][link]" class="form-control" placeholder="الرابط" value="{{ item.get('link', '') }}"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-3" onclick="addImageLink()"><i class="bi bi-plus"></i> إضافة عنصر</button>
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">حفظ المحتوى</button>
+            </form>
+            <div class="form-footer">
+                <a href="{{ url_for('admin.home_builder') }}" class="btn btn-outline-secondary w-100">العودة لباني الصفحات</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+let cardIdx = {{ (section.content.get('cards', [])|length) if section.content and section.content.get('cards') else 0 }};
+let statIdx = {{ (section.content.get('stats', [])|length) if section.content and section.content.get('stats') else 0 }};
+let faqIdx = {{ (section.content.get('faqs', [])|length) if section.content and section.content.get('faqs') else 0 }};
+let linkIdx = {{ (section.content.get('items', [])|length) if section.content and section.content.get('items') else 0 }};
+
+function addCard() {
+    const html = `<div class="modern-card p-3"><div class="row g-2"><div class="col-4"><input type="text" name="content[cards][${cardIdx}][icon]" class="form-control" placeholder="رمز الأيقونة"></div><div class="col-4"><input type="text" name="content[cards][${cardIdx}][title]" class="form-control" placeholder="العنوان"></div><div class="col-4"><input type="text" name="content[cards][${cardIdx}][description]" class="form-control" placeholder="الوصف"></div></div></div>`;
+    document.getElementById('cardsContainer').insertAdjacentHTML('beforeend', html);
+    cardIdx++;
+}
+function addStat() {
+    const html = `<div class="modern-card p-3"><div class="row g-2"><div class="col-6"><input type="text" name="content[stats][${statIdx}][value]" class="form-control" placeholder="الرقم"></div><div class="col-6"><input type="text" name="content[stats][${statIdx}][label]" class="form-control" placeholder="التسمية"></div></div></div>`;
+    document.getElementById('statsContainer').insertAdjacentHTML('beforeend', html);
+    statIdx++;
+}
+function addFaq() {
+    const html = `<div class="modern-card p-3"><div class="row g-2"><div class="col-6"><input type="text" name="content[faqs][${faqIdx}][question]" class="form-control" placeholder="السؤال"></div><div class="col-6"><textarea name="content[faqs][${faqIdx}][answer]" class="form-control" placeholder="الإجابة" rows="2"></textarea></div></div></div>`;
+    document.getElementById('faqsContainer').insertAdjacentHTML('beforeend', html);
+    faqIdx++;
+}
+function addImageLink() {
+    const html = `<div class="modern-card p-3"><div class="row g-2"><div class="col-4"><input type="text" name="content[items][${linkIdx}][title]" class="form-control" placeholder="العنوان"></div><div class="col-4"><input type="text" name="content[items][${linkIdx}][image]" class="form-control" placeholder="رابط الصورة"></div><div class="col-4"><input type="text" name="content[items][${linkIdx}][link]" class="form-control" placeholder="الرابط"></div></div></div>`;
+    document.getElementById('imageLinksContainer').insertAdjacentHTML('beforeend', html);
+    linkIdx++;
+}
+</script>
+{% endblock %}

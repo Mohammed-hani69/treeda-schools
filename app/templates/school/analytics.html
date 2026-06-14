@@ -1,0 +1,101 @@
+{% extends "layouts/base.html" %}
+{% block title %}التحليلات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "school/sidebar.html" %}
+    <div class="admin-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold"><i class="bi bi-graph-up"></i> تحليلات المدرسة</h4>
+            <span class="badge-status badge-approved">{{ total_views }} زيارة إجمالية</span>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center p-3">
+                    <div class="stat-value text-primary">{{ total_views }}</div>
+                    <div class="stat-label">إجمالي الزيارات</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center p-3">
+                    <div class="stat-value text-success">{{ total_30 }}</div>
+                    <div class="stat-label">زيارات آخر 30 يوم</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center p-3">
+                    <div class="stat-value text-secondary">{{ stats.image }}</div>
+                    <div class="stat-label">الصور</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center p-3">
+                    <div class="stat-value text-warning">{{ stats.video }}</div>
+                    <div class="stat-label">الفيديوهات</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modern-card p-4 mb-4">
+            <h5 class="fw-bold mb-3">الزيارات اليومية (آخر 30 يوم)</h5>
+            <div style="height:200px;position:relative;">
+                <canvas id="visitChart"></canvas>
+            </div>
+        </div>
+
+        <div class="modern-card p-4">
+            <h5 class="fw-bold mb-3">سجل الزيارات اليومية</h5>
+            <div class="table-responsive" style="max-height:300px;overflow-y:auto;">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>عدد الزيارات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for day in daily_data | reverse %}
+                        <tr>
+                            <td>{{ day.date }}</td>
+                            <td>{{ day.visits }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const ctx = document.getElementById('visitChart').getContext('2d');
+const data = {{ daily_data | tojson }};
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: data.map(d => d.date.slice(5)),
+        datasets: [{
+            label: 'الزيارات',
+            data: data.map(d => d.visits),
+            borderColor: '#0F71F0',
+            backgroundColor: 'rgba(15,113,240,0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 3,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 } },
+            x: { ticks: { maxTicksLimit: 10 } }
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+{% block title %}أولياء الأمور - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-people"></i> أولياء الأمور</h4>
+                <p>جميع أولياء الأمور المسجلين في المنصة</p>
+            </div>
+        </div>
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead><tr><th>الاسم</th><th>البريد</th><th>الجوال</th><th>عدد الأبناء</th><th>تاريخ التسجيل</th></tr></thead>
+                    <tbody>
+                        {% for parent in parents %}
+                        <tr>
+                            <td><strong>{{ parent.full_name }}</strong></td>
+                            <td><small>{{ parent.user.email }}</small></td>
+                            <td>{{ parent.phone or '-' }}</td>
+                            <td>{{ parent.children_count }}</td>
+                            <td><small>{{ parent.created_at.strftime('%Y-%m-%d') }}</small></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="5"><div class="empty-state"><i class="bi bi-people"></i><h5>لا يوجد أولياء أمور</h5></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

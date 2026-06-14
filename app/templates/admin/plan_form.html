@@ -1,0 +1,76 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ title }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card">
+            <div class="form-header">
+                <h4><i class="bi bi-box-seam" style="color:var(--brand-primary);"></i> {{ title }}</h4>
+            </div>
+            <form method="POST" class="form-body">
+                {{ form.hidden_tag() }}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">اسم الباقة</label>
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">الاسم (إنجليزي)</label>
+                        {{ form.name_en(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">الوصف</label>
+                        {{ form.description(class="form-control", rows=3) }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">السعر</label>
+                        {{ form.price(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">العملة</label>
+                        {{ form.currency(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">المدة (أيام)</label>
+                        {{ form.duration_days(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">الحد الأقصى للصور</label>
+                        {{ form.max_images(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">الحد الأقصى للفيديو</label>
+                        {{ form.max_videos(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">مساحة التخزين (MB)</label>
+                        {{ form.storage_mb(class="form-control") }}
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">عدد الموظفين</label>
+                        {{ form.max_employees(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">لون الباقة</label>
+                        {{ form.color(class="form-control", type="color") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">الترتيب</label>
+                        {{ form.sort_order(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check pt-4">{{ form.is_featured(class="form-check-input") }} <label class="form-check-label" style="font-size:0.88rem;">ظهور مميز</label></div>
+                        <div class="form-check">{{ form.is_active(class="form-check-input") }} <label class="form-check-label" style="font-size:0.88rem;">مفعلة</label></div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">المميزات (كل ميزة في سطر)</label>
+                        {{ form.features(class="form-control", rows=5, placeholder="ميزة 1\nميزة 2\nميزة 3") }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">{{ form.submit.label.text }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

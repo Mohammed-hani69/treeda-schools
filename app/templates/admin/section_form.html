@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ title }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card">
+            <div class="form-header">
+                <h4><i class="bi bi-layout-three-columns" style="color:var(--brand-primary);"></i> {{ title }}</h4>
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="form-body">
+                {{ form.hidden_tag() }}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">نوع القسم</label>
+                        {{ form.section_type(class="form-select") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">الترتيب</label>
+                        {{ form.sort_order(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">العنوان</label>
+                        {{ form.title(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">العنوان الفرعي</label>
+                        {{ form.subtitle(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">الوصف</label>
+                        {{ form.description(class="form-control", rows=4) }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">لون الخلفية</label>
+                        {{ form.background_color(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">صورة الخلفية</label>
+                        {{ form.background_image(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">لون النص</label>
+                        {{ form.text_color(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">الحشوة العلوية</label>
+                        {{ form.padding_top(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">الحشوة السفلية</label>
+                        {{ form.padding_bottom(class="form-control") }}
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end gap-3 pb-1">
+                        <div class="form-check">{{ form.is_active(class="form-check-input") }} <label class="form-check-label" style="font-size:0.88rem;">ظاهر</label></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">{{ form.submit.label.text }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ _('auth.login_title') or 'تسجيل الدخول' }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="auth-page">
+  <div class="auth-shapes">
+    <div class="auth-shape auth-shape-1"></div>
+    <div class="auth-shape auth-shape-2"></div>
+    <div class="auth-shape auth-shape-3"></div>
+  </div>
+  <div class="auth-wrapper">
+    <div class="auth-brand" data-aos="fade-left">
+      <div class="auth-brand-inner">
+        <div class="auth-brand-logo">
+          <img src="{{ url_for('static', filename='uploads/settings/' + setting.logo) if setting and setting.logo else 'https://treedaonline.com/wp-content/uploads/2026/06/cropped-IMG-20231013-WA0381-126x42.jpg' }}" alt="{{ _('site_name') }}">
+        </div>
+        <h2>{{ _('site_name') }}</h2>
+        <p>{{ _('auth.login_side_desc') or 'منصة المعرض الإلكتروني للمدارس — اكتشف، تواصل، واختر أفضل المدارس لأبنائك.' }}</p>
+        <div class="auth-brand-features">
+          <div class="auth-brand-feature"><i class="bi bi-search-heart"></i> {{ _('auth.feature_discover') or 'اكتشف مدارس متميزة' }}</div>
+          <div class="auth-brand-feature"><i class="bi bi-chat-dots"></i> {{ _('auth.feature_connect') or 'تواصل مباشر مع المدارس' }}</div>
+          <div class="auth-brand-feature"><i class="bi bi-images"></i> {{ _('auth.feature_tour') or 'جولات افتراضية ثلاثية الأبعاد' }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-card" data-aos="fade-up">
+      <div class="auth-card-header">
+        <div class="auth-card-icon"><i class="bi bi-shield-lock"></i></div>
+        <h3>{{ _('auth.welcome_back') or 'مرحباً بعودتك' }}</h3>
+        <p>{{ _('auth.login_subtitle') or 'سجل دخولك للوصول إلى لوحة التحكم' }}</p>
+      </div>
+      <form method="POST" class="auth-form">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          <label class="form-label">{{ _('auth.email') or 'البريد الإلكتروني' }}</label>
+          <div class="input-wrapper">
+            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder=_('auth.email_placeholder') or "admin@mazadplus.com") }}
+            <i class="bi bi-envelope input-icon"></i>
+          </div>
+          {% if form.email.errors %}{% for e in form.email.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}{% endif %}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{{ _('auth.password') or 'كلمة المرور' }}</label>
+          <div class="input-wrapper">
+            {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""), placeholder=_('auth.password_placeholder') or "••••••••") }}
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="password-toggle" onclick="togglePassword(this)" tabindex="-1" aria-label="Toggle password visibility"><i class="bi bi-eye"></i></button>
+          </div>
+          {% if form.password.errors %}{% for e in form.password.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}{% endif %}
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="form-check mb-0">
+            {{ form.remember(class="form-check-input") }}
+            <label class="form-check-label">{{ _('auth.remember') or 'تذكرني' }}</label>
+          </div>
+          <a href="{{ url_for('auth.forgot_password') }}" class="auth-forgot-link">{{ _('auth.forgot_password') or 'نسيت كلمة المرور؟' }}</a>
+        </div>
+        {{ form.submit(class="auth-btn") }}
+      </form>
+      <div class="auth-divider">{{ _('auth.or') or 'أو' }}</div>
+      <div class="auth-footer-links">
+        <p>{{ _('auth.no_account') or 'ليس لديك حساب؟' }}</p>
+        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center">
+          <a href="{{ url_for('auth.register_school') }}" class="auth-extra-link"><i class="bi bi-building"></i> {{ _('auth.register_school') or 'تسجيل مدرسة' }}</a>
+          <a href="{{ url_for('auth.register_parent') }}" class="auth-extra-link"><i class="bi bi-people"></i> {{ _('auth.register_parent') or 'تسجيل ولي أمر' }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+function togglePassword(btn) {
+  const input = btn.closest('.input-wrapper').querySelector('.form-control');
+  const icon = btn.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'bi bi-eye-slash';
+  } else {
+    input.type = 'password';
+    icon.className = 'bi bi-eye';
+  }
+}
+</script>
+{% endblock %}

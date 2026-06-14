@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+{% block title %}الإحصائيات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-bar-chart-line"></i> إدارة الإحصائيات</h4>
+                <p>الأرقام والإحصائيات الظاهرة في الصفحة الرئيسية</p>
+            </div>
+            <a href="{{ url_for('admin.create_stat') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة إحصائية</a>
+        </div>
+        <div class="row g-4">
+            {% for stat in stats %}
+            <div class="col-lg-3 col-md-6">
+                <div class="modern-card text-center">
+                    <div class="card-body-custom">
+                        <div style="font-size:2rem;color:var(--brand-primary);margin-bottom:0.5rem;"><i class="bi bi-{{ stat.icon }}"></i></div>
+                        <h3 style="font-weight:800;font-size:2rem;color:var(--text-primary);">{{ stat.value }}</h3>
+                        <p style="color:var(--text-secondary);font-size:0.88rem;">{{ stat.label }}</p>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <a href="{{ url_for('admin.edit_stat', id=stat.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <form method="POST" action="{{ url_for('admin.delete_stat', id=stat.id) }}" class="delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12"><div class="empty-state"><i class="bi bi-bar-chart-line"></i><h5>لا توجد إحصائيات</h5></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

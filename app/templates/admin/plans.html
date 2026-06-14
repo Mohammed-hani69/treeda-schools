@@ -1,0 +1,43 @@
+{% extends "layouts/base.html" %}
+{% block title %}إدارة الباقات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-box-seam"></i> إدارة الباقات</h4>
+                <p>باقات الاشتراك المتاحة للمدارس</p>
+            </div>
+            <a href="{{ url_for('admin.create_plan') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة باقة</a>
+        </div>
+        <div class="row g-4">
+            {% for plan in plans %}
+            <div class="col-lg-4 col-md-6">
+                <div class="plan-card" style="--brand-primary:{{ plan.color or '#0F71F0' }};{% if not plan.is_active %}opacity:0.6;{% endif %}">
+                    {% if plan.is_featured %}<span class="badge-status badge-featured" style="position:absolute;top:1rem;left:1rem;">مميز</span>{% endif %}
+                    <div class="plan-name">{{ plan.name }}</div>
+                    <div class="plan-price">{{ plan.price }} <span>{{ plan.currency }}</span></div>
+                    <p class="text-secondary" style="font-size:0.85rem;">مدة الاشتراك: {{ plan.duration_days }} يوم</p>
+                    <ul class="plan-features">
+                        <li><i class="bi bi-image"></i> {{ plan.max_images }} صورة</li>
+                        <li><i class="bi bi-play-circle"></i> {{ plan.max_videos }} فيديو</li>
+                        <li><i class="bi bi-hdd"></i> {{ plan.storage_mb }} ميجابايت</li>
+                        <li><i class="bi bi-people"></i> {{ plan.max_employees }} موظف</li>
+                    </ul>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="{{ url_for('admin.edit_plan', id=plan.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> تعديل</a>
+                        <form method="POST" action="{{ url_for('admin.delete_plan', id=plan.id) }}" class="delete-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12"><div class="empty-state"><i class="bi bi-box-seam"></i><h5>لا توجد باقات</h5><p>أضف الباقات لعرضها في صفحة الأسعار</p></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

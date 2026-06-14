@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% block title %}إرسال إشعار - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card" style="max-width:600px;">
+            <div class="form-header">
+                <h4><i class="bi bi-send" style="color:var(--brand-primary);"></i> إرسال إشعار</h4>
+            </div>
+            <form method="POST" class="form-body">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="mb-3">
+                    <label class="form-label">إلى</label>
+                    <select name="user_id" class="form-select">
+                        <option value="all">جميع المستخدمين</option>
+                        {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.email }} ({{ user.role }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">نوع الإشعار</label>
+                    <select name="type" class="form-select">
+                        <option value="admin_message">رسالة من الأدمن</option>
+                        <option value="content_approved">قبول المحتوى</option>
+                        <option value="content_rejected">رفض المحتوى</option>
+                        <option value="subscription_expired">انتهاء الاشتراك</option>
+                        <option value="subscription_soon">اقتراب انتهاء الاشتراك</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">العنوان</label>
+                    <input type="text" name="title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">الرسالة</label>
+                    <textarea name="message" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);"><i class="bi bi-send"></i> إرسال</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

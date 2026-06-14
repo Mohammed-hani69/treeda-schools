@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% block title %}الإشعارات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-bell"></i> الإشعارات</h4>
+                <p>جميع إشعارات النظام المرسلة</p>
+            </div>
+            <a href="{{ url_for('admin.send_notification') }}" class="btn btn-primary"><i class="bi bi-send"></i> إرسال إشعار</a>
+        </div>
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead><tr><th>العنوان</th><th>الرسالة</th><th>المستخدم</th><th>النوع</th><th>الحالة</th><th>التاريخ</th></tr></thead>
+                    <tbody>
+                        {% for notif in notifications %}
+                        <tr>
+                            <td><strong>{{ notif.title }}</strong></td>
+                            <td><small>{{ notif.message[:80] }}{% if notif.message|length > 80 %}...{% endif %}</small></td>
+                            <td><small>{{ notif.user.email }}</small></td>
+                            <td><span class="badge-status" style="background:rgba(6,182,212,0.12);color:#0891b2;">{{ notif.NOTIFICATION_TYPES.get(notif.notification_type, notif.notification_type) }}</span></td>
+                            <td>{% if notif.is_read %}<span style="color:#10b981;font-size:0.82rem;"><i class="bi bi-check2-all"></i> مقروء</span>{% else %}<span style="color:#f59e0b;font-size:0.82rem;"><i class="bi bi-check2"></i> غير مقروء</span>{% endif %}</td>
+                            <td><small>{{ notif.created_at.strftime('%Y-%m-%d %H:%M') }}</small></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="6"><div class="empty-state"><i class="bi bi-bell"></i><h5>لا توجد إشعارات</h5></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

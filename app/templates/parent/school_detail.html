@@ -1,0 +1,466 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ school.name }} - {{ site_name }}{% endblock %}
+
+{% block content %}
+
+{# ─── Immersive 3D Hero ─── #}
+<section class="school-3d-hero" id="top">
+  <div class="parallax-bg" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1920&auto=format&fit=crop' }}');"></div>
+  <div class="parallax-overlay"></div>
+  <div class="container h-100 d-flex align-items-end pb-5 position-relative" style="z-index:2;">
+    <div class="row w-100">
+      <div class="col-lg-8">
+        <div class="hero-3d-card glass-deep" data-tilt data-tilt-max="8" data-tilt-speed="400">
+          <div class="d-flex align-items-center gap-4 flex-wrap">
+            <div class="school-logo-3d">
+              {% if school.logo %}
+              <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) }}" alt="">
+              {% else %}
+              <div class="logo-placeholder"><i class="bi bi-building"></i></div>
+              {% endif %}
+            </div>
+            <div class="flex-fill">
+              <div class="d-flex gap-2 flex-wrap mb-2">
+                {% if school.school_type %}
+                <span class="badge-3d type">{{ school.school_type }}</span>
+                {% endif %}
+                {% if school.gender %}
+                <span class="badge-3d gender">{{ {'male':'بنين','female':'بنات','both':'مشترك'}.get(school.gender, school.gender) }}</span>
+                {% endif %}
+                {% if school.is_featured %}
+                <span class="badge-3d featured"><i class="bi bi-star-fill"></i> مميزة</span>
+                {% endif %}
+              </div>
+              <h1 class="school-title-3d">{{ school.name }}</h1>
+              <div class="d-flex gap-3 flex-wrap meta-3d">
+                {% if school.city %}
+                <span><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %}، {{ school.district }}{% endif %}</span>
+                {% endif %}
+                {% if school.founded_year %}
+                <span><i class="bi bi-calendar3"></i> {{ school.founded_year }}</span>
+                {% endif %}
+                <span><i class="bi bi-eye"></i> {{ school.views or 0 }} زيارة</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-actions mt-3">
+            {% if school.phone %}
+            <a href="tel:{{ school.phone }}" class="btn-3d primary pulse-glow"><i class="bi bi-telephone-fill"></i> {{ school.phone }}</a>
+            {% endif %}
+            <a href="#contact-section" class="btn-3d outline scroll-link"><i class="bi bi-info-circle"></i> معلومات الاتصال</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator-3d">
+    <div class="mouse"><div class="wheel"></div></div>
+  </div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+</section>
+
+{# ─── Virtual Tour Navigation ─── #}
+<nav class="tour-nav" id="tourNav">
+  <a href="#about" class="tour-dot" data-section="about"><span class="dot"></span><span class="dot-label">عن المدرسة</span></a>
+  {% if school.grades.count() > 0 %}
+  <a href="#grades" class="tour-dot" data-section="grades"><span class="dot"></span><span class="dot-label">المراحل</span></a>
+  {% endif %}
+  {% if images %}
+  <a href="#gallery" class="tour-dot" data-section="gallery"><span class="dot"></span><span class="dot-label">المعرض</span></a>
+  {% endif %}
+  {% if videos %}
+  <a href="#videos" class="tour-dot" data-section="videos"><span class="dot"></span><span class="dot-label">الفيديو</span></a>
+  {% endif %}
+  {% if school.activities.count() > 0 %}
+  <a href="#activities" class="tour-dot" data-section="activities"><span class="dot"></span><span class="dot-label">الأنشطة</span></a>
+  {% endif %}
+  {% if school.services.count() > 0 %}
+  <a href="#services" class="tour-dot" data-section="services"><span class="dot"></span><span class="dot-label">الخدمات</span></a>
+  {% endif %}
+  <a href="#contact-section" class="tour-dot" data-section="contact"><span class="dot"></span><span class="dot-label">تواصل</span></a>
+</nav>
+
+{# ─── Content Sections ─── #}
+<div class="tour-content">
+
+  {# ─── About ─── #}
+  {% if school.about %}
+  <section class="scene-section" id="about">
+    <div class="scene-bg"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="scene-card glass" data-scene data-depth="0.15">
+            <div class="scene-card-glow"></div>
+            <div class="scene-header">
+              <span class="scene-number">01</span>
+              <div>
+                <span class="scene-tag">تعرف على</span>
+                <h2>نبذة عن المدرسة</h2>
+              </div>
+            </div>
+            <p class="scene-text">{{ school.about }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Grades ─── #}
+  {% if school.grades.count() > 0 %}
+  <section class="scene-section" id="grades">
+    <div class="scene-bg alt"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="scene-card glass" data-scene data-depth="0.1">
+            <div class="scene-card-glow"></div>
+            <div class="scene-header">
+              <span class="scene-number">02</span>
+              <div>
+                <span class="scene-tag">المراحل</span>
+                <h2>المراحل التعليمية</h2>
+              </div>
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+              {% for grade in school.grades %}
+              <div class="grade-chip-3d">
+                <i class="bi bi-layers"></i>
+                <span>{{ grade.name }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Gallery ─── #}
+  {% if images %}
+  <section class="scene-section" id="gallery">
+    <div class="scene-bg"></div>
+    <div class="container">
+      <div class="scene-card glass" data-scene data-depth="0.05">
+        <div class="scene-card-glow"></div>
+        <div class="scene-header">
+          <span class="scene-number">03</span>
+          <div>
+                <span class="scene-tag">استكشف</span>
+                <h2>معرض الصور</h2>
+          </div>
+        </div>
+        <div class="gallery-3d-grid">
+          {% for img in images %}
+          <div class="gallery-3d-item" data-tilt data-tilt-max="10" data-tilt-speed="300" onclick="openViewer('{{ url_for('static', filename='uploads/media/' + img.filename) }}')">
+            <div class="gallery-3d-inner">
+              <img src="{{ url_for('static', filename='uploads/media/' + img.filename) }}" alt="">
+              <div class="gallery-3d-overlay">
+                <div class="gallery-3d-icon"><i class="bi bi-arrows-angle-expand"></i></div>
+                <span>مشاهدة</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Videos ─── #}
+  {% if videos %}
+  <section class="scene-section" id="videos">
+    <div class="scene-bg alt"></div>
+    <div class="container">
+      <div class="scene-card glass" data-scene data-depth="0.08">
+        <div class="scene-card-glow"></div>
+        <div class="scene-header">
+          <span class="scene-number">04</span>
+          <div>
+            <span class="scene-tag">جولة</span>
+                <h2>الجولة الافتراضية</h2>
+          </div>
+        </div>
+        <div class="gallery-3d-grid">
+          {% for vid in videos %}
+          <div class="gallery-3d-item video" onclick="this.querySelector('video').play();this.classList.add('playing')">
+            <div class="gallery-3d-inner">
+              <video src="{{ url_for('static', filename='uploads/media/' + vid.filename) }}" muted playsinline preload="metadata"></video>
+              <div class="gallery-3d-overlay video-play">
+                <div class="play-btn-3d"><i class="bi bi-play-fill"></i></div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Activities ─── #}
+  {% if school.activities.count() > 0 %}
+  <section class="scene-section" id="activities">
+    <div class="scene-bg"></div>
+    <div class="container">
+      <div class="scene-card glass" data-scene data-depth="0.12">
+        <div class="scene-card-glow"></div>
+        <div class="scene-header">
+          <span class="scene-number">05</span>
+          <div>
+                <span class="scene-tag">أنشطة</span>
+                <h2>الأنشطة المدرسية</h2>
+          </div>
+        </div>
+        <div class="row g-4">
+          {% for activity in school.activities %}
+          <div class="col-md-6">
+            <div class="activity-3d-card" data-tilt data-tilt-max="6" data-tilt-speed="300">
+              <div class="activity-icon"><i class="bi bi-{{ activity.icon or 'star' }}"></i></div>
+              <h4>{{ activity.title }}</h4>
+              {% if activity.description %}<p>{{ activity.description }}</p>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Services ─── #}
+  {% if school.services.count() > 0 %}
+  <section class="scene-section" id="services">
+    <div class="scene-bg alt"></div>
+    <div class="container">
+      <div class="scene-card glass" data-scene data-depth="0.07">
+        <div class="scene-card-glow"></div>
+        <div class="scene-header">
+          <span class="scene-number">06</span>
+          <div>
+                <span class="scene-tag">خدمات</span>
+                <h2>الخدمات المقدمة</h2>
+          </div>
+        </div>
+        <div class="row g-4">
+          {% for service in school.services %}
+          <div class="col-md-6">
+            <div class="service-3d-card" data-tilt data-tilt-max="6" data-tilt-speed="300">
+              <div class="service-icon"><i class="bi bi-{{ service.icon or 'check-circle' }}"></i></div>
+              <h4>{{ service.title }}</h4>
+              {% if service.description %}<p>{{ service.description }}</p>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ─── Contact Sidebar ─── #}
+  <section class="scene-section" id="contact-section">
+    <div class="scene-bg"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="scene-card glass" data-scene data-depth="0.1">
+            <div class="scene-card-glow"></div>
+            <div class="scene-header">
+              <span class="scene-number">07</span>
+              <div>
+                <span class="scene-tag">تواصل</span>
+                <h2>معلومات الاتصال</h2>
+              </div>
+            </div>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="contact-3d-grid">
+                  {% if school.phone %}
+                  <a href="tel:{{ school.phone }}" class="contact-3d-item">
+                    <div class="contact-icon bg-primary"><i class="bi bi-telephone-fill"></i></div>
+                    <div><small>رقم الجوال</small><strong>{{ school.phone }}</strong></div>
+                  </a>
+                  {% endif %}
+                  {% if school.phone2 %}
+                  <a href="tel:{{ school.phone2 }}" class="contact-3d-item">
+                    <div class="contact-icon bg-primary"><i class="bi bi-telephone-fill"></i></div>
+                    <div><small>رقم آخر</small><strong>{{ school.phone2 }}</strong></div>
+                  </a>
+                  {% endif %}
+                  {% if school.email %}
+                  <a href="mailto:{{ school.email }}" class="contact-3d-item">
+                    <div class="contact-icon bg-pink"><i class="bi bi-envelope-fill"></i></div>
+                    <div><small>البريد</small><strong>{{ school.email }}</strong></div>
+                  </a>
+                  {% endif %}
+                  {% if school.address %}
+                  <div class="contact-3d-item">
+                    <div class="contact-icon bg-cyan"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div><small>العنوان</small><strong>{{ school.address }}</strong></div>
+                  </div>
+                  {% endif %}
+                  {% if school.website %}
+                  <a href="{{ school.website }}" target="_blank" class="contact-3d-item">
+                    <div class="contact-icon bg-green"><i class="bi bi-globe"></i></div>
+                    <div><small>الموقع</small><strong>{{ school.website }}</strong></div>
+                  </a>
+                  {% endif %}
+                  {% if school.whatsapp %}
+                  <a href="https://wa.me/{{ school.whatsapp }}" target="_blank" class="contact-3d-item">
+                    <div class="contact-icon bg-whatsapp"><i class="bi bi-whatsapp"></i></div>
+                    <div><small>WhatsApp</small><strong>{{ school.whatsapp }}</strong></div>
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-6">
+                {% if school.facebook or school.twitter or school.instagram or school.youtube %}
+                <div class="mb-4">
+                  <h6 class="fw-bold mb-3" style="color:var(--text-secondary);font-size:0.9rem;">
+                    <i class="bi bi-share"></i> التواصل الاجتماعي
+                  </h6>
+                  <div class="d-flex gap-3 flex-wrap">
+                    {% if school.facebook %}<a href="{{ school.facebook }}" class="social-3d" style="--social:#1877f2;" target="_blank"><i class="bi bi-facebook"></i></a>{% endif %}
+                    {% if school.twitter %}<a href="{{ school.twitter }}" class="social-3d" style="--social:#000;" target="_blank"><i class="bi bi-twitter-x"></i></a>{% endif %}
+                    {% if school.instagram %}<a href="{{ school.instagram }}" class="social-3d" style="--social:#e4405f;" target="_blank"><i class="bi bi-instagram"></i></a>{% endif %}
+                    {% if school.youtube %}<a href="{{ school.youtube }}" class="social-3d" style="--social:#ff0000;" target="_blank"><i class="bi bi-youtube"></i></a>{% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                {% if school.map_lat and school.map_lng %}
+                <div class="map-3d-container">
+                  <h6 class="fw-bold mb-3" style="color:var(--text-secondary);font-size:0.9rem;">
+                    <i class="bi bi-map"></i> الموقع على الخريطة
+                  </h6>
+                  <div class="map-3d">
+                    <iframe width="100%" height="100%" frameborder="0" style="border:0;border-radius:var(--radius-xl);"
+                      src="https://www.google.com/maps?q={{ school.map_lat }},{{ school.map_lng }}&hl=ar&z=15&output=embed"
+                      allowfullscreen loading="lazy">
+                    </iframe>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{# ─── 3D Image Viewer Modal ─── #}
+<div class="viewer-3d-overlay" id="viewerOverlay" onclick="closeViewer()">
+  <button class="viewer-close" onclick="closeViewer()"><i class="bi bi-x-lg"></i></button>
+  <div class="viewer-3d-content" onclick="event.stopPropagation()">
+    <img id="viewerImage" src="" alt="">
+    <div class="viewer-3d-hint"><i class="bi bi-arrows-move"></i> حرك المؤشر للتنقل</div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ─── 3D Image Viewer ───
+function openViewer(src) {
+  document.getElementById('viewerImage').src = src;
+  document.getElementById('viewerOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeViewer() {
+  document.getElementById('viewerOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ─── Tilt.js (vanilla implementation) ───
+document.querySelectorAll('[data-tilt]').forEach(el => {
+  const max = parseFloat(el.dataset.tiltMax) || 10;
+  const speed = parseFloat(el.dataset.tiltSpeed) || 300;
+  el.style.transition = `transform ${speed}ms ease`;
+  el.addEventListener('mousemove', e => {
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const tiltX = (y - 0.5) * max;
+    const tiltY = (x - 0.5) * -max;
+    el.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02,1.02,1.02)`;
+  });
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+  });
+});
+
+// ─── Parallax Hero ───
+const hero = document.querySelector('.school-3d-hero');
+const parallaxBg = hero?.querySelector('.parallax-bg');
+if (hero && parallaxBg) {
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    parallaxBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.1)`;
+    hero.style.backgroundPositionY = `${scrolled * 0.3}px`;
+  });
+}
+
+// ─── Scene Depth Parallax ───
+document.querySelectorAll('[data-scene]').forEach(el => {
+  const depth = parseFloat(el.dataset.depth) || 0.1;
+  el.addEventListener('mousemove', e => {
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    el.querySelector('.scene-card-glow').style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+  });
+});
+
+// ─── Tour Nav Active Section ───
+const sections = document.querySelectorAll('.scene-section');
+const tourDots = document.querySelectorAll('.tour-dot');
+const tourNav = document.getElementById('tourNav');
+let navTimeout;
+
+window.addEventListener('scroll', () => {
+  clearTimeout(navTimeout);
+  tourNav?.classList.add('visible');
+  navTimeout = setTimeout(() => tourNav?.classList.remove('visible'), 3000);
+
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 200;
+    if (window.scrollY >= top) current = sec.id;
+  });
+  tourDots.forEach(dot => {
+    dot.classList.toggle('active', dot.dataset.section === current);
+  });
+});
+
+// ─── Smooth scroll for tour nav ───
+tourDots.forEach(dot => {
+  dot.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(dot.dataset.section);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── Video play toggle ───
+document.querySelectorAll('.gallery-3d-item.video').forEach(el => {
+  el.addEventListener('click', function() {
+    const video = this.querySelector('video');
+    if (this.classList.contains('playing')) {
+      video.pause();
+      this.classList.remove('playing');
+    } else {
+      video.play();
+      this.classList.add('playing');
+    }
+  });
+});
+</script>
+{% endblock %}

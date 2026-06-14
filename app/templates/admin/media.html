@@ -1,0 +1,82 @@
+{% extends "layouts/base.html" %}
+{% block title %}إدارة الوسائط - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-images"></i> إدارة الوسائط</h4>
+                <p>الوسائط المرفوعة من المدارس</p>
+            </div>
+            <div class="filter-tabs">
+                <a href="{{ url_for('admin.media') }}" class="btn {% if status == 'all' %}active{% endif %}">الكل</a>
+                <a href="{{ url_for('admin.media') }}?status=pending" class="btn {% if status == 'pending' %}active{% endif %}">قيد المراجعة</a>
+                <a href="{{ url_for('admin.media') }}?status=approved" class="btn {% if status == 'approved' %}active{% endif %}">مقبول</a>
+                <a href="{{ url_for('admin.media') }}?status=rejected" class="btn {% if status == 'rejected' %}active{% endif %}">مرفوض</a>
+            </div>
+        </div>
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead><tr><th>الملف</th><th>المدرسة</th><th>النوع</th><th>الحالة</th><th>التاريخ</th><th>الإجراءات</th></tr></thead>
+                    <tbody>
+                        {% for item in media.items %}
+                        <tr>
+                            <td>
+                                <div style="display:flex;align-items:center;gap:0.75rem;">
+                                    {% if item.media_type == 'image' %}
+                                    <img src="{{ url_for('static', filename='uploads/media/' + item.filename) }}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--surface-secondary);">
+                                    {% else %}
+                                    <div style="width:44px;height:44px;border-radius:8px;background:var(--brand-primary-10);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);"><i class="bi bi-play-circle"></i></div>
+                                    {% endif %}
+                                    <small>{{ item.original_name or item.filename[:30] }}</small>
+                                </div>
+                            </td>
+                            <td><small>{{ item.school.name if item.school else 'N/A' }}</small></td>
+                            <td><span class="badge-status badge-approved">{{ 'صورة' if item.media_type == 'image' else 'فيديو' }}</span></td>
+                            <td>
+                                {% if item.status == 'pending' %}<span class="badge-status badge-pending">قيد المراجعة</span>
+                                {% elif item.status == 'approved' %}<span class="badge-status badge-approved">مقبول</span>
+                                {% else %}<span class="badge-status badge-rejected" title="{{ item.rejection_reason or '' }}">مرفوض</span>{% endif %}
+                            </td>
+                            <td><small>{{ item.created_at.strftime('%Y-%m-%d') }}</small></td>
+                            <td>
+                                <div class="table-actions">
+                                    {% if item.status == 'pending' %}
+                                    <form method="POST" action="{{ url_for('admin.approve_media', id=item.id) }}" class="delete-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-success"><i class="bi bi-check-lg"></i></button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('admin.reject_media', id=item.id) }}" class="delete-form" onsubmit="var r=prompt('سبب الرفض:');if(r){this.querySelector('[name=reason]').value=r;return true}return false">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="reason" value="">
+                                        <button class="btn btn-sm btn-danger"><i class="bi bi-x-lg"></i></button>
+                                    </form>
+                                    {% endif %}
+                                    <form method="POST" action="{{ url_for('admin.delete_media', id=item.id) }}" class="delete-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="6"><div class="empty-state"><i class="bi bi-images"></i><h5>لا توجد وسائط</h5></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if media.pages > 1 %}
+        <nav class="pagination-custom">
+            {% for page in media.iter_pages() %}
+            <div class="page-item {% if page == media.page %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}&status={{ status }}&type={{ media_type }}">{{ page }}</a>
+            </div>
+            {% endfor %}
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

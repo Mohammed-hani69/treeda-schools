@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+{% block title %}الملف الشخصي - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "school/sidebar.html" %}
+    <div class="admin-content">
+        <div class="modern-card p-5">
+            <h4 class="fw-bold mb-4"><i class="bi bi-person-badge"></i> الملف الشخصي للمدرسة</h4>
+            <form method="POST" class="modern-form" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="row g-4">
+                    <div class="col-12">
+                        <h5 class="fw-bold">المعلومات الأساسية</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">اسم المدرسة</label>
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">المدينة</label>
+                        {{ form.city(class="form-control") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">الحي</label>
+                        {{ form.district(class="form-control") }}
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">العنوان</label>
+                        {{ form.address(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">نبذة عن المدرسة</label>
+                        {{ form.about(class="form-control", rows=5) }}
+                    </div>
+                    <div class="col-12">
+                        <h5 class="fw-bold">معلومات التواصل</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">رقم الجوال</label>
+                        {{ form.phone(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">رقم جوال آخر</label>
+                        {{ form.phone2(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        {{ form.email(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">الموقع الإلكتروني</label>
+                        {{ form.website(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">واتساب</label>
+                        {{ form.whatsapp(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <h5 class="fw-bold">التصنيف</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">نوع المدرسة</label>
+                        {{ form.school_type(class="form-select") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">نوع الطلاب</label>
+                        {{ form.gender(class="form-select") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">سنة التأسيس</label>
+                        {{ form.founded_year(class="form-control") }}
+                    </div>
+                    <div class="col-12">
+                        <h5 class="fw-bold">روابط التواصل الاجتماعي</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">فيسبوك</label>
+                        {{ form.facebook(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">تويتر</label>
+                        {{ form.twitter(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">انستغرام</label>
+                        {{ form.instagram(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">يوتيوب</label>
+                        {{ form.youtube(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">تيليغرام</label>
+                        {{ form.telegram(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">خط العرض</label>
+                        {{ form.map_lat(class="form-control") }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">خط الطول</label>
+                        {{ form.map_lng(class="form-control") }}
+                    </div>
+                    <div class="col-12">{{ form.submit(class="btn btn-primary btn-lg w-100") }}</div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modern-card p-5 mt-4">
+            <h5 class="fw-bold mb-4"><i class="bi bi-image"></i> الشعار والغلاف</h5>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h6>الشعار الحالي</h6>
+                    <div style="width:150px;height:150px;border-radius:16px;overflow:hidden;border:2px solid var(--border-color);margin-bottom:1rem;">
+                        {% if school.logo %}
+                        <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) }}" style="width:100%;height:100%;object-fit:cover;">
+                        {% else %}
+                        <div style="width:100%;height:100%;background:var(--bg-body);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);">
+                            <i class="bi bi-image" style="font-size:2rem;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <form method="POST" action="{{ url_for('school.upload_logo') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="file" name="logo" class="form-control" onchange="this.form.submit()">
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h6>الغلاف الحالي</h6>
+                    <div style="width:100%;height:150px;border-radius:16px;overflow:hidden;border:2px solid var(--border-color);margin-bottom:1rem;">
+                        {% if school.cover %}
+                        <img src="{{ url_for('static', filename='uploads/schools/' + school.cover) }}" style="width:100%;height:100%;object-fit:cover;">
+                        {% else %}
+                        <div style="width:100%;height:100%;background:var(--bg-body);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);">
+                            <i class="bi bi-image" style="font-size:2rem;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <form method="POST" action="{{ url_for('school.upload_cover') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="file" name="cover" class="form-control" onchange="this.form.submit()">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

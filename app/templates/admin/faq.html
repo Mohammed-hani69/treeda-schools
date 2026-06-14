@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% block title %}الأسئلة الشائعة - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-question-circle"></i> إدارة الأسئلة الشائعة</h4>
+                <p>الأسئلة المتكررة وإجاباتها في صفحة الأسئلة الشائعة</p>
+            </div>
+            <a href="{{ url_for('admin.create_faq') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة سؤال</a>
+        </div>
+        <div class="d-flex flex-column gap-3">
+            {% for faq in faqs %}
+            <div class="modern-card">
+                <div class="card-body-custom d-flex justify-content-between align-items-start gap-3">
+                    <div>
+                        <h5 style="font-weight:700;font-size:0.95rem;">{{ faq.question }}</h5>
+                        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0;">{{ faq.answer[:150] }}</p>
+                    </div>
+                    <div class="d-flex gap-2 flex-shrink-0">
+                        <a href="{{ url_for('admin.edit_faq', id=faq.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                        <form method="POST" action="{{ url_for('admin.delete_faq', id=faq.id) }}" class="delete-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-5"><div class="empty-state"><i class="bi bi-question-circle"></i><h5>لا توجد أسئلة</h5></div></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

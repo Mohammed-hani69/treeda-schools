@@ -1,0 +1,285 @@
+{
+  "maintenance": {"ar": "وضع الصيانة مفعل - أنت ترى الموقع كأدمن", "en": "Maintenance mode is active — You are viewing as admin"},
+  "site_name": {"ar": "تريدا أكسبو", "en": "Treeda Schools"},
+  "site_desc_fallback": {"ar": "معرض المدارس الافتراضي", "en": "Virtual School Exhibition"},
+  "footer_desc_fallback": {"ar": "منصة المعرض الإلكتروني للمدارس - نافذتك لعالم التعليم", "en": "Treeda Expo — The first virtual exhibition for schools, providing a platform to showcase their data and communicate directly with interested parties."},
+  "address_fallback": {"ar": "الرياض، المملكة العربية السعودية", "en": "Riyadh, Saudi Arabia"},
+
+  "nav": {
+    "home": {"ar": "الرئيسية", "en": "Home"},
+    "schools": {"ar": "المدارس", "en": "Schools"},
+    "categories": {"ar": "الأقسام", "en": "Categories"},
+    "featured_schools": {"ar": "المدارس المميزة", "en": "Featured Schools"},
+    "pricing": {"ar": "الباقات", "en": "Plans"},
+    "contact_us": {"ar": "تواصل معنا", "en": "Contact Us"},
+    "dashboard": {"ar": "لوحة التحكم", "en": "Dashboard"},
+    "logout": {"ar": "تسجيل خروج", "en": "Logout"},
+    "login": {"ar": "تسجيل الدخول", "en": "Login"},
+    "register": {"ar": "إنشاء حساب", "en": "Create Account"},
+    "theme_toggle": {"ar": "تغيير المظهر", "en": "Toggle theme"}
+  },
+
+  "footer": {
+    "quick_links": {"ar": "روابط سريعة", "en": "Quick Links"},
+    "home": {"ar": "الرئيسية", "en": "Home"},
+    "about": {"ar": "عن المنصة", "en": "About Us"},
+    "contact": {"ar": "اتصل بنا", "en": "Contact Us"},
+    "contact_info": {"ar": "معلومات الاتصال", "en": "Contact Info"},
+    "message_us": {"ar": "راسلنا", "en": "Message Us"},
+    "name_placeholder": {"ar": "الاسم", "en": "Name"},
+    "email_placeholder": {"ar": "البريد الإلكتروني", "en": "Email"},
+    "message_placeholder": {"ar": "رسالتك...", "en": "Your message..."},
+    "send": {"ar": "إرسال", "en": "Send"},
+    "rights": {"ar": "جميع الحقوق محفوظة", "en": "All rights reserved"},
+    "privacy": {"ar": "سياسة الخصوصية", "en": "Privacy Policy"},
+    "terms": {"ar": "الشروط والأحكام", "en": "Terms & Conditions"}
+  },
+
+  "hero": {
+    "badge_fallback": {"ar": "منصة تريدا أكسبو - المعرض الأول والأكبر للمدارس بالمملكة", "en": "Treeda Expo Platform — The first and largest school exhibition in the Kingdom"},
+    "title": {"ar": "مع تريدا أكسبو <br><span class=\"gradient-text\">اكتشف أفضل المدارس</span>", "en": "With Treeda Expo <br><span class=\"gradient-text\">Discover the Best Schools</span>"},
+    "desc": {"ar": "إن معرض مدارس تريدا هو المعرض الافتراضي الأول للمدارس، حيث يمنحها فرصة مميزة لعرض كافة تفاصيلها والاتصال المباشر بالفئات المهتمة.", "en": "Treeda Expo is the first virtual exhibition for schools, giving them a unique opportunity to showcase all their details and connect directly with interested parties."},
+    "browse_btn": {"ar": "استعرض المدارس", "en": "Browse Schools"},
+    "register_btn": {"ar": "سجل مدرستك الآن", "en": "Register Your School Now"},
+    "tag_interactive": {"ar": "تفاعلي", "en": "Interactive"},
+    "smart_profile": {"ar": "ملف المدرسة التعريفي الذكي", "en": "Smart School Profile"},
+    "profile_desc": {"ar": "زيارة المعالم والفصول المدرسية بدقة.", "en": "Explore school facilities and classrooms."},
+    "vr_tour": {"ar": "جولة افتراضية ٣D", "en": "3D Virtual Tour"},
+    "gallery": {"ar": "معرض وصور الأنشطة", "en": "Activities Gallery"},
+    "support_title": {"ar": "دعم وتواصل مباشر", "en": "Direct Support"},
+    "support_sub": {"ar": "تحدث مع الإدارة فوراً", "en": "Chat with management instantly"},
+    "rating_title": {"ar": "أعلى تقييم موثق", "en": "Top Documented Rating"},
+    "rating_sub": {"ar": "مدارس دولية ونموذجية مميزة", "en": "Distinguished international & exemplary schools"}
+  },
+
+  "stats": {
+    "schools": {"ar": "مدرسة مسجلة", "en": "Registered Schools"},
+    "parents": {"ar": "ولي أمر نشط", "en": "Active Parents"},
+    "photos": {"ar": "صورة للمرافق", "en": "Facility Photos"},
+    "videos": {"ar": "جولة فيديو افتراضية", "en": "Virtual Video Tours"}
+  },
+
+  "why_us": {
+    "tag": {"ar": "المزايا والخيارات المتاحة", "en": "Features & Options"},
+    "title": {"ar": "لماذا يختار الجميع تريدا أكسبو؟", "en": "Why Everyone Chooses Treeda Expo?"},
+    "desc": {"ar": "نقدم حلولاً رقمية ذكية تثري العملية التعليمية وتوفر لولي الأمر الشفافية التامة وللمدرسة الحضور الموثق القوي.", "en": "We offer smart digital solutions that enrich the educational process, provide complete transparency for parents, and give schools a strong documented presence."}
+  },
+
+  "features": [
+    {"title": {"ar": "سهولة الوصول للمدارس", "en": "Easy School Access"}, "desc": {"ar": "ابحث وقارن بين مئات المدارس في مكان واحد بفضل واجهة بحث ذكية وفلاتر متقدمة حسب الموقع، الرسوم، والمنهج.", "en": "Search and compare hundreds of schools in one place with a smart search interface and advanced filters by location, fees, and curriculum."}},
+    {"title": {"ar": "ملفات تعريف احترافية بصرية", "en": "Professional Visual Profiles"}, "desc": {"ar": "ملف تعريفي متكامل لكل مدرسة يعرض الرؤية والرسالة، الهيئة التدريسية، المناهج والاعتمادات الرسمية بنقرة واحدة.", "en": "A complete profile for each school showcasing vision, mission, teaching staff, curricula, and official accreditations with one click."}},
+    {"title": {"ar": "صور وفيديوهات عالية الجودة", "en": "High-Quality Photos & Videos"}, "desc": {"ar": "تصفح جولات افتراضية ثلاثية الأبعاد وصور حقيقية عالية الدقة للفصول، المعامل، الملاعب، والصالات الرياضية والمكتبات.", "en": "Browse 3D virtual tours and high-resolution real photos of classrooms, labs, playgrounds, sports halls, and libraries."}},
+    {"title": {"ar": "تواصل مباشر مع الإدارة", "en": "Direct Communication with Management"}, "desc": {"ar": "نظام حجز مواعيد وتواصل فوري متكامل يتيح لأولياء الأمور الاستفسار المباشر وجدولة الزيارات الميدانية دون وسيط.", "en": "Integrated appointment booking and instant communication system enabling direct inquiries and field visit scheduling without intermediaries."}},
+    {"title": {"ar": "نظام اشتراكات مرن", "en": "Flexible Subscription Plans"}, "desc": {"ar": "باقات اشتراك تناسب كافة أحجام المدارس مع توفير أدوات تسويقية متقدمة وإعلانات ممولة لتعزيز حضور مدرستكم بفعالية.", "en": "Subscription plans to suit all school sizes with advanced marketing tools and funded ads to effectively boost your school's presence."}},
+    {"title": {"ar": "تجربة استخدام ممتازة", "en": "Excellent User Experience"}, "desc": {"ar": "تصفح فائق السرعة متوافق بالكامل مع الهواتف الذكية والأجهزة اللوحية بتصميم مريح للعين يدعم الوضعين الداكن والمضيء.", "en": "Ultra-fast browsing fully compatible with smartphones and tablets with an eye-friendly design supporting both dark and light modes."}}
+  ],
+
+  "browse_features": {"ar": "تصفح الميزات", "en": "Browse features"},
+
+  "categories": {
+    "tag": {"ar": "تصفح بذكاء حسب التصنيف والاهتمام", "en": "Smart Browsing by Category"},
+    "title": {"ar": "بوابات وتصنيفات تريدا سكولز المتميزة", "en": "Treeda Schools Premium Gateways & Categories"},
+    "desc": {"ar": "اخترنا لك تصنيفات دقيقة تسهل عليك الوصول السريع للمدرسة.", "en": "We have selected precise categories to help you quickly find the right school."},
+    "top_badge": {"ar": "مؤسسة تعليمية", "en": "Educational Institution"},
+    "cta": {"ar": "تصفح", "en": "Browse"},
+    "count_prefix": {"ar": "مؤسسة تعليمية", "en": "educational institutions"},
+    "default": [
+      {"name": {"ar": "المدارس الدولية", "en": "International Schools"}, "desc": {"ar": "مدارس مرموقة تقدم مناهج أمريكية، بريطانية (IGCSE) أو IB باعتمادات عالمية.", "en": "Prestigious schools offering American, British (IGCSE), or IB curricula with global accreditations."}},
+      {"name": {"ar": "المدارس الخاصة", "en": "Private Schools"}, "desc": {"ar": "مدارس أهلية متميزة تجمع بين المناهج الوطنية القوية واللغات الأجنبية.", "en": "Distinguished private schools combining strong national curricula with foreign languages."}},
+      {"name": {"ar": "المدارس التجريبية", "en": "Experimental Schools"}, "desc": {"ar": "مدارس حكومية متميزة لغات تركز على مستوى تعليمي متطور بأسعار مناسبة.", "en": "Distinguished government language schools focusing on advanced educational levels at reasonable prices."}},
+      {"name": {"ar": "رياض الأطفال", "en": "Kindergartens"}, "desc": {"ar": "بيئات تعليمية آمنة لتنمية مهارات طفلك المبكرة برعاية متخصصة.", "en": "Safe educational environments for developing your child's early skills with specialized care."}},
+      {"name": {"ar": "الأنشطة التعليمية", "en": "Educational Activities"}, "desc": {"ar": "نوادٍ ومراكز تقدم أنشطة رياضية، برمجية، فنية لصقل مواهب الطلاب.", "en": "Clubs and centers offering sports, programming, and artistic activities to hone students' talents."}},
+      {"name": {"ar": "مراكز التدريب", "en": "Training Centers"}, "desc": {"ar": "مراكز متخصصة في تدريب الطلاب لاختبارات القبول واللغات.", "en": "Specialized centers for training students on admission tests and languages."}}
+    ]
+  },
+
+  "featured_schools": {
+    "tag": {"ar": "عرض المدارس المميزة والمعتمدة", "en": "Featured & Accredited Schools"},
+    "title": {"ar": "اختر البيئة التعليمية المثالية", "en": "Choose the Ideal Learning Environment"},
+    "desc": {"ar": "تصفح قائمة المدارس المعتمدة لدينا، قارن بين المناهج، الرسوم والخدمات.", "en": "Browse our accredited schools list, compare curricula, fees, and services."},
+    "trust_badge": {"ar": "ثقة معتمدة", "en": "Trusted"},
+    "view_btn": {"ar": "عرض التفاصيل والجولة الذكية", "en": "View Details & Smart Tour"},
+    "empty_title": {"ar": "لا توجد مدارس مميزة بعد", "en": "No featured schools yet"},
+    "empty_desc": {"ar": "قم بتسجيل مدرستك الآن", "en": "Register your school now"}
+  },
+
+  "gallery": {
+    "tag": {"ar": "الأنشطة المدرسية اليومية والفعاليات", "en": "Daily School Activities & Events"},
+    "title": {"ar": "معرض الأنشطة والتفاعلات الحية", "en": "Activities & Live Interactions Gallery"},
+    "desc": {"ar": "لقطات حية من نبض الحياة الدراسية اليومية والمعامل والأنشطة.", "en": "Live snapshots of daily school life, labs, and activities."},
+    "default_tag": {"ar": "نشاط مدرسي", "en": "School Activity"},
+    "items": [
+      {"tag": {"ar": "المعامل والمختبرات", "en": "Labs & Science Rooms"}, "title": {"ar": "طلاب في مختبر العلوم الحديث", "en": "Students in the Modern Science Lab"}, "school": {"ar": "مدارس النخبة العالمية", "en": "Elite International Schools"}},
+      {"tag": {"ar": "المكتبات والمطالعة", "en": "Libraries & Reading"}, "title": {"ar": "حصة قراءة ممتعة داخل المكتبة الذكية", "en": "Enjoyable Reading Session in the Smart Library"}, "school": {"ar": "أكاديمية المستقبل", "en": "Future Academy"}},
+      {"tag": {"ar": "الفصول الدراسية", "en": "Classrooms"}, "title": {"ar": "العمل الجماعي التفاعلي في فصول اللغات", "en": "Interactive Group Work in Language Classes"}, "school": {"ar": "أكاديمية المعرفة النموذجية", "en": "Model Knowledge Academy"}},
+      {"tag": {"ar": "الأنشطة المدرسية", "en": "School Activities"}, "title": {"ar": "أنشطة الرسم وتطوير المواهب الفنية", "en": "Drawing Activities & Artistic Talent Development"}, "school": {"ar": "روضة أزهار الغد", "en": "Tomorrow's Flowers Kindergarten"}},
+      {"tag": {"ar": "الفعاليات", "en": "Events"}, "title": {"ar": "حفل تخرج وتكريم الفائزين بالمسابقات", "en": "Graduation Ceremony & Competition Winners"}, "school": {"ar": "رواد العلوم الدولية", "en": "International Science Pioneers"}},
+      {"tag": {"ar": "الفعاليات", "en": "Events"}, "title": {"ar": "أولياء أمور يتعرفون على المنظومات المدرسية", "en": "Parents Learning About School Systems"}, "school": {"ar": "أكاديمية المعرفة النموذجية", "en": "Model Knowledge Academy"}}
+    ]
+  },
+
+  "steps": {
+    "tag": {"ar": "بساطة الاستخدام وكفاءة التقديم", "en": "Simplicity & Efficiency"},
+    "title": {"ar": "كيف تعمل منصة تريدا أكسبو؟", "en": "How Does Treeda Expo Work?"},
+    "desc": {"ar": "سهلنا كافة الخطوات والعمليات لكلا الطرفين لنصل معاً إلى الرضا والتسجيل التام.", "en": "We have simplified all steps and processes for both parties to achieve complete satisfaction and enrollment."},
+    "step_cta": {"ar": "تفاصيل", "en": "Details"},
+    "items": [
+      {"title": {"ar": "التسجيل السريع والأمن", "en": "Quick & Secure Registration"}, "desc": {"ar": "أولياء أمور ينشئون حساباً مجانياً باستخدام الهاتف أو البريد الإلكتروني في أقل من ٣٠ ثانية.", "en": "Parents create a free account using phone or email in less than 30 seconds."}, "tag": {"ar": "إجراء فوري", "en": "Instant Process"}},
+      {"title": {"ar": "البحث والفرز الذكي", "en": "Smart Search & Filtering"}, "desc": {"ar": "استخدم محرك البحث والفلاتر الفائقة لتصفية المدارس بناء على المناهج، الرسوم، والموقع.", "en": "Use the search engine and advanced filters to filter schools by curriculum, fees, and location."}, "tag": {"ar": "فرز متقدم", "en": "Advanced Filtering"}},
+      {"title": {"ar": "الجولة الميدانية والتواصل", "en": "Virtual Tour & Communication"}, "desc": {"ar": "شاهد الجولات الافتراضية ثلاثية الأبعاد وتواصل مباشر أو احجز موعد زيارة بضغطة زر.", "en": "Watch 3D virtual tours and contact directly or book a visit appointment with one click."}, "tag": {"ar": "تأكيد فوري", "en": "Instant Confirmation"}}
+    ]
+  },
+
+  "pricing": {
+    "tag": {"ar": "قيمة حقيقية وحضور رقمي متطور", "en": "Real Value & Advanced Digital Presence"},
+    "title": {"ar": "استثمر في حضور مدرستكم الرقمي", "en": "Invest in Your School's Digital Presence"},
+    "desc": {"ar": "باقات اشتراك مرنة وعادلة صممت لتلبي احتياجات المدارس من مختلف الأحجام.", "en": "Flexible and fair subscription plans designed to meet the needs of schools of all sizes."},
+    "currency": {"ar": "دولار /", "en": "$ /"},
+    "monthly": {"ar": "شهرياً", "en": "/month"},
+    "features_label": {"ar": "مزايا الباقة:", "en": "Plan Features:"},
+    "subscribe": {"ar": "اشترك الآن", "en": "Subscribe Now"},
+    "start_free": {"ar": "ابدأ مجاناً", "en": "Start Free"},
+    "footnote": {"ar": "إلغاء متاح • تفعيل فوري", "en": "Cancel anytime • Instant activation"},
+    "badge_popular": {"ar": "الأكثر طلباً", "en": "Most Popular"},
+    "plan_desc": {"ar": "مثالية للمدارس التي تتطلع لبناء حضورها الرقمي", "en": "Ideal for schools looking to build their digital presence"},
+    "default_plans": [
+      {"name": {"ar": "الباقة البرونزية", "en": "Bronze Plan"}, "desc": {"ar": "مثالية للمدارس الناشئة", "en": "Ideal for emerging schools"}, "features": [{"ar": "ملف تعريفي متكامل", "en": "Complete profile"}, {"ar": "معرض صور محدود (15 صورة)", "en": "Limited image gallery (15 images)"}, {"ar": "طلبات التواصل المباشر", "en": "Direct contact requests"}, {"ar": "ظهور متوسط بالبحث", "en": "Standard search ranking"}, {"ar": "دعم فني عبر البريد", "en": "Email support"}]},
+      {"name": {"ar": "الباقة الذهبية", "en": "Gold Plan"}, "desc": {"ar": "الخيار الأمثل للمدارس الخاصة", "en": "Best choice for private schools"}, "features": [{"ar": "ملف احترافي بشارة ذهبية", "en": "Professional profile with gold badge"}, {"ar": "صور وفيديوهات بلا حدود", "en": "Unlimited photos & videos"}, {"ar": "حجز مواعيد واستشارة", "en": "Appointment booking & consultation"}, {"ar": "لوحة تحليل الزوار", "en": "Visitor analytics dashboard"}, {"ar": "ظهور متميز بالصفحة الأولى", "en": "Featured front-page placement"}, {"ar": "إشعارات واتساب وفورية", "en": "WhatsApp & instant notifications"}, {"ar": "دعم فني 24/7", "en": "24/7 support"}]},
+      {"name": {"ar": "الباقة الماسية", "en": "Diamond Plan"}, "desc": {"ar": "حل متكامل للمجموعات التعليمية", "en": "Complete solution for educational groups"}, "features": [{"ar": "كافة مزايا الذهبية", "en": "All Gold features"}, {"ar": "حملة ممولة شهرية", "en": "Monthly funded campaign"}, {"ar": "تصوير احترافي للمقر", "en": "Professional facility photography"}, {"ar": "دمج ERP/CRM", "en": "ERP/CRM integration"}, {"ar": "شارة VIP", "en": "VIP badge"}, {"ar": "فريق تعديل يدوي", "en": "Manual editing team"}, {"ar": "خصم للفروع المتعددة", "en": "Branch discounts"}]}
+    ],
+    "image_text": {"ar": "صورة", "en": "image"},
+    "video_text": {"ar": "فيديو", "en": "video"},
+    "mb_text": {"ar": "ميجابايت", "en": "MB"}
+  },
+
+  "testimonials": {
+    "tag": {"ar": "تجارب قادة نجاح ملهمة", "en": "Inspiring Success Stories"},
+    "title": {"ar": "قالوا عن منصة تريدا أكسبو", "en": "What They Say About Treeda Expo"},
+    "desc": {"ar": "آراء حقيقية من شركاء النجاح من قادة المدارس وأولياء الأمور.", "en": "Real opinions from success partners — school leaders and parents."},
+    "text": {"ar": "لقد وفرت لنا منصة تريدا أكسبو قناة تسويقية مذهلة. تمكنا من استقبال أكثر من ٣٥٠ طلب حجز وزيارة مدرسة في غضون شهرين فقط من التسجيل في الباقة الذهبية.", "en": "Treeda Expo provided us with an amazing marketing channel. We received over 350 booking requests and school visits within just two months of registering for the Gold plan."},
+    "author_name": {"ar": "أ. عبد الرحمن السديري", "en": "Abdulrahman Al-Sudairi"},
+    "author_role": {"ar": "مدير عام مجمع مدارس النخبة العالمية", "en": "General Manager, Elite International Schools"}
+  },
+
+  "faq": {
+    "tag": {"ar": "مركز المعلومات والمساعدة", "en": "Information & Help Center"},
+    "title": {"ar": "الأسئلة الشائعة والإجابات", "en": "Frequently Asked Questions"},
+    "desc": {"ar": "تصفح الإجابات عن الأسئلة المكررة من ممثلي المدارس وأولياء الأمور.", "en": "Browse answers to common questions from school representatives and parents."},
+    "items": [
+      {"q": {"ar": "كيف يمكنني كولي أمر البحث والمقارنة بين المدارس مجاناً؟", "en": "How can I, as a parent, search and compare schools for free?"}, "a": {"ar": "البحث والفلترة وتصفح ملفات المدارس وجولاتها ثلاثية الأبعاد مجاني تماماً لأولياء الأمور.", "en": "Searching, filtering, and browsing school profiles and 3D tours is completely free for parents."}},
+      {"q": {"ar": "أنا مدير مدرسة، كيف أسجل مدرستنا في تريدا أكسبو؟", "en": "I'm a school principal, how do I register our school in Treeda Expo?"}, "a": {"ar": "يمكنك التسجيل عبر \"سجل مدرستك الآن\" واختيار الباقة المناسبة. سيفعل حسابك خلال ٢٤ ساعة.", "en": "You can register via 'Register Your School Now' and choose the appropriate plan. Your account will be activated within 24 hours."}},
+      {"q": {"ar": "هل تدعم المنصة ربط البيانات مع CRM/ERP؟", "en": "Does the platform support data integration with CRM/ERP?"}, "a": {"ar": "نعم، الباقة الماسية تدعم التكامل المباشر مع أنظمة ERP و CRM. تواصل مع فريق الدعم للتفاصيل.", "en": "Yes, the Diamond plan supports direct integration with ERP and CRM systems. Contact support for details."}},
+      {"q": {"ar": "هل يمكنني ترقية الباقة أو تخفيضها لاحقاً؟", "en": "Can I upgrade or downgrade my plan later?"}, "a": {"ar": "بالتأكيد، يمكنك الترقية أو التخفيض في أي وقت ويطبق التغيير فوراً.", "en": "Absolutely, you can upgrade or downgrade at any time and the change takes effect immediately."}},
+      {"q": {"ar": "ما هي طرق الدفع المتاحة؟", "en": "What payment methods are available?"}, "a": {"ar": "ندعم البطاقات الائتمانية (Visa, Mastercard)، التحويل البنكي، ومحافظ الدفع الإلكتروني.", "en": "We support credit cards (Visa, Mastercard), bank transfer, and digital wallets."}}
+    ],
+    "cta_text": {"ar": "لديك سؤال؟", "en": "Have a question?"},
+    "cta_link": {"ar": "راسلنا", "en": "Contact us"}
+  },
+
+  "cta": {
+    "tag": {"ar": "فرصة انطلاقة ذكية", "en": "Smart Launch Opportunity"},
+    "title": {"ar": "هل أنت جاهز لرسم مستقبل طفلك بذكاء؟", "en": "Ready to Shape Your Child's Future Smartly?"},
+    "desc": {"ar": "سواء كنت مدير مؤسسة تعليمية أو ولي أمر، مكانكم هو تريدا أكسبو.", "en": "Whether you're a school principal or a parent, Treeda Expo is your place."},
+    "school_btn": {"ar": "سجل مدرستك", "en": "Register Your School"},
+    "browse_btn": {"ar": "استعرض المدارس", "en": "Browse Schools"},
+    "footnote": {"ar": "لا توجد رسوم مخفية", "en": "No hidden fees"}
+  },
+
+  "schools_page": {
+    "title": {"ar": "جميع <span>المدارس</span>", "en": "All <span>Schools</span>"},
+    "desc": {"ar": "تصفح وابحث عن المدارس المسجلة في المنصة", "en": "Browse and search for registered schools"},
+    "search_placeholder": {"ar": "ابحث عن مدرسة...", "en": "Search for a school..."},
+    "all_cities": {"ar": "جميع المدن", "en": "All Cities"},
+    "all_types": {"ar": "جميع الأنواع", "en": "All Types"},
+    "all_genders": {"ar": "جميع الطلاب", "en": "All Genders"},
+    "government": {"ar": "حكومية", "en": "Government"},
+    "private": {"ar": "أهلية", "en": "Private"},
+    "international": {"ar": "دولية", "en": "International"},
+    "quran": {"ar": "تحفيظ قرآن", "en": "Quran"},
+    "male": {"ar": "بنين", "en": "Boys"},
+    "female": {"ar": "بنات", "en": "Girls"},
+    "both": {"ar": "مشترك", "en": "Mixed"},
+    "view_profile": {"ar": "عرض الملف الشخصي", "en": "View Profile"},
+    "no_results": {"ar": "لا توجد نتائج للبحث", "en": "No results found"},
+    "featured": {"ar": "مميزة", "en": "Featured"}
+  },
+
+  "school_type_fallback": {"ar": "مدارس خاصة", "en": "Private Schools"},
+  "city_fallback": {"ar": "الرياض", "en": "Riyadh"},
+
+  "chat": {
+    "title": {"ar": "المساعد الذكي - تريدا أكسبو", "en": "AI Assistant - Treeda Expo"},
+    "placeholder": {"ar": "اكتب سؤالك هنا...", "en": "Type your question here..."}
+  },
+
+  "contact": {
+    "page_title": {"ar": "اتصل بنا", "en": "Contact Us"},
+    "title": {"ar": "اتصل <span>بنا</span>", "en": "Contact <span>Us</span>"},
+    "subtitle": {"ar": "نحن هنا للإجابة على استفساراتك", "en": "We are here to answer your inquiries"},
+    "name": {"ar": "الاسم", "en": "Name"},
+    "name_placeholder": {"ar": "اسمك الكامل", "en": "Your Full Name"},
+    "email": {"ar": "البريد الإلكتروني", "en": "Email"},
+    "subject": {"ar": "الموضوع", "en": "Subject"},
+    "subject_placeholder": {"ar": "عنوان الرسالة", "en": "Message Title"},
+    "message": {"ar": "الرسالة", "en": "Message"},
+    "message_placeholder": {"ar": "اكتب رسالتك هنا...", "en": "Write your message here..."},
+    "send": {"ar": "إرسال", "en": "Send"},
+    "sent_ok": {"ar": "تم إرسال رسالتك بنجاح، سنتواصل معك قريباً", "en": "Your message has been sent successfully. We will get back to you soon."},
+    "sent_error": {"ar": "حدث خطأ أثناء الإرسال، حاول مرة أخرى", "en": "An error occurred while sending. Please try again."}
+  },
+
+  "back_to_top": {"ar": "الرجوع للأعلى", "en": "Back to top"},
+  "lang_switch": {"ar": "English", "en": "العربية"},
+  "site_title_suffix": {"ar": "نافذتك لعالم التعليم", "en": "Your Window to Education"},
+
+  "auth": {
+    "login_title": {"ar": "تسجيل الدخول", "en": "Login"},
+    "login_side_desc": {"ar": "منصة المعرض الإلكتروني للمدارس — اكتشف، تواصل، واختر أفضل المدارس لأبنائك.", "en": "The virtual school exhibition platform — discover, connect, and choose the best schools for your children."},
+    "feature_discover": {"ar": "اكتشف مدارس متميزة", "en": "Discover Distinguished Schools"},
+    "feature_connect": {"ar": "تواصل مباشر مع المدارس", "en": "Direct Communication with Schools"},
+    "feature_tour": {"ar": "جولات افتراضية ثلاثية الأبعاد", "en": "3D Virtual Tours"},
+    "welcome_back": {"ar": "مرحباً بعودتك", "en": "Welcome Back"},
+    "login_subtitle": {"ar": "سجل دخولك للوصول إلى لوحة التحكم", "en": "Log in to access your dashboard"},
+    "email": {"ar": "البريد الإلكتروني", "en": "Email"},
+    "email_placeholder": {"ar": "admin@mazadplus.com", "en": "admin@mazadplus.com"},
+    "password": {"ar": "كلمة المرور", "en": "Password"},
+    "password_placeholder": {"ar": "••••••••", "en": "••••••••"},
+    "remember": {"ar": "تذكرني", "en": "Remember Me"},
+    "or": {"ar": "أو", "en": "Or"},
+    "no_account": {"ar": "ليس لديك حساب؟", "en": "Don't have an account?"},
+    "register_school": {"ar": "تسجيل مدرسة", "en": "Register School"},
+    "register_parent": {"ar": "تسجيل ولي أمر", "en": "Register as Parent"},
+    "register_parent_title": {"ar": "تسجيل ولي أمر", "en": "Parent Registration"},
+    "register_school_title": {"ar": "تسجيل مدرسة", "en": "School Registration"},
+    "create_parent_account": {"ar": "إنشاء حساب ولي أمر", "en": "Create Parent Account"},
+    "register_parent_subtitle": {"ar": "سجل لمشاهدة المدارس والتواصل معها", "en": "Sign up to browse schools and connect"},
+    "register_school_heading": {"ar": "تسجيل مدرسة جديدة", "en": "New School Registration"},
+    "register_school_subtitle": {"ar": "انضم إلى المنصة واعرض خدماتك", "en": "Join the platform and showcase your services"},
+    "full_name": {"ar": "الاسم الكامل", "en": "Full Name"},
+    "full_name_placeholder": {"ar": "الاسم ثلاثي", "en": "Your Full Name"},
+    "phone": {"ar": "رقم الجوال", "en": "Phone Number"},
+    "phone_placeholder": {"ar": "05xxxxxxxx", "en": "05xxxxxxxx"},
+    "optional": {"ar": "اختياري", "en": "Optional"},
+    "children_count": {"ar": "عدد الأبناء", "en": "Number of Children"},
+    "confirm_password": {"ar": "تأكيد كلمة المرور", "en": "Confirm Password"},
+    "confirm_password_placeholder": {"ar": "••••••••", "en": "••••••••"},
+    "have_account": {"ar": "لديك حساب بالفعل؟", "en": "Already have an account?"},
+    "login_link": {"ar": "تسجيل دخول", "en": "Login"},
+    "register_as_school": {"ar": "التسجيل كـ مدرسة", "en": "Register as School"},
+    "register_as_parent": {"ar": "التسجيل كـ ولي أمر", "en": "Register as Parent"},
+    "school_name": {"ar": "اسم المدرسة", "en": "School Name"},
+    "school_name_placeholder": {"ar": "الاسم الكامل للمدرسة", "en": "Full School Name"},
+    "school_email_placeholder": {"ar": "school@email.com", "en": "school@email.com"},
+    "plan": {"ar": "الباقة", "en": "Plan"},
+    "register_side_desc": {"ar": "انضم إلى آلاف الأولياء وابحث عن المدرسة المثالية لأبنائك بكل سهولة.", "en": "Join thousands of parents and find the perfect school for your children with ease."},
+    "school_side_desc": {"ar": "انضم إلى منصة المعرض الإلكتروني واعرض مدرستك أمام آلاف الأولياء.", "en": "Join the virtual exhibition platform and showcase your school to thousands of parents."},
+    "school_feature_showcase": {"ar": "عرض افتراضي ثلاثي الأبعاد", "en": "3D Virtual Showcase"},
+    "school_feature_analytics": {"ar": "تحليلات متقدمة للزيارات", "en": "Advanced Visit Analytics"},
+    "school_feature_support": {"ar": "دعم فني متواصل", "en": "Continuous Technical Support"},
+    "forgot_password": {"ar": "نسيت كلمة المرور؟", "en": "Forgot Password?"},
+    "forgot_heading": {"ar": "نسيت كلمة المرور؟", "en": "Forgot Password?"},
+    "forgot_subtitle": {"ar": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.", "en": "Enter your email and we'll send you a reset link."},
+    "send_reset_link": {"ar": "إرسال رابط إعادة التعيين", "en": "Send Reset Link"},
+    "back_to_login": {"ar": "العودة إلى تسجيل الدخول", "en": "Back to Login"}
+  }
+}

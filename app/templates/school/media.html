@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+{% block title %}الوسائط - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "school/sidebar.html" %}
+    <div class="admin-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold"><i class="bi bi-images"></i> الوسائط</h4>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('school.media') }}?type=image" class="btn btn-sm btn-outline-primary">صور</a>
+                <a href="{{ url_for('school.media') }}?type=video" class="btn btn-sm btn-outline-secondary">فيديو</a>
+                <a href="{{ url_for('school.media') }}" class="btn btn-sm btn-outline-dark">الكل</a>
+            </div>
+        </div>
+
+        {% if perms and perms.has_plan %}
+        <div class="row g-2 mb-4">
+            <div class="col-md-4 col-6">
+                <div class="modern-card p-3 text-center">
+                    <small class="text-secondary">الصور</small>
+                    <h5 class="fw-bold mb-0 text-primary">{{ perms.images_used }}/{{ perms.images_max }}</h5>
+                    <small class="text-success">{{ perms.remaining_images }} متبقي</small>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="modern-card p-3 text-center">
+                    <small class="text-secondary">الفيديوهات</small>
+                    <h5 class="fw-bold mb-0 text-secondary">{{ perms.videos_used }}/{{ perms.videos_max }}</h5>
+                    <small class="text-success">{{ perms.remaining_videos }} متبقي</small>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="modern-card p-3 text-center">
+                    <small class="text-secondary">التخزين</small>
+                    <h5 class="fw-bold mb-0 text-success">{{ perms.storage_used }}/{{ perms.storage_max }}</h5>
+                    <small class="text-success">{{ perms.remaining_storage }}MB متبقي</small>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="modern-card p-4 mb-4">
+            <form method="POST" action="{{ url_for('school.upload_media') }}" enctype="multipart/form-data" class="modern-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="upload-area" id="uploadArea">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <h5 class="mt-3">ارفع صور أو فيديوهات</h5>
+                    <p class="text-secondary upload-label">اسحب وأفلت الملفات هنا أو اضغط للاختيار</p>
+                    <input type="file" name="file" class="d-none" accept="image/*,video/*">
+                </div>
+            </form>
+        </div>
+
+        <div class="row g-3">
+            {% for item in media %}
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="gallery-item" style="aspect-ratio:1;">
+                    {% if item.media_type == 'image' %}
+                    <img src="{{ url_for('static', filename='uploads/media/' + item.filename) }}" alt="">
+                    {% else %}
+                    <video src="{{ url_for('static', filename='uploads/media/' + item.filename) }}"></video>
+                    {% endif %}
+                    <div class="gallery-overlay flex-column">
+                        <span class="badge-status badge-{{ item.status }} mb-2">
+                            {% if item.status == 'pending' %}قيد المراجعة
+                            {% elif item.status == 'approved' %}مقبول
+                            {% else %}مرفوض{% endif %}
+                        </span>
+                        <form method="POST" action="{{ url_for('school.delete_media', id=item.id) }}" class="delete-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-image" style="font-size:3rem;color:var(--text-secondary);"></i>
+                <p class="text-secondary mt-3">لا توجد وسائط بعد. ارفع أول ملف!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

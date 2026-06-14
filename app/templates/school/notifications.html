@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% block title %}الإشعارات - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "school/sidebar.html" %}
+    <div class="admin-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold"><i class="bi bi-bell"></i> الإشعارات</h4>
+            <form method="POST" action="{{ url_for('school.read_all_notifications') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-check2-all"></i> تحديد الكل كمقروء</button>
+            </form>
+        </div>
+        <div class="modern-card p-0">
+            {% for notif in notifications %}
+            <div class="p-4 border-bottom {% if not notif.is_read %}" style="background:rgba(99,102,241,0.03);{% endif %}">
+                <div class="d-flex gap-3 align-items-start">
+                    <div style="width:40px;height:40px;border-radius:10px;background:rgba(99,102,241,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;">
+                        <i class="bi bi-bell"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-1">{{ notif.title }}</h6>
+                        <p class="text-secondary mb-1 small">{{ notif.message }}</p>
+                        <small class="text-muted">{{ notif.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                    </div>
+                    {% if not notif.is_read %}
+                    <a href="{{ url_for('school.read_notification', id=notif.id) }}" class="btn btn-sm btn-outline-primary">قراءة</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-5"><p class="text-secondary">لا توجد إشعارات</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

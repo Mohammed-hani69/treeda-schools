@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% block title %}المستخدمين - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-person-badge"></i> إدارة المستخدمين</h4>
+                <p>جميع مستخدمي المنصة</p>
+            </div>
+        </div>
+        <div class="modern-card">
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead><tr><th>المستخدم</th><th>البريد</th><th>الدور</th><th>الحالة</th><th>آخر دخول</th><th>الإجراءات</th></tr></thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td><div class="user-cell"><div class="user-info"><strong>{{ user.username }}</strong></div></div></td>
+                            <td><small>{{ user.email }}</small></td>
+                            <td>{% if user.role == 'admin' %}<span class="badge-status badge-approved">أدمن</span>{% elif user.role == 'school' %}<span class="badge-status badge-pending">مدرسة</span>{% else %}<span class="badge-status" style="background:rgba(99,102,241,0.12);color:#6366f1;">ولي أمر</span>{% endif %}</td>
+                            <td>{% if user.is_active %}<span class="badge-status badge-approved">نشط</span>{% else %}<span class="badge-status badge-inactive">موقوف</span>{% endif %}</td>
+                            <td><small>{{ user.last_login.strftime('%Y-%m-%d') if user.last_login else '-' }}</small></td>
+                            <td><div class="table-actions"><form method="POST" action="{{ url_for('admin.toggle_user', id=user.id) }}" class="delete-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="btn btn-sm btn-{% if user.is_active %}danger{% else %}success{% endif %}"><i class="bi bi-{% if user.is_active %}pause-fill{% else %}play-fill{% endif %}"></i></button></form></div></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="6"><div class="empty-state"><i class="bi bi-person-badge"></i><h5>لا يوجد مستخدمين</h5></div></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
