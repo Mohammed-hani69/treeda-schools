@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from app import create_app, db
 from app.models.user import User
-from app.models.home import HeroSection, HomeSection
+from app.models.home import HeroSection
 from app.models.home_content import Feature, Stat, Step, Testimonial, FaqItem
 from app.models.plan import Plan
 from app.models.category import Category
@@ -52,38 +52,6 @@ with app.app_context():
         print('✅ HeroSection created successfully!')
     else:
         print('ℹ️  HeroSection already exists.')
-
-    # ── HomeSection (built-in) ─────────────────────────────
-    builtin_sections = [
-        ('builtin_hero', 'القسم الرئيسي', 'Hero', 10),
-        ('builtin_stats', 'الإحصائيات', 'Stats', 20),
-        ('builtin_features', 'لماذا نحن', 'Why Us', 30),
-        ('builtin_categories', 'أقسام المدارس', 'School Categories', 40),
-        ('builtin_featured_schools', 'المدارس المميزة', 'Featured Schools', 50),
-        ('builtin_gallery', 'معرض الصور', 'Gallery', 60),
-        ('builtin_steps', 'خطوات العمل', 'How It Works', 70),
-        ('builtin_pricing', 'الباقات والأسعار', 'Pricing Plans', 80),
-        ('builtin_testimonials', 'توصيات أولياء الأمور', 'Testimonials', 90),
-        ('builtin_faq', 'الأسئلة الشائعة', 'FAQ', 100),
-        ('builtin_cta', 'دعوة للتسجيل', 'Call to Action', 110),
-    ]
-
-    for section_type, title_ar, title_en, sort_order in builtin_sections:
-        existing = HomeSection.query.filter_by(section_type=section_type).first()
-        if not existing:
-            section = HomeSection(
-                section_type=section_type,
-                title=title_en,
-                title_ar=title_ar,
-                sort_order=sort_order,
-                is_active=True,
-                padding_top=60,
-                padding_bottom=60
-            )
-            db.session.add(section)
-            print(f'✅ HomeSection "{section_type}" created!')
-        else:
-            print(f'ℹ️  HomeSection "{section_type}" already exists.')
 
     # ── Categories ─────────────────────────────────────────
     categories_data = [

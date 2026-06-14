@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, abort, current_app, redirect, url_for, session, request, flash
 from flask_mail import Message
 from app import db, mail
-from app.models.home import HeroSection, HomeSection
-from app.models.home_content import Feature, Stat, GalleryItem, Step, Testimonial, FaqItem
+from app.models.home import HeroSection
 from app.models.category import Category
 from app.models.school import School
 from app.models.plan import Plan
@@ -18,27 +17,15 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     hero = HeroSection.query.filter_by(is_active=True).first()
-    sections = HomeSection.query.filter_by(is_active=True).order_by(HomeSection.sort_order).all()
     categories = Category.query.filter_by(is_active=True).order_by(Category.sort_order).all()
     featured_schools = School.query.filter_by(is_featured=True, is_approved=True, is_active=True)\
         .order_by(desc(School.views)).limit(6).all()
     plans = Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()
-    features = Feature.query.filter_by(is_active=True).order_by(Feature.sort_order).all()
-    stats = Stat.query.filter_by(is_active=True).order_by(Stat.sort_order).all()
-    gallery_items = GalleryItem.query.filter_by(is_active=True).order_by(GalleryItem.sort_order).all()
-    steps = Step.query.filter_by(is_active=True).order_by(Step.sort_order).all()
-    testimonials = Testimonial.query.filter_by(is_active=True).order_by(Testimonial.created_at.desc()).all()
-    faqs = FaqItem.query.filter_by(is_active=True).order_by(FaqItem.sort_order).all()
     return render_template('main/index.html',
-                         hero=hero, sections=sections,
+                         hero=hero,
                          categories=categories,
                          featured_schools=featured_schools,
-                         plans=plans,
-                         features=features, stats=stats,
-                         gallery_items=gallery_items,
-                         steps=steps,
-                         testimonials=testimonials,
-                         faqs=faqs)
+                         plans=plans)
 
 
 @main_bp.route('/lang/<lang>')

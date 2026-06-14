@@ -3,11 +3,9 @@
 
 {% block content %}
 
-{% for section in sections %}
-{% if section.section_type == 'builtin_hero' %}
 {# ═══════════════════ HERO ═══════════════════ #}
 {% if hero %}
-<section class="hero-section" id="hero" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+<section class="hero-section" id="hero">
   <div class="hero-bg-blur"></div>
   <div class="hero-bg-blur-2"></div>
   <div class="container position-relative" style="z-index:2;">
@@ -66,7 +64,7 @@
   </div>
 </section>
 {% else %}
-<section class="hero-section" id="hero" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+<section class="hero-section" id="hero">
   <div class="hero-bg-blur"></div>
   <div class="hero-bg-blur-2"></div>
   <div class="container position-relative" style="z-index:2;">
@@ -116,112 +114,15 @@
 </section>
 {% endif %}
 
-{% elif section.section_type == 'builtin_stats' %}
-{# ═══════════════════ STATS ═══════════════════ #}
-<section class="stats-bar" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
-  <div class="stats-bar-inner">
-    <div class="row g-3">
-      {% if stats %}
-      {% for s in stats %}
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-{{ s.icon }}"></i></div>
-          <div class="stat-number">{{ s.value }}</div>
-          <div class="stat-label">{{ s.label_en if current_lang == 'en' and s.label_en else s.label }}</div>
-        </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="col-6 col-lg-3" data-aos="fade-up">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-mortarboard"></i></div>
-          <div class="stat-number">{{ featured_schools|length * 30 + 100 if featured_schools else '250' }}+</div>
-          <div class="stat-label">{{ _('stats.schools') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-people"></i></div>
-          <div class="stat-number">15,000+</div>
-          <div class="stat-label">{{ _('stats.parents') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-images"></i></div>
-          <div class="stat-number">8,500+</div>
-          <div class="stat-label">{{ _('stats.photos') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-camera-video"></i></div>
-          <div class="stat-number">1,200+</div>
-          <div class="stat-label">{{ _('stats.videos') }}</div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{% elif section.section_type == 'builtin_features' %}
-{# ═══════════════════ FEATURES ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
-  <div class="container">
-    <div class="section-header-custom" data-aos="fade-up">
-      <span class="section-tag">{{ _('why_us.tag') }}</span>
-      <h2>{{ _('why_us.title') }}</h2>
-      <p>{{ _('why_us.desc') }}</p>
-    </div>
-    <div class="row g-4">
-      {% if features %}
-      {% for f in features %}
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
-        <div class="feature-card">
-          <div class="accent-line"></div>
-          <div class="icon"><i class="bi bi-{{ f.icon }}"></i></div>
-          <h3>{{ f.title_en if current_lang == 'en' and f.title_en else f.title }}</h3>
-          <p>{{ f.description_en if current_lang == 'en' and f.description_en else f.description }}</p>
-          <div class="card-cta">{{ _('browse_features') }} <i class="bi bi-chevron-right"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      {% set features_default = [
-        {'icon':'search','tk':'features.0'},
-        {'icon':'file-earmark-text','tk':'features.1'},
-        {'icon':'camera','tk':'features.2'},
-        {'icon':'chat-dots','tk':'features.3'},
-        {'icon':'credit-card','tk':'features.4'},
-        {'icon':'stars','tk':'features.5'}
-      ] %}
-      {% for f in features_default %}
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
-        <div class="feature-card">
-          <div class="accent-line"></div>
-          <div class="icon"><i class="bi bi-{{ f.icon }}"></i></div>
-          <h3>{{ _(f.tk ~ '.title') }}</h3>
-          <p>{{ _(f.tk ~ '.desc') }}</p>
-          <div class="card-cta">{{ _('browse_features') }} <i class="bi bi-chevron-right"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{% elif section.section_type == 'builtin_categories' %}
 {# ═══════════════════ CATEGORIES ═══════════════════ #}
-<section class="py-4" id="categories" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+{% if categories %}
+<section class="py-4" id="categories">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('categories.tag') }}</span>
       <h2>{{ _('categories.title') }}</h2>
       <p>{{ _('categories.desc') }}</p>
     </div>
-    {% if categories %}
     <div class="row g-4">
       {% for cat in categories %}
       <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
@@ -238,45 +139,19 @@
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    <div class="row g-4">
-      {% set default_cats = [
-        {'tk':'categories.default.0','img':'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop','count':'84'},
-        {'tk':'categories.default.1','img':'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop','count':'112'},
-        {'tk':'categories.default.2','img':'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop','count':'45'},
-        {'tk':'categories.default.3','img':'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop','count':'95'},
-        {'tk':'categories.default.4','img':'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop','count':'36'},
-        {'tk':'categories.default.5','img':'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600&auto=format&fit=crop','count':'28'}
-      ] %}
-      {% for cat in default_cats %}
-      <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
-        <a href="{{ url_for('auth.register_parent') if not current_user.is_authenticated else url_for('parent.schools') }}" class="category-card-modern d-block">
-          <div class="bg-image" style="background-image:url('{{ cat.img }}');"></div>
-          <div class="overlay"></div>
-          <span class="top-badge">{{ cat.count }} {{ _('categories.count_prefix') }}</span>
-          <div class="bottom-content">
-            <h3>{{ _(cat.tk ~ '.name') }}</h3>
-            <p>{{ _(cat.tk ~ '.desc') }}</p>
-            <div class="hover-cta">{{ _('categories.cta') }} <i class="bi bi-chevron-right"></i></div>
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-    {% endif %}
   </div>
 </section>
+{% endif %}
 
-{% elif section.section_type == 'builtin_featured_schools' %}
 {# ═══════════════════ FEATURED SCHOOLS ═══════════════════ #}
-<section class="py-4" id="featured-schools" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+{% if featured_schools %}
+<section class="py-4" id="featured-schools" style="background:var(--surface-secondary);">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('featured_schools.tag') }}</span>
       <h2>{{ _('featured_schools.title') }}</h2>
       <p>{{ _('featured_schools.desc') }}</p>
     </div>
-    {% if featured_schools %}
     <div class="row g-4">
       {% for school in featured_schools %}
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
@@ -310,131 +185,19 @@
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    <div class="text-center py-4" data-aos="fade-up">
-      <div style="font-size:3rem;color:var(--text-tertiary);margin-bottom:0.5rem;"><i class="bi bi-building"></i></div>
-      <h4 style="color:var(--text-secondary);">{{ _('featured_schools.empty_title') }}</h4>
-      <p style="color:var(--text-tertiary);">{{ _('featured_schools.empty_desc') }}</p>
-      <a href="{{ url_for('auth.register_school') }}" class="btn btn-primary mt-3">{{ _('hero.register_btn') }}</a>
-    </div>
-    {% endif %}
   </div>
 </section>
+{% endif %}
 
-{% elif section.section_type == 'builtin_gallery' %}
-{# ═══════════════════ GALLERY ═══════════════════ #}
-<section class="py-4" id="gallery" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
-  <div class="container">
-    <div class="section-header-custom" data-aos="fade-up">
-      <span class="section-tag">{{ _('gallery.tag') }}</span>
-      <h2>{{ _('gallery.title') }}</h2>
-      <p>{{ _('gallery.desc') }}</p>
-    </div>
-    <div class="gallery-masonry">
-      {% if gallery_items %}
-      {% for item in gallery_items %}
-      <div class="gallery-item-modern" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 50 }}">
-        <img src="{{ item.image if item.image.startswith('http') else url_for('static', filename='uploads/gallery/' + item.image) if item.image else 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=600&auto=format&fit=crop' }}" alt="{{ item.title_en if current_lang == 'en' and item.title_en else item.title }}">
-        <div class="gallery-overlay">
-          <span class="tag">{{ item.tag_en if current_lang == 'en' and item.tag_en else item.tag or _('gallery.default_tag') }}</span>
-          <h4>{{ item.title_en if current_lang == 'en' and item.title_en else item.title }}</h4>
-          <p class="school-name"><i class="bi bi-mortarboard"></i> {{ item.school_name_en if current_lang == 'en' and item.school_name_en else item.school_name or '' }}</p>
-          <div class="zoom-icon"><i class="bi bi-search"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      {% for i in range(6) %}
-      <div class="gallery-item-modern" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 50 }}">
-        <img src="{{ [
-          'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=600&auto=format&fit=crop'
-        ][i] }}" alt="{{ _('gallery.items.' ~ i ~ '.title') }}">
-        <div class="gallery-overlay">
-          <span class="tag">{{ _('gallery.items.' ~ i ~ '.tag') }}</span>
-          <h4>{{ _('gallery.items.' ~ i ~ '.title') }}</h4>
-          <p class="school-name"><i class="bi bi-mortarboard"></i> {{ _('gallery.items.' ~ i ~ '.school') }}</p>
-          <div class="zoom-icon"><i class="bi bi-search"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{% elif section.section_type == 'builtin_steps' %}
-{# ═══════════════════ STEPS ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
-  <div class="container">
-    <div class="section-header-custom" data-aos="fade-up">
-      <span class="section-tag">{{ _('steps.tag') }}</span>
-      <h2>{{ _('steps.title') }}</h2>
-      <p>{{ _('steps.desc') }}</p>
-    </div>
-    <div class="row g-4">
-      {% if steps %}
-      {% for s in steps %}
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="step-card">
-          <div class="step-header">
-            <span class="step-number n{{ loop.index }}">{{ loop.index }}</span>
-            <span class="step-tag">{{ s.tag_en if current_lang == 'en' and s.tag_en else s.tag or '' }}</span>
-          </div>
-          <div class="step-visual">
-            <div class="ring"></div>
-            <div class="ring ring-2"></div>
-            <div class="center-icon"><i class="bi bi-{{ s.icon }}"></i></div>
-          </div>
-          <h3>{{ s.title_en if current_lang == 'en' and s.title_en else s.title }}</h3>
-          <p>{{ s.description_en if current_lang == 'en' and s.description_en else s.description }}</p>
-          <div class="step-cta">{{ _('steps.step_cta') }} <i class="bi bi-chevron-right"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      {% set steps_default = [
-        {'n':'1','cls':'n1','icon':'people','tk':'steps.items.0'},
-        {'n':'2','cls':'n2','icon':'search','tk':'steps.items.1'},
-        {'n':'3','cls':'n3','icon':'chat-dots','tk':'steps.items.2'}
-      ] %}
-      {% for s in steps_default %}
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="step-card">
-          <div class="step-header">
-            <span class="step-number {{ s.cls }}">{{ s.n }}</span>
-            <span class="step-tag">{{ _(s.tk ~ '.tag') }}</span>
-          </div>
-          <div class="step-visual">
-            <div class="ring"></div>
-            <div class="ring ring-2"></div>
-            <div class="center-icon"><i class="bi bi-{{ s.icon }}"></i></div>
-          </div>
-          <h3>{{ _(s.tk ~ '.title') }}</h3>
-          <p>{{ _(s.tk ~ '.desc') }}</p>
-          <div class="step-cta">{{ _('steps.step_cta') }} <i class="bi bi-chevron-right"></i></div>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{% elif section.section_type == 'builtin_pricing' %}
 {# ═══════════════════ PRICING ═══════════════════ #}
-<section class="py-4" id="pricing" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+{% if plans %}
+<section class="py-4" id="pricing">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('pricing.tag') }}</span>
       <h2>{{ _('pricing.title') }}</h2>
       <p>{{ _('pricing.desc') }}</p>
     </div>
-    {% if plans %}
     <div class="row g-4 align-items-stretch pt-3">
       {% for plan in plans %}
       <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
@@ -462,79 +225,86 @@
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    <div class="row g-4 align-items-stretch pt-3">
-      {% set default_plans_data = [
-        {'tk':'pricing.default_plans.0','price':99,'featured':false},
-        {'tk':'pricing.default_plans.1','price':249,'featured':true},
-        {'tk':'pricing.default_plans.2','price':499,'featured':false}
+  </div>
+</section>
+{% endif %}
+
+{# ═══════════════════ FEATURES (Why Everyone Chooses) ═══════════════════ #}
+<section class="py-4" style="background:var(--surface-secondary);">
+  <div class="container">
+    <div class="section-header-custom" data-aos="fade-up">
+      <span class="section-tag">{{ _('why_us.tag') }}</span>
+      <h2>{{ _('why_us.title') }}</h2>
+      <p>{{ _('why_us.desc') }}</p>
+    </div>
+    <div class="row g-4">
+      {% set features_default = [
+        {'icon':'search','tk':'features.0'},
+        {'icon':'file-earmark-text','tk':'features.1'},
+        {'icon':'camera','tk':'features.2'},
+        {'icon':'chat-dots','tk':'features.3'},
+        {'icon':'credit-card','tk':'features.4'},
+        {'icon':'stars','tk':'features.5'}
       ] %}
-      {% for plan in default_plans_data %}
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="plan-card-modern {% if plan.featured %}featured{% endif %}">
-          {% if plan.featured %}<span class="badge-popular">{{ _('pricing.badge_popular') }}</span>{% endif %}
-          <h3>{{ _(plan.tk ~ '.name') }}</h3>
-          <p class="sub">{{ _(plan.tk ~ '.desc') }}</p>
-          <div class="price">
-            <span class="currency">{{ _('pricing.currency') }}</span>
-            <span class="amount">{{ plan.price }}</span>
-            <span class="period">{{ _('pricing.monthly') }}</span>
-          </div>
-          <div class="features">
-            <span class="features-label">{{ _('pricing.features_label') }}</span>
-            {% if plan.featured %}
-            {% for i in range(7) %}
-            <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ _(plan.tk ~ '.features.' ~ i) }}</span></li>
-            {% endfor %}
-            {% else %}
-            {% for i in range(5) %}
-            <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ _(plan.tk ~ '.features.' ~ i) }}</span></li>
-            {% endfor %}
-            {% endif %}
-          </div>
-          <a href="{{ url_for('auth.register_school') }}" class="btn-plan">{% if plan.featured %}{{ _('pricing.subscribe') }}{% else %}{{ _('pricing.start_free') }}{% endif %}</a>
-          <p class="plan-footnote">{{ _('pricing.footnote') }}</p>
+      {% for f in features_default %}
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
+        <div class="feature-card">
+          <div class="accent-line"></div>
+          <div class="icon"><i class="bi bi-{{ f.icon }}"></i></div>
+          <h3>{{ _(f.tk ~ '.title') }}</h3>
+          <p>{{ _(f.tk ~ '.desc') }}</p>
+          <div class="card-cta">{{ _('browse_features') }} <i class="bi bi-chevron-right"></i></div>
         </div>
       </div>
       {% endfor %}
     </div>
-    {% endif %}
   </div>
 </section>
 
-{% elif section.section_type == 'builtin_testimonials' %}
+{# ═══════════════════ STATS ═══════════════════ #}
+<section class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="row g-3">
+      <div class="col-6 col-lg-3" data-aos="fade-up">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-mortarboard"></i></div>
+          <div class="stat-number">250+</div>
+          <div class="stat-label">{{ _('stats.schools') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-people"></i></div>
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">{{ _('stats.parents') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-images"></i></div>
+          <div class="stat-number">8,500+</div>
+          <div class="stat-label">{{ _('stats.photos') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-award"></i></div>
+          <div class="stat-number">98%</div>
+          <div class="stat-label">{{ _('stats.satisfaction') }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {# ═══════════════════ TESTIMONIALS ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+<section class="py-4" style="background:var(--surface-secondary);">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('testimonials.tag') }}</span>
       <h2>{{ _('testimonials.title') }}</h2>
       <p>{{ _('testimonials.desc') }}</p>
     </div>
-    {% if testimonials %}
-    {% for t in testimonials %}
-    <div class="testimonial-card" data-aos="fade-up">
-      <div class="quote-mark">"</div>
-      <div class="row align-items-center g-4">
-        <div class="col-md-4">
-          <div class="avatar mx-auto">
-            <img src="{{ t.image if t.image and t.image.startswith('http') else url_for('static', filename='uploads/testimonials/' + t.image) if t.image else 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop' }}" alt="">
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="stars mb-2">{% for i in range(t.rating or 5) %}<i class="bi bi-star-fill"></i>{% endfor %}</div>
-          <p class="text">{{ t.text_en if current_lang == 'en' and t.text_en else t.text }}</p>
-          <div class="author-info">
-            <div>
-              <div class="name">{{ t.author_name_en if current_lang == 'en' and t.author_name_en else t.author_name }}</div>
-              <div class="role">{{ t.author_role_en if current_lang == 'en' and t.author_role_en else t.author_role or '' }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-    {% else %}
     <div class="testimonial-card" data-aos="fade-up">
       <div class="quote-mark">"</div>
       <div class="row align-items-center g-4">
@@ -555,13 +325,11 @@
         </div>
       </div>
     </div>
-    {% endif %}
   </div>
 </section>
 
-{% elif section.section_type == 'builtin_faq' %}
 {# ═══════════════════ FAQ ═══════════════════ #}
-<section class="py-4" id="faq" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+<section class="py-4" id="faq">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('faq.tag') }}</span>
@@ -571,17 +339,6 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="d-flex flex-column gap-3">
-          {% if faqs %}
-          {% for faq in faqs %}
-          <div class="faq-item-modern" data-aos="fade-up">
-            <button class="faq-question" onclick="toggleFaq(this)">
-              <span>{{ faq.question_en if current_lang == 'en' and faq.question_en else faq.question }}</span>
-              <span class="icon"><i class="bi bi-chevron-down"></i></span>
-            </button>
-            <div class="faq-answer">{{ faq.answer_en if current_lang == 'en' and faq.answer_en else faq.answer }}</div>
-          </div>
-          {% endfor %}
-          {% else %}
           {% for i in range(5) %}
           <div class="faq-item-modern" data-aos="fade-up">
             <button class="faq-question" onclick="toggleFaq(this)">
@@ -591,7 +348,6 @@
             <div class="faq-answer">{{ _('faq.items.' ~ i ~ '.a') }}</div>
           </div>
           {% endfor %}
-          {% endif %}
         </div>
         <div class="text-center mt-3 p-3" style="background:var(--brand-primary-5);border-radius:var(--radius-2xl);border:1px solid var(--brand-primary-10);">
           <p style="font-size:0.85rem;color:var(--text-secondary);font-weight:500;">{{ _('faq.cta_text') }} <a href="#footer" style="color:var(--brand-primary);font-weight:700;">{{ _('faq.cta_link') }}</a></p>
@@ -600,166 +356,6 @@
     </div>
   </div>
 </section>
-
-{% elif section.section_type == 'builtin_cta' %}
-{# ═══════════════════ CTA ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
-  <div class="container">
-    <div class="cta-section-modern" data-aos="fade-up">
-      <div class="cta-tag"><i class="bi bi-stars"></i><span>{{ _('cta.tag') }}</span></div>
-      <h2>{{ _('cta.title') }}</h2>
-      <p>{{ _('cta.desc') }}</p>
-      <div class="cta-buttons">
-        <a href="{{ url_for('auth.register_school') }}" class="btn-light-custom"><i class="bi bi-mortarboard"></i> {{ _('cta.school_btn') }}</a>
-        <a href="{{ url_for('auth.register_parent') if not current_user.is_authenticated else url_for('parent.schools') }}" class="btn-cta-primary"><i class="bi bi-people"></i> {{ _('cta.browse_btn') }}</a>
-      </div>
-      <p class="cta-footnote">{{ _('cta.footnote') }}</p>
-    </div>
-  </div>
-</section>
-
-{% else %}
-{# ═══════════════════ DYNAMIC SECTION ═══════════════════ #}
-<section class="section-dynamic" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;{% if section.background_color %}background:{{ section.background_color }};{% endif %}">
-  <div class="container">
-    {% if section.section_type == 'text' %}
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center dynamic-text" data-aos="fade-up">
-        {% if section.title %}<h2 class="mb-3">{{ section.title }}</h2>{% endif %}
-        {% if section.subtitle %}<h5 class="text-secondary mb-3" style="font-weight:500;">{{ section.subtitle }}</h5>{% endif %}
-        {% if section.description %}<p class="section-desc">{{ section.description }}</p>{% endif %}
-      </div>
-    </div>
-    {% elif section.section_type == 'image_text' %}
-    <div class="row align-items-center g-4">
-      <div class="col-lg-6" data-aos="fade-left">
-        {% if section.content and section.content.get('image') %}
-        <img src="{{ url_for('static', filename='uploads/home/' + section.content.image) }}" class="img-fluid rounded-4 shadow" alt="">
-        {% else %}
-        <div style="background:var(--surface-secondary);height:350px;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;">
-          <i class="bi bi-image text-secondary" style="font-size:3rem;"></i>
-        </div>
-        {% endif %}
-      </div>
-      <div class="col-lg-6" data-aos="fade-right">
-        {% if section.title %}<h2 class="fw-bold mb-3" style="font-family:var(--font-display);">{{ section.title }}</h2>{% endif %}
-        {% if section.description %}<p class="section-desc">{{ section.description }}</p>{% endif %}
-        {% if section.content and section.content.get('button_text') %}
-        <a href="{{ section.content.get('button_link', '#') }}" class="btn btn-primary mt-3">{{ section.content.button_text }}</a>
-        {% endif %}
-      </div>
-    </div>
-    {% elif section.section_type == 'video_text' %}
-    <div class="row align-items-center g-4">
-      <div class="col-lg-6" data-aos="fade-left">
-        {% if section.content and section.content.get('video') %}
-        <video controls class="w-100" style="border-radius:var(--radius-xl);max-height:350px;">
-          <source src="{{ url_for('static', filename='uploads/home/' + section.content.video) }}" type="video/mp4">
-        </video>
-        {% else %}
-        <div style="background:var(--surface-secondary);height:350px;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;">
-          <i class="bi bi-play-circle text-secondary" style="font-size:3rem;"></i>
-        </div>
-        {% endif %}
-      </div>
-      <div class="col-lg-6" data-aos="fade-right">
-        {% if section.title %}<h2 class="fw-bold mb-3" style="font-family:var(--font-display);">{{ section.title }}</h2>{% endif %}
-        {% if section.description %}<p class="section-desc">{{ section.description }}</p>{% endif %}
-      </div>
-    </div>
-    {% elif section.section_type == 'cards' %}
-    <div class="section-header-custom" data-aos="fade-up">
-      {% if section.title %}<h2>{{ section.title }}</h2>{% endif %}
-      {% if section.description %}<p>{{ section.description }}</p>{% endif %}
-    </div>
-    <div class="row g-4 dynamic-cards">
-      {% if section.content and section.content.get('cards') %}
-      {% for card in section.content.cards %}
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="dynamic-card">
-          {% if card.icon %}<div style="font-size:2rem;margin-bottom:0.75rem;">{{ card.icon|safe }}</div>{% endif %}
-          <h5>{{ card.title }}</h5>
-          <p>{{ card.description }}</p>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-    {% elif section.section_type == 'stats' %}
-    <div class="row g-4 dynamic-stats text-center">
-      {% if section.content and section.content.get('stats') %}
-      {% for stat in section.content.stats %}
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="stat-item"><div class="stat-number" style="font-size:2.25rem;">{{ stat.value }}</div><div class="stat-label" style="font-size:0.9rem;">{{ stat.label }}</div></div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-    {% elif section.section_type == 'faq' %}
-    <div class="section-header-custom" data-aos="fade-up">
-      {% if section.title %}<h2>{{ section.title }}</h2>{% endif %}
-      {% if section.description %}<p>{{ section.description }}</p>{% endif %}
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="d-flex flex-column gap-3">
-          {% if section.content and section.content.get('faqs') %}
-          {% for faq in section.content.faqs %}
-          <div class="faq-item-modern" data-aos="fade-up">
-            <button class="faq-question" onclick="toggleFaq(this)"><span>{{ faq.question }}</span><span class="icon"><i class="bi bi-chevron-down"></i></span></button>
-            <div class="faq-answer">{{ faq.answer }}</div>
-          </div>
-          {% endfor %}
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    {% elif section.section_type == 'cta' %}
-    <div class="cta-section-modern" data-aos="fade-up">
-      {% if section.title %}<h2>{{ section.title }}</h2>{% endif %}
-      {% if section.description %}<p>{{ section.description }}</p>{% endif %}
-      {% if section.content and section.content.get('button_text') %}
-      <a href="{{ section.content.get('button_link', '#') }}" class="btn-light-custom">{{ section.content.button_text }}</a>
-      {% endif %}
-    </div>
-    {% elif section.section_type in ['image_slider', 'gallery'] %}
-    <div class="section-header-custom" data-aos="fade-up">
-      {% if section.title %}<h2>{{ section.title }}</h2>{% endif %}
-      {% if section.description %}<p>{{ section.description }}</p>{% endif %}
-    </div>
-    <div class="row g-3">
-      {% if section.content and section.content.get('images') %}
-      {% for img in section.content.images %}
-      <div class="col-md-4 col-6" data-aos="zoom-in">
-        <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);">
-          <img src="{{ url_for('static', filename='uploads/home/' + img) if img else '' }}" class="w-100" style="height:220px;object-fit:cover;" alt="">
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-    {% elif section.section_type == 'image_links' %}
-    <div class="section-header-custom" data-aos="fade-up">
-      {% if section.title %}<h2>{{ section.title }}</h2>{% endif %}
-    </div>
-    <div class="row g-3">
-      {% if section.content and section.content.get('items') %}
-      {% for item in section.content.items %}
-      <div class="col-md-4 col-6" data-aos="fade-up">
-        <a href="{{ item.link or '#' }}" class="category-card-modern d-block" style="height:220px;">
-          {% if item.image %}<div class="bg-image" style="background-image:url('{{ url_for('static', filename='uploads/home/' + item.image) }}');"></div>{% endif %}
-          <div class="overlay"></div>
-          <div class="bottom-content"><h3>{{ item.title }}</h3>{% if item.description %}<p>{{ item.description }}</p>{% endif %}</div>
-        </a>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-    {% endif %}
-  </div>
-</section>
-{% endif %}
-{% endfor %}
 
 {% endblock %}
 

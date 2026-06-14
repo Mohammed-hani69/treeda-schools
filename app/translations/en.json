@@ -54,9 +54,10 @@
 
   "stats": {
     "schools": {"ar": "مدرسة مسجلة", "en": "Registered Schools"},
-    "parents": {"ar": "ولي أمر نشط", "en": "Active Parents"},
-    "photos": {"ar": "صورة للمرافق", "en": "Facility Photos"},
-    "videos": {"ar": "جولة فيديو افتراضية", "en": "Virtual Video Tours"}
+    "parents": {"ar": "ولي أمر", "en": "Parents"},
+    "photos": {"ar": "صورة وفيديو", "en": "Photos & Videos"},
+    "videos": {"ar": "جولة فيديو افتراضية", "en": "Virtual Video Tours"},
+    "satisfaction": {"ar": "رضا المستخدمين", "en": "User Satisfaction"}
   },
 
   "why_us": {

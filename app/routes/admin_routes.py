@@ -6,7 +6,7 @@ from app.models.school import School, SchoolMedia, SchoolActivity, SchoolService
 from app.models.parent import Parent
 from app.models.plan import Plan, Subscription
 from app.models.category import Category
-from app.models.home import HomeSection, HeroSection
+from app.models.home import HeroSection
 from app.models.home_content import Feature, Stat, GalleryItem, Step, Testimonial, FaqItem
 from app.models.notification import Notification
 from app.models.payment import Payment
@@ -14,7 +14,7 @@ from app.models.setting import Setting
 from app.models.ai_knowledge import AiKnowledge
 from app.utils.decorators import admin_required
 from app.utils.helpers import save_file, delete_file, allowed_file, generate_slug
-from app.forms.admin_forms import (PlanForm, CategoryForm, HomeSectionForm, HeroSectionForm,
+from app.forms.admin_forms import (PlanForm, CategoryForm, HeroSectionForm,
     FeatureForm, StatForm, GalleryItemForm, StepForm, TestimonialForm, FaqItemForm, SchoolEditForm)
 from sqlalchemy import func, desc
 from datetime import datetime, timedelta
@@ -499,44 +499,6 @@ def delete_category(id):
     return redirect(url_for('admin.categories'))
 
 
-@admin_bp.route('/home')
-@login_required
-@admin_required
-def home_builder():
-    hero = HeroSection.query.first()
-    sections = HomeSection.query.order_by(HomeSection.sort_order).all()
-
-    from app.models.home_content import Feature, Stat, Step, Testimonial, FaqItem
-    from app.models.plan import Plan
-    from app.models.category import Category
-    from app.models.school import School
-
-    content_counts = {
-        'builtin_features': Feature.query.count(),
-        'builtin_stats': Stat.query.count(),
-        'builtin_steps': Step.query.count(),
-        'builtin_testimonials': Testimonial.query.count(),
-        'builtin_faq': FaqItem.query.count(),
-        'builtin_categories': Category.query.count(),
-        'builtin_pricing': Plan.query.count(),
-        'builtin_featured_schools': School.query.filter_by(is_featured=True).count(),
-    }
-    content_urls = {
-        'builtin_features': url_for('admin.features'),
-        'builtin_stats': url_for('admin.stats'),
-        'builtin_steps': url_for('admin.steps'),
-        'builtin_testimonials': url_for('admin.testimonials'),
-        'builtin_faq': url_for('admin.faq'),
-        'builtin_categories': url_for('admin.categories'),
-        'builtin_pricing': url_for('admin.plans'),
-        'builtin_featured_schools': url_for('admin.schools'),
-        'builtin_gallery': url_for('admin.gallery'),
-        'builtin_hero': url_for('admin.hero_section'),
-    }
-    return render_template('admin/home_builder.html', hero=hero, sections=sections,
-                           content_counts=content_counts, content_urls=content_urls)
-
-
 @admin_bp.route('/home/hero', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -564,116 +526,8 @@ def hero_section():
                 hero.background_video = filename
         db.session.commit()
         flash('تم تحديث القسم الرئيسي', 'success')
-        return redirect(url_for('admin.home_builder'))
 
     return render_template('admin/hero_form.html', form=form, hero=hero)
-
-
-@admin_bp.route('/home/sections/create', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def create_section():
-    form = HomeSectionForm()
-    if form.validate_on_submit():
-        max_order = db.session.query(func.max(HomeSection.sort_order)).scalar() or 0
-        section = HomeSection(
-            section_type=form.section_type.data,
-            title=form.title.data,
-            subtitle=form.subtitle.data,
-            description=form.description.data,
-            background_color=form.background_color.data,
-            padding_top=form.padding_top.data,
-            padding_bottom=form.padding_bottom.data,
-            text_color=form.text_color.data,
-            sort_order=max_order + 1,
-            is_active=form.is_active.data,
-            content={}
-        )
-        if form.background_image.data:
-            filename = save_file(form.background_image.data, 'home')
-            if filename:
-                section.background_image = filename
-        db.session.add(section)
-        db.session.commit()
-        flash('تم إضافة القسم', 'success')
-        return redirect(url_for('admin.home_builder'))
-    return render_template('admin/section_form.html', form=form, title='إضافة قسم جديد')
-
-
-@admin_bp.route('/home/sections/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def edit_section(id):
-    section = HomeSection.query.get_or_404(id)
-    form = HomeSectionForm(obj=section)
-    if form.validate_on_submit():
-        form.populate_obj(section)
-        if form.background_image.data:
-            if section.background_image:
-                delete_file(section.background_image, 'home')
-            filename = save_file(form.background_image.data, 'home')
-            if filename:
-                section.background_image = filename
-        db.session.commit()
-        flash('تم تحديث القسم', 'success')
-        return redirect(url_for('admin.home_builder'))
-    return render_template('admin/section_form.html', form=form, title='تعديل القسم', section=section)
-
-
-@admin_bp.route('/home/sections/delete/<int:id>', methods=['POST'])
-@login_required
-@admin_required
-def delete_section(id):
-    section = HomeSection.query.get_or_404(id)
-    if section.background_image:
-        delete_file(section.background_image, 'home')
-    db.session.delete(section)
-    db.session.commit()
-    flash('تم حذف القسم', 'success')
-    return redirect(url_for('admin.home_builder'))
-
-
-@admin_bp.route('/home/sections/content/<int:id>', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def section_content(id):
-    section = HomeSection.query.get_or_404(id)
-    if request.method == 'POST':
-        content = request.form.get('content', '{}')
-        try:
-            section.content = json.loads(content)
-        except:
-            section.content = {}
-        db.session.commit()
-        flash('تم حفظ المحتوى', 'success')
-        return redirect(url_for('admin.home_builder'))
-    return render_template('admin/section_content.html', section=section)
-
-
-@admin_bp.route('/home/sections/reorder', methods=['POST'])
-@login_required
-@admin_required
-def reorder_sections():
-    data = request.get_json()
-    if data and 'order' in data:
-        for item in data['order']:
-            section = HomeSection.query.get(item['id'])
-            if section:
-                section.sort_order = item['order']
-        db.session.commit()
-        return jsonify({'success': True})
-    return jsonify({'error': 'Invalid data'}), 400
-
-
-@admin_bp.route('/home/sections/toggle/<int:id>', methods=['POST'])
-@login_required
-@admin_required
-def toggle_section(id):
-    section = HomeSection.query.get_or_404(id)
-    section.is_active = not section.is_active
-    db.session.commit()
-    flash('تم تحديث حالة القسم', 'success')
-    return redirect(url_for('admin.home_builder'))
 
 
 @admin_bp.route('/users')

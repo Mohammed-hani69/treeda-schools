@@ -39,8 +39,8 @@
     <a class="sidebar-link {% if request.endpoint == 'admin.categories' %}active{% endif %}" href="{{ url_for('admin.categories') }}">
         <i class="bi bi-collection"></i> الأقسام
     </a>
-    <a class="sidebar-link {% if request.endpoint in ['admin.home_builder', 'admin.hero_section', 'admin.create_section', 'admin.edit_section', 'admin.section_content'] %}active{% endif %}" href="{{ url_for('admin.home_builder') }}">
-        <i class="bi bi-layout-three-columns"></i> بناء الصفحة الرئيسية
+    <a class="sidebar-link {% if request.endpoint in ['admin.hero_section'] %}active{% endif %}" href="{{ url_for('admin.hero_section') }}">
+        <i class="bi bi-eye"></i> القسم الرئيسي
     </a>
     <a class="sidebar-link {% if request.endpoint in ['admin.features'] %}active{% endif %}" href="{{ url_for('admin.features') }}">
         <i class="bi bi-stars"></i> الميزات
