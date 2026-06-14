@@ -1,0 +1,76 @@
+{% extends "layouts/base.html" %}
+{% block title %}المعرفة الذكية - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-content-header">
+            <div>
+                <h4><i class="bi bi-robot"></i> المعرفة الذكية</h4>
+                <p>إدارة وتغذية بيانات المساعد الذكي (AI)</p>
+            </div>
+            <a href="{{ url_for('admin.create_ai_knowledge') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> إضافة معرفة</a>
+        </div>
+
+        {% if categories %}
+        <div class="filter-tabs mb-3" style="justify-content:flex-start;gap:0.4rem;">
+            <span class="filter-tab active" data-filter="all" onclick="document.querySelectorAll('.knowledge-card').forEach(e=>e.style.display='');this.parentElement.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">الكل</span>
+            {% for cat in categories %}
+            <span class="filter-tab" data-filter="{{ cat }}" onclick="var c='{{ cat }}';document.querySelectorAll('.knowledge-card').forEach(function(e){e.style.display=e.dataset.category==c?'':'none'});this.parentElement.querySelectorAll('.filter-tab').forEach(function(t){t.classList.remove('active')});this.classList.add('active');">{{ cat }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="row g-3">
+            {% for item in items %}
+            <div class="col-lg-6" data-category="{{ item.category }}">
+                <div class="modern-card knowledge-card" data-category="{{ item.category }}" style="{% if not item.is_active %}opacity:0.5;{% endif %}">
+                    <div class="card-header-custom d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge-status" style="background:var(--brand-primary-10);color:var(--brand-primary);font-size:0.7rem;padding:0.2rem 0.6rem;">{{ item.category }}</span>
+                            <span style="font-size:0.75rem;color:var(--text-tertiary);margin-inline-start:0.5rem;">ترتيب: {{ item.sort_order }}</span>
+                        </div>
+                        <div class="table-actions">
+                            <a href="{{ url_for('admin.edit_ai_knowledge', id=item.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <form method="POST" action="{{ url_for('admin.delete_ai_knowledge', id=item.id) }}" class="d-inline delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body-custom" style="padding:1rem 1.25rem;">
+                        <div style="margin-bottom:0.5rem;">
+                            <strong style="font-size:0.75rem;color:var(--text-tertiary);">الكلمات المفتاحية:</strong>
+                            <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.25rem;">
+                                {% for kw in item.get_keywords_list() %}
+                                <span class="badge-status" style="background:var(--brand-primary-5);color:var(--brand-primary);font-size:0.65rem;padding:0.15rem 0.5rem;">{{ kw }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <strong style="font-size:0.75rem;color:var(--text-tertiary);">🇸🇦 العربية:</strong>
+                                <p style="font-size:0.85rem;margin:0.25rem 0 0 0;color:var(--text-primary);">{{ item.answer_ar[:200] }}{% if item.answer_ar|length > 200 %}...{% endif %}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <strong style="font-size:0.75rem;color:var(--text-tertiary);">🇬🇧 English:</strong>
+                                <p style="font-size:0.85rem;margin:0.25rem 0 0 0;color:var(--text-primary);">{{ item.answer_en[:200] }}{% if item.answer_en|length > 200 %}...{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="bi bi-robot"></i>
+                    <h5>لا توجد بيانات معرفية</h5>
+                    <p>أضف بيانات للمساعد الذكي ليتمكن من الرد على استفسارات المستخدمين</p>
+                    <a href="{{ url_for('admin.create_ai_knowledge') }}" class="btn btn-primary mt-2"><i class="bi bi-plus-lg"></i> إضافة معرفة</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

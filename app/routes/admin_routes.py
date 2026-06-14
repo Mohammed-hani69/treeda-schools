@@ -11,6 +11,7 @@ from app.models.home_content import Feature, Stat, GalleryItem, Step, Testimonia
 from app.models.notification import Notification
 from app.models.payment import Payment
 from app.models.setting import Setting
+from app.models.ai_knowledge import AiKnowledge
 from app.utils.decorators import admin_required
 from app.utils.helpers import save_file, delete_file, allowed_file, generate_slug
 from app.forms.admin_forms import (PlanForm, CategoryForm, HomeSectionForm, HeroSectionForm,
@@ -1106,3 +1107,77 @@ def delete_faq(id):
     db.session.commit()
     flash('تم حذف السؤال', 'success')
     return redirect(url_for('admin.faq'))
+
+
+# ═══════════════════ AI KNOWLEDGE MANAGEMENT ═══════════════════
+
+@admin_bp.route('/ai-knowledge')
+@login_required
+@admin_required
+def ai_knowledge():
+    items = AiKnowledge.query.order_by(AiKnowledge.sort_order, AiKnowledge.category).all()
+    categories = db.session.query(AiKnowledge.category).distinct().all()
+    categories = [c[0] for c in categories if c[0]]
+    return render_template('admin/ai_knowledge.html', items=items, categories=categories)
+
+
+@admin_bp.route('/ai-knowledge/create', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def create_ai_knowledge():
+    if request.method == 'POST':
+        keywords = request.form.get('keywords', '').strip()
+        answer_ar = request.form.get('answer_ar', '').strip()
+        answer_en = request.form.get('answer_en', '').strip()
+        category = request.form.get('category', 'general').strip()
+        sort_order = request.form.get('sort_order', 0, type=int)
+        is_active = request.form.get('is_active') == 'on'
+
+        if not keywords or not answer_ar or not answer_en:
+            flash('الكلمات المفتاحية والإجابات مطلوبة', 'danger')
+            return render_template('admin/ai_knowledge_form.html', title='إضافة معرفة جديدة', item=None)
+
+        item = AiKnowledge(
+            keywords=keywords,
+            answer_ar=answer_ar,
+            answer_en=answer_en,
+            category=category,
+            sort_order=sort_order,
+            is_active=is_active
+        )
+        db.session.add(item)
+        db.session.commit()
+        flash('تم إضافة المعرفة', 'success')
+        return redirect(url_for('admin.ai_knowledge'))
+
+    return render_template('admin/ai_knowledge_form.html', title='إضافة معرفة جديدة', item=None)
+
+
+@admin_bp.route('/ai-knowledge/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_ai_knowledge(id):
+    item = AiKnowledge.query.get_or_404(id)
+    if request.method == 'POST':
+        item.keywords = request.form.get('keywords', '').strip()
+        item.answer_ar = request.form.get('answer_ar', '').strip()
+        item.answer_en = request.form.get('answer_en', '').strip()
+        item.category = request.form.get('category', 'general').strip()
+        item.sort_order = request.form.get('sort_order', 0, type=int)
+        item.is_active = request.form.get('is_active') == 'on'
+        db.session.commit()
+        flash('تم تحديث المعرفة', 'success')
+        return redirect(url_for('admin.ai_knowledge'))
+
+    return render_template('admin/ai_knowledge_form.html', title='تعديل المعرفة', item=item)
+
+
+@admin_bp.route('/ai-knowledge/delete/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def delete_ai_knowledge(id):
+    item = AiKnowledge.query.get_or_404(id)
+    db.session.delete(item)
+    db.session.commit()
+    flash('تم حذف المعرفة', 'success')
+    return redirect(url_for('admin.ai_knowledge'))

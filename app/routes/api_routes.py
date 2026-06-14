@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app import db
+from app import db, csrf
 from app.models.school import School, SchoolMedia
 from app.models.notification import Notification
+from app.models.ai_knowledge import AiKnowledge
 
 api_bp = Blueprint('api', __name__)
 
@@ -78,3 +79,33 @@ def reorder_sections():
         db.session.commit()
         return jsonify({'success': True})
     return jsonify({'error': 'Invalid data'}), 400
+
+
+@api_bp.route('/chat', methods=['POST'])
+@csrf.exempt
+def chat():
+    data = request.get_json()
+    if not data or 'message' not in data:
+        return jsonify({'answer': None}), 200
+
+    msg = data['message'].strip().lower()
+    lang = data.get('lang', 'ar')
+    if not msg:
+        return jsonify({'answer': None}), 200
+
+    items = AiKnowledge.query.filter_by(is_active=True).order_by(AiKnowledge.sort_order).all()
+    best_match = None
+    best_count = 0
+
+    for item in items:
+        keywords = item.get_keywords_list()
+        match_count = sum(1 for kw in keywords if kw in msg)
+        if match_count > best_count:
+            best_count = match_count
+            best_match = item
+
+    if best_match and best_count > 0:
+        answer = best_match.answer_en if lang == 'en' else best_match.answer_ar
+        return jsonify({'answer': answer})
+
+    return jsonify({'answer': None})

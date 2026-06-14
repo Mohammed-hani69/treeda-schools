@@ -60,6 +60,10 @@
     <a class="sidebar-link {% if request.endpoint in ['admin.faq'] %}active{% endif %}" href="{{ url_for('admin.faq') }}">
         <i class="bi bi-question-circle"></i> الأسئلة الشائعة
     </a>
+    <div class="sidebar-section-title">الذكاء الاصطناعي</div>
+    <a class="sidebar-link {% if request.endpoint in ['admin.ai_knowledge', 'admin.create_ai_knowledge', 'admin.edit_ai_knowledge'] %}active{% endif %}" href="{{ url_for('admin.ai_knowledge') }}">
+        <i class="bi bi-robot"></i> المعرفة الذكية
+    </a>
     <div class="sidebar-section-title">النظام</div>
     <a class="sidebar-link {% if request.endpoint in ['admin.notifications', 'admin.send_notification'] %}active{% endif %}" href="{{ url_for('admin.notifications') }}">
         <i class="bi bi-bell"></i> الإشعارات

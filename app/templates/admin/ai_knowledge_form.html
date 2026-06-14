@@ -1,0 +1,50 @@
+{% extends "layouts/base.html" %}
+{% block title %}{{ title }} - {{ site_name }}{% endblock %}
+{% block content %}
+<div class="admin-layout">
+    {% include "admin/sidebar.html" %}
+    <div class="admin-content">
+        <div class="admin-form-card" style="max-width:850px;">
+            <div class="form-header">
+                <h4><i class="bi bi-robot" style="color:var(--brand-primary);"></i> {{ title }}</h4>
+                <p>أضف أو عدل بيانات المعرفة للمساعد الذكي</p>
+            </div>
+            <form method="POST" class="form-body">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label">الكلمات المفتاحية <span class="text-danger">*</span></label>
+                        <input type="text" name="keywords" class="form-control" value="{{ item.keywords if item else '' }}" placeholder="كلمة1, كلمة2, كلمة3" required>
+                        <div class="form-text">كلمات مفصولة بفواصل، مثل: تسجيل, اشتراك, حساب, register</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">الإجابة بالعربية <span class="text-danger">*</span></label>
+                        <textarea name="answer_ar" class="form-control" rows="5" required>{{ item.answer_ar if item else '' }}</textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Answer in English <span class="text-danger">*</span></label>
+                        <textarea name="answer_en" class="form-control" rows="5" required>{{ item.answer_en if item else '' }}</textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">التصنيف</label>
+                        <input type="text" name="category" class="form-control" value="{{ item.category if item else 'عام' }}" placeholder="عام">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">ترتيب الظهور</label>
+                        <input type="number" name="sort_order" class="form-control" value="{{ item.sort_order if item else 0 }}">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end pb-2">
+                        <div class="form-check">
+                            <input type="checkbox" name="is_active" class="form-check-input" id="isActive" {% if not item or item.is_active %}checked{% endif %}>
+                            <label class="form-check-label" for="isActive">مفعلة</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">
+                    <i class="bi bi-check-lg"></i> حفظ
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
