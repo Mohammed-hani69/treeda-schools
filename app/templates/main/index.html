@@ -114,6 +114,42 @@
 </section>
 {% endif %}
 
+{# ═══════════════════ STATS ═══════════════════ #}
+<section class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="row g-3">
+      <div class="col-6 col-lg-3" data-aos="fade-up">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-mortarboard"></i></div>
+          <div class="stat-number">120+</div>
+          <div class="stat-label">{{ _('stats.schools') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-people"></i></div>
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">{{ _('stats.parents') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-images"></i></div>
+          <div class="stat-number">3,500+</div>
+          <div class="stat-label">{{ _('stats.photos') }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="bi bi-award"></i></div>
+          <div class="stat-number">95%</div>
+          <div class="stat-label">{{ _('stats.satisfaction') }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {# ═══════════════════ CATEGORIES ═══════════════════ #}
 {% if categories %}
 <section class="py-4" id="categories">
@@ -257,42 +293,6 @@
         </div>
       </div>
       {% endfor %}
-    </div>
-  </div>
-</section>
-
-{# ═══════════════════ STATS ═══════════════════ #}
-<section class="stats-bar">
-  <div class="stats-bar-inner">
-    <div class="row g-3">
-      <div class="col-6 col-lg-3" data-aos="fade-up">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-mortarboard"></i></div>
-          <div class="stat-number">250+</div>
-          <div class="stat-label">{{ _('stats.schools') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-people"></i></div>
-          <div class="stat-number">15,000+</div>
-          <div class="stat-label">{{ _('stats.parents') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-images"></i></div>
-          <div class="stat-number">8,500+</div>
-          <div class="stat-label">{{ _('stats.photos') }}</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="stat-item">
-          <div class="stat-icon"><i class="bi bi-award"></i></div>
-          <div class="stat-number">98%</div>
-          <div class="stat-label">{{ _('stats.satisfaction') }}</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
