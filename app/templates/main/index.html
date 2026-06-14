@@ -3,11 +3,14 @@
 
 {% block content %}
 
-{# ═══════════════════ 1. HERO ═══════════════════ #}
+{% for section in sections %}
+{% if section.section_type == 'builtin_hero' %}
+{# ═══════════════════ HERO ═══════════════════ #}
 {% if hero %}
-<section class="hero-section" id="hero">
+<section class="hero-section" id="hero" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="hero-bg-blur"></div>
-  <div class="hero-bg-blur-2"></div><div class="container position-relative" style="z-index:2;">
+  <div class="hero-bg-blur-2"></div>
+  <div class="container position-relative" style="z-index:2;">
     <div class="row align-items-center g-5">
       <div class="col-lg-7" data-aos="fade-up">
         {% if hero.subtitle %}
@@ -63,9 +66,10 @@
   </div>
 </section>
 {% else %}
-<section class="hero-section" id="hero">
+<section class="hero-section" id="hero" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="hero-bg-blur"></div>
-  <div class="hero-bg-blur-2"></div><div class="container position-relative" style="z-index:2;">
+  <div class="hero-bg-blur-2"></div>
+  <div class="container position-relative" style="z-index:2;">
     <div class="row align-items-center g-5">
       <div class="col-lg-7" data-aos="fade-up">
         <div class="hero-badge"><i class="bi bi-stars"></i> <span>{{ _('hero.badge_fallback') }}</span></div>
@@ -112,8 +116,9 @@
 </section>
 {% endif %}
 
-{# ═══════════════════ 2. STATS ═══════════════════ #}
-<section class="stats-bar">
+{% elif section.section_type == 'builtin_stats' %}
+{# ═══════════════════ STATS ═══════════════════ #}
+<section class="stats-bar" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="stats-bar-inner">
     <div class="row g-3">
       {% if stats %}
@@ -160,8 +165,10 @@
   </div>
 </section>
 
-{# ═══════════════════ 3. WHY US / FEATURES ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);"><div class="container">
+{% elif section.section_type == 'builtin_features' %}
+{# ═══════════════════ FEATURES ═══════════════════ #}
+<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+  <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('why_us.tag') }}</span>
       <h2>{{ _('why_us.title') }}</h2>
@@ -205,8 +212,10 @@
   </div>
 </section>
 
-{# ═══════════════════ 4. CATEGORIES ═══════════════════ #}
-<section class="py-4" id="categories"><div class="container">
+{% elif section.section_type == 'builtin_categories' %}
+{# ═══════════════════ CATEGORIES ═══════════════════ #}
+<section class="py-4" id="categories" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+  <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('categories.tag') }}</span>
       <h2>{{ _('categories.title') }}</h2>
@@ -258,8 +267,10 @@
   </div>
 </section>
 
-{# ═══════════════════ 5. FEATURED SCHOOLS ═══════════════════ #}
-<section class="py-4" id="featured-schools" style="background:var(--surface-secondary);"><div class="container">
+{% elif section.section_type == 'builtin_featured_schools' %}
+{# ═══════════════════ FEATURED SCHOOLS ═══════════════════ #}
+<section class="py-4" id="featured-schools" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+  <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('featured_schools.tag') }}</span>
       <h2>{{ _('featured_schools.title') }}</h2>
@@ -310,8 +321,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 6. GALLERY ═══════════════════ #}
-<section class="py-4" id="gallery">
+{% elif section.section_type == 'builtin_gallery' %}
+{# ═══════════════════ GALLERY ═══════════════════ #}
+<section class="py-4" id="gallery" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('gallery.tag') }}</span>
@@ -355,8 +367,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 7. HOW IT WORKS ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);">
+{% elif section.section_type == 'builtin_steps' %}
+{# ═══════════════════ STEPS ═══════════════════ #}
+<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('steps.tag') }}</span>
@@ -412,8 +425,10 @@
   </div>
 </section>
 
-{# ═══════════════════ 8. PLANS / PRICING ═══════════════════ #}
-<section class="py-4" id="pricing"><div class="container">
+{% elif section.section_type == 'builtin_pricing' %}
+{# ═══════════════════ PRICING ═══════════════════ #}
+<section class="py-4" id="pricing" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
+  <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('pricing.tag') }}</span>
       <h2>{{ _('pricing.title') }}</h2>
@@ -487,8 +502,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 9. TESTIMONIALS ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);">
+{% elif section.section_type == 'builtin_testimonials' %}
+{# ═══════════════════ TESTIMONIALS ═══════════════════ #}
+<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('testimonials.tag') }}</span>
@@ -543,8 +559,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 10. FAQ ═══════════════════ #}
-<section class="py-4" id="faq">
+{% elif section.section_type == 'builtin_faq' %}
+{# ═══════════════════ FAQ ═══════════════════ #}
+<section class="py-4" id="faq" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="container">
     <div class="section-header-custom" data-aos="fade-up">
       <span class="section-tag">{{ _('faq.tag') }}</span>
@@ -584,8 +601,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 11. CTA ═══════════════════ #}
-<section class="py-4" style="background:var(--surface-secondary);">
+{% elif section.section_type == 'builtin_cta' %}
+{# ═══════════════════ CTA ═══════════════════ #}
+<section class="py-4" style="background:var(--surface-secondary);padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;">
   <div class="container">
     <div class="cta-section-modern" data-aos="fade-up">
       <div class="cta-tag"><i class="bi bi-stars"></i><span>{{ _('cta.tag') }}</span></div>
@@ -600,9 +618,9 @@
   </div>
 </section>
 
-{# ═══════════════════ 12. DYNAMIC SECTIONS ═══════════════════ #}
-{% for section in sections %}
-<section class="section-dynamic" style="{% if section.background_color %}background:{{ section.background_color }};{% endif %}">
+{% else %}
+{# ═══════════════════ DYNAMIC SECTION ═══════════════════ #}
+<section class="section-dynamic" style="padding-top:{{ section.padding_top }}px;padding-bottom:{{ section.padding_bottom }}px;{% if section.background_color %}background:{{ section.background_color }};{% endif %}">
   <div class="container">
     {% if section.section_type == 'text' %}
     <div class="row justify-content-center">
@@ -740,6 +758,7 @@
     {% endif %}
   </div>
 </section>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

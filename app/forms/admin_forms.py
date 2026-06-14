@@ -48,6 +48,17 @@ class HomeSectionForm(FlaskForm):
         ('video_gallery', 'معرض فيديوهات'),
         ('image_links', 'صور تحتوي روابط'),
         ('cta', 'زر CTA'),
+        ('builtin_hero', 'القسم الرئيسي (Hero)'),
+        ('builtin_stats', 'شريط الإحصائيات'),
+        ('builtin_features', 'الميزات (لماذا نحن)'),
+        ('builtin_categories', 'أقسام المدارس'),
+        ('builtin_featured_schools', 'المدارس المميزة'),
+        ('builtin_gallery', 'معرض الصور'),
+        ('builtin_steps', 'خطوات العمل'),
+        ('builtin_pricing', 'الباقات والأسعار'),
+        ('builtin_testimonials', 'التوصيات'),
+        ('builtin_faq', 'الأسئلة الشائعة'),
+        ('builtin_cta', 'دعوة للإجراء (CTA)'),
     ])
     title = StringField('العنوان', validators=[Optional(), Length(max=300)])
     subtitle = StringField('العنوان الفرعي', validators=[Optional(), Length(max=500)])
