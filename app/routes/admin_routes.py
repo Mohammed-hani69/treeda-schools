@@ -392,6 +392,10 @@ def create_plan():
             is_active=form.is_active.data,
             features=form.features.data
         )
+        if form.image.data and hasattr(form.image.data, 'filename'):
+            filename = save_file(form.image.data, 'plans')
+            if filename:
+                plan.image = filename
         db.session.add(plan)
         db.session.commit()
         flash('تم إنشاء الباقة بنجاح', 'success')
@@ -406,7 +410,16 @@ def edit_plan(id):
     plan = Plan.query.get_or_404(id)
     form = PlanForm(obj=plan)
     if form.validate_on_submit():
+        old_image = plan.image
         form.populate_obj(plan)
+        if form.image.data and hasattr(form.image.data, 'filename'):
+            filename = save_file(form.image.data, 'plans')
+            if filename:
+                plan.image = filename
+                if old_image:
+                    delete_file(old_image, 'plans')
+        else:
+            plan.image = old_image
         db.session.commit()
         flash('تم تحديث الباقة', 'success')
         return redirect(url_for('admin.plans'))
@@ -418,6 +431,8 @@ def edit_plan(id):
 @admin_required
 def delete_plan(id):
     plan = Plan.query.get_or_404(id)
+    if plan.image:
+        delete_file(plan.image, 'plans')
     db.session.delete(plan)
     db.session.commit()
     flash('تم حذف الباقة', 'success')
@@ -593,6 +608,7 @@ def hero_section():
     if form.validate_on_submit():
         old_bg_image = hero.background_image
         old_bg_video = hero.background_video
+        old_demo_video = hero.demo_video
         form.populate_obj(hero)
         if form.background_image.data and hasattr(form.background_image.data, 'filename'):
             if old_bg_image:
@@ -610,6 +626,14 @@ def hero_section():
                 hero.background_video = filename
         else:
             hero.background_video = old_bg_video
+        if form.demo_video.data and hasattr(form.demo_video.data, 'filename'):
+            if old_demo_video:
+                delete_file(old_demo_video, 'home')
+            filename = save_file(form.demo_video.data, 'home')
+            if filename:
+                hero.demo_video = filename
+        else:
+            hero.demo_video = old_demo_video
         db.session.commit()
         flash('تم تحديث القسم الرئيسي', 'success')
 

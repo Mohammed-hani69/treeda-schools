@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
 
 main {
-  padding-top: 72px;
+  padding-top: 0;
 }
 
 :root {
@@ -237,7 +237,7 @@ a:hover { color: var(--brand-primary-hover); }
 .hero-section {
   position: relative;
   min-height: 100vh;
-  padding-top: 7rem;
+  padding-top: 5rem;
   padding-bottom: 3rem;
   display: flex;
   align-items: center;
@@ -247,6 +247,24 @@ a:hover { color: var(--brand-primary-hover); }
 [data-bs-theme="dark"] .hero-section,
 .dark-mode .hero-section {
   background: radial-gradient(ellipse at top right, rgba(63, 141, 243, 0.08), transparent 60%);
+}
+.hero-section.has-bg-image {
+  background: none;
+}
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.hero-section .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  z-index: 1;
 }
 .hero-bg-blur {
   position: absolute;
@@ -295,6 +313,9 @@ a:hover { color: var(--brand-primary-hover); }
   color: var(--text-primary);
   margin-bottom: 1rem;
 }
+.hero-section.has-bg-image h1 {
+  color: #ffffff;
+}
 .hero-section h1 .gradient-text {
   background: linear-gradient(to left, var(--brand-primary), var(--brand-secondary));
   -webkit-background-clip: text;
@@ -302,11 +323,29 @@ a:hover { color: var(--brand-primary-hover); }
   background-clip: text;
 }
 .hero-section p {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--text-secondary);
-  font-weight: 300;
-  line-height: 1.8;
-  max-width: 600px;
+  font-weight: 400;
+  line-height: 1.9;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-section.has-bg-image p {
+  color: rgba(255,255,255,0.9);
+}
+.hero-section.has-bg-image .hero-badge {
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+.hero-section.has-bg-image .btn-ghost {
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.4);
+}
+.hero-section.has-bg-image .btn-ghost:hover {
+  border-color: #ffffff;
+  background: rgba(255,255,255,0.1);
 }
 
 .demo-widget {
@@ -466,7 +505,7 @@ a:hover { color: var(--brand-primary-hover); }
 /* ─── Stats Bar ─── */
 .stats-bar {
   position: relative;
-  margin-top: -3.5rem;
+  margin-top: 0;
   z-index: 5;
   max-width: 1280px;
   margin-left: auto;
@@ -517,6 +556,118 @@ a:hover { color: var(--brand-primary-hover); }
   font-weight: 600;
   color: var(--text-tertiary);
   margin-top: 0.5rem;
+}
+
+/* ─── Recommended Schools (Horizontal Scroll) ─── */
+.recommended-scroll-wrapper {
+  overflow-x: auto;
+  padding: 0 1.5rem 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-primary-20) transparent;
+}
+.recommended-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.recommended-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.recommended-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--brand-primary-20);
+  border-radius: 3px;
+}
+.recommended-scroll-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  padding: 0.5rem 0;
+}
+.recommended-card {
+  flex: 0 0 280px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  display: block;
+}
+.recommended-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--brand-primary-light);
+}
+.recommended-card .rc-cover {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+.recommended-card .rc-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.recommended-card:hover .rc-cover img {
+  transform: scale(1.08);
+}
+.recommended-card .rc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+.recommended-card .rc-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--brand-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  z-index: 1;
+}
+.recommended-card .rc-body {
+  padding: 1rem;
+  position: relative;
+}
+.recommended-card .rc-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--surface);
+  margin-top: -2rem;
+  margin-bottom: 0.5rem;
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+.recommended-card .rc-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.recommended-card .rc-body h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem;
+  line-height: 1.3;
+}
+.recommended-card .rc-body .rc-meta {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+.recommended-card .rc-body p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ─── Section Headers ─── */
@@ -4331,6 +4482,24 @@ a:hover { color: var(--brand-primary-hover); }
 @media (min-width: 992px) {
   .auth-brand { display: block; }
   .auth-card { max-width: 440px; }
+
+  .demo-widget {
+    max-width: 540px;
+  }
+  .demo-widget-main {
+    height: 280px;
+  }
+  .demo-widget-item {
+    height: 110px;
+  }
+  .demo-widget .floating-card.support {
+    bottom: -1.5rem !important;
+    left: -2.5rem !important;
+  }
+  .demo-widget .floating-card.rating {
+    top: -1.5rem !important;
+    right: -2.5rem !important;
+  }
 }
 
 @media (max-width: 480px) {

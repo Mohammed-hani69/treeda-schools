@@ -56,6 +56,11 @@
                         {{ form.color(class="form-control", type="color") }}
                     </div>
                     <div class="col-md-4">
+                        <label class="form-label">صورة الباقة</label>
+                        {{ form.image(class="form-control") }}
+                        {% if plan and plan.image %}<div class="form-text">{{ plan.image }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label">الترتيب</label>
                         {{ form.sort_order(class="form-control") }}
                     </div>

@@ -41,6 +41,11 @@
                         {{ form.background_color(class="form-control", type="color") }}
                     </div>
                     <div class="col-md-4">
+                        <label class="form-label">فيديو العرض التوضيحي</label>
+                        {{ form.demo_video(class="form-control") }}
+                        {% if hero and hero.demo_video %}<div class="form-text">{{ hero.demo_video }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label">نص الزر الأول</label>
                         {{ form.button1_text(class="form-control") }}
                     </div>

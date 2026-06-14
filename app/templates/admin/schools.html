@@ -100,6 +100,7 @@
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-{% if school.is_featured %}warning{% else %}outline-warning{% endif %}" title="تمييز"><i class="bi bi-star{% if not school.is_featured %}-{% endif %}fill"></i></button>
                                     </form>
+
                                     <form method="POST" action="{{ url_for('admin.toggle_school', id=school.id) }}" class="delete-form">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button class="btn btn-sm btn-{% if school.is_active %}danger{% else %}success{% endif %}" title="{% if school.is_active %}إيقاف{% else %}تفعيل{% endif %}">

@@ -11,6 +11,7 @@ class HeroSection(db.Model):
     background_image = db.Column(db.String(255))
     background_video = db.Column(db.String(255))
     background_color = db.Column(db.String(20), default='#1e1b4b')
+    demo_video = db.Column(db.String(255))
     title = db.Column(db.String(300), nullable=False)
     title_ar = db.Column(db.String(300))
     subtitle = db.Column(db.String(500))

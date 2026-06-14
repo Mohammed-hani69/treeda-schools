@@ -16,6 +16,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="plan-card" style="--brand-primary:{{ plan.color or '#0F71F0' }};{% if not plan.is_active %}opacity:0.6;{% endif %}">
                     {% if plan.is_featured %}<span class="badge-status badge-featured" style="position:absolute;top:1rem;left:1rem;">مميز</span>{% endif %}
+                    {% if plan.image %}<img src="{{ url_for('static', filename='uploads/plans/' + plan.image) }}" alt="" style="width:100%;height:120px;object-fit:cover;border-radius:var(--radius-lg);margin-bottom:0.75rem;">{% endif %}
                     <div class="plan-name">{{ plan.name }}</div>
                     <div class="plan-price">{{ plan.price }} <span>{{ plan.currency }}</span></div>
                     <p class="text-secondary" style="font-size:0.85rem;">مدة الاشتراك: {{ plan.duration_days }} يوم</p>

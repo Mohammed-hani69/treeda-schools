@@ -39,7 +39,7 @@
                     {% endif %}
                     <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="{{ url_for('main.index') }}#featured-schools">{{ _('nav.featured_schools') }}</a>
-                    <a class="nav-link" href="{{ url_for('main.index') }}#pricing">{{ _('nav.pricing') }}</a>
+                    <a class="nav-link" href="{{ url_for('main.plans') }}">{{ _('nav.pricing') }}</a>
                     <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
                 </div>
 
@@ -97,7 +97,7 @@
                     {% endif %}
                     <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="{{ url_for('main.index') }}#featured-schools">{{ _('nav.featured_schools') }}</a>
-                    <a class="nav-link" href="{{ url_for('main.index') }}#pricing">{{ _('nav.pricing') }}</a>
+                    <a class="nav-link" href="{{ url_for('main.plans') }}">{{ _('nav.pricing') }}</a>
                     <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
                     <hr style="border-color:var(--border);margin:0.5rem 0;">
                     {% if current_user.is_authenticated %}

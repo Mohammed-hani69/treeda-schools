@@ -17,6 +17,7 @@ class Plan(db.Model):
     storage_mb = db.Column(db.Integer, default=100)
     max_employees = db.Column(db.Integer, default=5)
     is_featured = db.Column(db.Boolean, default=False)
+    image = db.Column(db.String(255))
     color = db.Column(db.String(20), default='#6366f1')
     sort_order = db.Column(db.Integer, default=0)
     is_active = db.Column(db.Boolean, default=True)

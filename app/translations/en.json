@@ -239,6 +239,13 @@
     "move_cursor": {"ar": "حرك المؤشر للتنقل", "en": "Move cursor to navigate"}
   },
 
+  "recommended": {
+    "tag": {"ar": "مدارس موصى بها", "en": "Recommended Schools"},
+    "title": {"ar": "مدارس موصى بها من إدارتنا", "en": "Schools Recommended by Our Administration"},
+    "desc": {"ar": "مجموعة من أفضل المدارس التي نوصي بها لأبنائكم", "en": "A selection of the best schools we recommend for your children"},
+    "badge": {"ar": "موصى بها", "en": "Recommended"}
+  },
+
   "school_type_fallback": {"ar": "مدارس خاصة", "en": "Private Schools"},
   "city_fallback": {"ar": "القاهرة", "en": "Cairo"},
 

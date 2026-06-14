@@ -34,6 +34,7 @@ class School(db.Model):
     map_lat = db.Column(db.Float)
     map_lng = db.Column(db.Float)
     is_featured = db.Column(db.Boolean, default=False)
+    is_recommended = db.Column(db.Boolean, default=False)
     is_approved = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
     views = db.Column(db.Integer, default=0)

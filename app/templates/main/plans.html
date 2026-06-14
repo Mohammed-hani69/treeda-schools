@@ -8,28 +8,22 @@
             <p>{{ _('pricing.desc') }}</p>
         </div>
         {% if plans %}
-        <div class="row g-4 align-items-stretch pt-3">
+        <div class="row g-4 pt-3 justify-content-center">
             {% for plan in plans %}
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
-                <div class="plan-card-modern {% if plan.is_featured %}featured{% endif %}" style="{% if plan.color %}border-color:{{ plan.color }}{% endif %}">
-                    {% if plan.is_featured %}<span class="badge-popular">{{ _('pricing.badge_popular') }}</span>{% endif %}
-                    <h3>{{ plan.name }}</h3>
-                    <p class="sub">{{ plan.description or _('pricing.plan_desc') }}</p>
-                    <div class="price">
-                        <span class="amount">{{ plan.price }}</span>
-                        <span class="currency">{{ plan.currency or currency }}</span>
+                <div class="plan-image-card">
+                    {% if plan.image %}
+                    <img src="{{ url_for('static', filename='uploads/plans/' + plan.image) }}" alt="{{ plan.name }}" class="plan-image">
+                    {% else %}
+                    <div class="plan-image-placeholder d-flex align-items-center justify-content-center" style="height:300px;background:var(--surface-secondary);border-radius:var(--radius-2xl);color:var(--text-muted);">
+                        <i class="bi bi-box-seam" style="font-size:4rem;"></i>
                     </div>
-                    <div class="features">
-                        <span class="features-label">{{ _('pricing.features_label') }}</span>
-                        {% for feature in plan.get_features_list() %}
-                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ feature }}</span></li>
-                        {% endfor %}
-                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.max_images }} {{ _('pricing.image_text') }}</span></li>
-                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.max_videos }} {{ _('pricing.video_text') }}</span></li>
-                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.storage_mb }} {{ _('pricing.mb_text') }}</span></li>
+                    {% endif %}
+                    <div class="plan-image-overlay">
+                        <h4>{{ plan.name }}</h4>
+                        <div class="plan-image-price">{{ plan.price }} {{ plan.currency or 'EGP' }}</div>
+                        <a href="{{ url_for('auth.register_school') }}" class="btn btn-primary btn-lg px-4 mt-2">{{ _('pricing.subscribe') }}</a>
                     </div>
-                    <a href="{{ url_for('auth.register_school') }}" class="btn-plan">{{ _('pricing.subscribe') }}</a>
-                    <p class="plan-footnote">{{ _('pricing.footnote') }}</p>
                 </div>
             </div>
             {% endfor %}
@@ -45,4 +39,53 @@
         {% endif %}
     </div>
 </section>
+
+<style>
+.plan-image-card {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+}
+.plan-image-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+.plan-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+}
+.plan-image-placeholder {
+    width: 100%;
+    height: 350px;
+}
+.plan-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: #fff;
+    text-align: center;
+}
+.plan-image-overlay h4 {
+    margin: 0 0 0.25rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+}
+.plan-image-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.plan-image-overlay .btn {
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+}
+</style>
 {% endblock %}
