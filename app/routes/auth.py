@@ -50,7 +50,7 @@ def register_school():
         return redirect(url_for('main.index'))
 
     form = SchoolRegisterForm()
-    form.plan_id.choices = [(p.id, f"{p.name} - {p.price} ريال") for p in Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()]
+    form.plan_id.choices = [(p.id, f"{p.name} - {p.price} جنيه") for p in Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()]
 
     if form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).first():

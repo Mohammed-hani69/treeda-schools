@@ -9,7 +9,7 @@ class PlanForm(FlaskForm):
     name_en = StringField('اسم الباقة (إنجليزي)', validators=[Optional(), Length(max=100)])
     description = TextAreaField('وصف الباقة')
     price = FloatField('السعر', validators=[DataRequired()])
-    currency = StringField('العملة', default='SAR')
+    currency = StringField('العملة', default='EGP')
     duration_days = IntegerField('مدة الاشتراك (أيام)', validators=[DataRequired()])
     max_images = IntegerField('الحد الأقصى للصور', default=10)
     max_videos = IntegerField('الحد الأقصى للفيديوهات', default=5)

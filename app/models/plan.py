@@ -10,7 +10,7 @@ class Plan(db.Model):
     name_en = db.Column(db.String(100))
     description = db.Column(db.Text)
     price = db.Column(db.Float, nullable=False)
-    currency = db.Column(db.String(10), default='SAR')
+    currency = db.Column(db.String(10), default='EGP')
     duration_days = db.Column(db.Integer, nullable=False)
     max_images = db.Column(db.Integer, default=10)
     max_videos = db.Column(db.Integer, default=5)

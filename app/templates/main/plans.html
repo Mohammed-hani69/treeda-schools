@@ -22,7 +22,7 @@
                     <div class="plan-image-overlay">
                         <h4>{{ plan.name }}</h4>
                         <div class="plan-image-price">{{ plan.price }} {{ plan.currency or 'EGP' }}</div>
-                        <a href="{{ url_for('auth.register_school') }}" class="btn btn-primary btn-lg px-4 mt-2">{{ _('pricing.subscribe') }}</a>
+                        <a href="{{ url_for('main.payment', plan_id=plan.id) }}" class="btn btn-primary btn-lg px-4 mt-2">{{ _('pricing.subscribe') }}</a>
                     </div>
                 </div>
             </div>

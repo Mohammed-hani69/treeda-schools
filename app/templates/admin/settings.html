@@ -79,9 +79,23 @@
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">العملة الافتراضية</label>
-                        <input type="text" name="currency" class="form-control" value="{{ setting.currency or 'SAR' }}" placeholder="SAR">
+                        <input type="text" name="currency" class="form-control" value="{{ setting.currency or 'EGP' }}" placeholder="EGP">
                     </div>
                 </div>
+
+                <hr class="my-4">
+                <h5 class="fw-bold mb-3"><i class="bi bi-credit-card" style="color:var(--brand-primary);"></i> معلومات الدفع</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">رقم الحساب البنكي (تحويل بنكي)</label>
+                        <input type="text" name="bank_transfer_number" class="form-control" value="{{ setting.bank_transfer_number or '' }}" placeholder="100051892245">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">رقم انستاباي / المحافظ الإلكترونية</label>
+                        <input type="text" name="instapay_phone" class="form-control" value="{{ setting.instapay_phone or '' }}" placeholder="01001406922">
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary w-100 mt-4" style="padding:0.75rem;font-weight:700;border-radius:var(--radius-md);">حفظ الإعدادات</button>
             </form>
         </div>

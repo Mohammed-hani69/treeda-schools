@@ -134,3 +134,10 @@ def school_detail(slug):
 def plans():
     plans = Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()
     return render_template('main/plans.html', plans=plans)
+
+
+@main_bp.route('/payment/<int:plan_id>')
+def payment(plan_id):
+    plan = Plan.query.get_or_404(plan_id)
+    setting = Setting.query.first()
+    return render_template('main/payment.html', plan=plan, setting=setting)

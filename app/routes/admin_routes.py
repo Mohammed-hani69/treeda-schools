@@ -753,7 +753,9 @@ def settings():
         setting.primary_color = request.form.get('primary_color', '#6366f1')
         setting.secondary_color = request.form.get('secondary_color', '#ec4899')
         setting.theme = request.form.get('theme', 'light')
-        setting.currency = request.form.get('currency', 'SAR')
+        setting.currency = request.form.get('currency', 'EGP')
+        setting.bank_transfer_number = request.form.get('bank_transfer_number')
+        setting.instapay_phone = request.form.get('instapay_phone')
 
         if 'logo' in request.files and request.files['logo'].filename:
             if setting.logo:

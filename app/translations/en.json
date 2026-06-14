@@ -325,5 +325,14 @@
     "forgot_subtitle": {"ar": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.", "en": "Enter your email and we'll send you a reset link."},
     "send_reset_link": {"ar": "إرسال رابط إعادة التعيين", "en": "Send Reset Link"},
     "back_to_login": {"ar": "العودة إلى تسجيل الدخول", "en": "Back to Login"}
+  },
+  "join_us": {"ar": "انضم إلينا", "en": "Join Us"},
+  "payment": {
+    "title": {"ar": "الدفع", "en": "Payment"},
+    "instructions": {"ar": "طريقة الدفع", "en": "Payment Instructions"},
+    "bank_transfer": {"ar": "تحويل بنكي", "en": "Bank Transfer"},
+    "instapay": {"ar": "انستاباي والمحافظ الإلكترونية", "en": "Instapay & Mobile Wallets"},
+    "note": {"ar": "بعد التحويل يرجى التواصل معنا لتأكيد الدفع وتفعيل الاشتراك", "en": "After payment, please contact us to confirm and activate your subscription"},
+    "back_home": {"ar": "العودة للرئيسية", "en": "Back to Home"}
   }
 }

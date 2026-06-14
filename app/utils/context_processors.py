@@ -24,7 +24,7 @@ def inject_globals(app):
             return _tr(key, current_lang)
 
         site_name = setting.site_name_en if current_lang == 'en' and setting.site_name_en else setting.site_name or 'المعرض الإلكتروني للمدارس'
-        currency = setting.currency or 'SAR'
+        currency = setting.currency or 'EGP'
 
         return {
             'setting': setting,

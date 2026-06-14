@@ -24,8 +24,10 @@ class Setting(db.Model):
     primary_color = db.Column(db.String(20), default='#6366f1')
     secondary_color = db.Column(db.String(20), default='#ec4899')
     font_family = db.Column(db.String(100), default='Cairo')
-    currency = db.Column(db.String(10), default='SAR')
+    currency = db.Column(db.String(10), default='EGP')
     maintenance_mode = db.Column(db.Boolean, default=False)
+    bank_transfer_number = db.Column(db.String(100), default='100051892245')
+    instapay_phone = db.Column(db.String(20), default='01001406922')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
