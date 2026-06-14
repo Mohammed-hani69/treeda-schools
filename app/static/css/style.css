@@ -1802,30 +1802,31 @@ a:hover { color: var(--brand-primary-hover); }
 .section-desc { color: var(--text-secondary); font-weight: 300; line-height: 1.8; }
 
 /* ═══════════════════════════════════════════════════
-   AI Chat Assistant
+   WhatsApp Floating Button
    ═══════════════════════════════════════════════════ */
-.ai-chat-btn {
+.whatsapp-float {
   position: fixed;
   bottom: 24px; left: 24px;
   z-index: 9999;
   width: 56px; height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--brand-primary), #1a8aff);
+  background: linear-gradient(135deg, #25D366, #128C7E);
   color: #fff;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(15,113,240,0.4);
+  font-size: 1.7rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
   transition: all 0.3s ease;
 }
-.ai-chat-btn:hover {
+.whatsapp-float:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(15,113,240,0.5);
+  box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+  color: #fff;
 }
-.ai-chat-btn:active { transform: scale(0.95); }
+.whatsapp-float:active { transform: scale(0.95); }
 
 .ai-chat-panel {
   position: fixed;
@@ -2047,8 +2048,7 @@ a:hover { color: var(--brand-primary-hover); }
   .navbar-modern .navbar-brand .brand-sub { font-size: 7px; }
   .navbar-modern .theme-toggle { width: 34px; height: 34px; font-size: 0.85rem; }
 
-  .ai-chat-btn { width: 48px; height: 48px; font-size: 1.25rem; bottom: 16px; left: 16px; }
-  .ai-chat-panel { left: 12px; bottom: 72px; width: calc(100vw - 24px); height: calc(100vh - 140px); }
+  .whatsapp-float { width: 48px; height: 48px; font-size: 1.4rem; bottom: 16px; left: 16px; }
 
   .dynamic-cards .dynamic-card { padding: 1rem; border-radius: var(--radius-lg); }
 }

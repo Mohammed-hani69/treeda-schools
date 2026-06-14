@@ -79,7 +79,7 @@
                     {% endif %}
                     <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="/pricing">{{ _('nav.pricing') }}</a>
-                    <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
+                    <a class="nav-link" href="https://wa.me/201097000010" target="_blank">{{ _('nav.contact_us') }}</a>
                 </div>
 
                 <div class="d-none d-lg-flex align-items-center gap-2">
@@ -136,7 +136,7 @@
                     {% endif %}
                     <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="/pricing">{{ _('nav.pricing') }}</a>
-                    <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
+                    <a class="nav-link" href="https://wa.me/201097000010" target="_blank">{{ _('nav.contact_us') }}</a>
                     <hr style="border-color:var(--border);margin:0.5rem 0;">
                     {% if current_user.is_authenticated %}
                     <div class="d-flex flex-column gap-1">
@@ -239,24 +239,9 @@
         </div>
     </footer>
 
-    <button class="ai-chat-btn" id="aiChatBtn" onclick="openChat()" title="{{ _('chat.title') }}">
-        <i class="bi bi-robot"></i>
-    </button>
-
-    <div class="ai-chat-panel" id="aiChatPanel">
-        <div class="chat-header">
-            <div class="chat-title">
-                <i class="bi bi-robot"></i>
-                <span>{{ _('chat.title') }}</span>
-            </div>
-            <button class="chat-close" onclick="closeChat()"><i class="bi bi-x-lg"></i></button>
-        </div>
-        <div class="chat-messages" id="aiChatMessages"></div>
-        <div class="chat-input-area">
-            <input type="text" id="aiChatInput" placeholder="{{ _('chat.placeholder') }}" autocomplete="off">
-            <button class="chat-send" onclick="sendChatMessage()"><i class="bi bi-send-fill"></i></button>
-        </div>
-    </div>
+    <a href="https://wa.me/201097000010" class="whatsapp-float" target="_blank" title="WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
 
     <button class="back-to-top" id="backToTop" title="{{ _('back_to_top') }}">
         <i class="bi bi-chevron-up"></i>
@@ -266,7 +251,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
     {% block extra_js %}{% endblock %}
     <script>
         try { AOS.init({ duration: 800, once: true, offset: 100 }); } catch(e) {}

@@ -392,7 +392,7 @@ def create_plan():
             is_active=form.is_active.data,
             features=form.features.data
         )
-        if form.image.data and form.image.data.filename:
+        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
             filename = save_file(form.image.data, 'plans')
             if filename:
                 plan.image = filename
@@ -412,7 +412,7 @@ def edit_plan(id):
     if form.validate_on_submit():
         old_image = plan.image
         form.populate_obj(plan)
-        if form.image.data and form.image.data.filename:
+        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
             filename = save_file(form.image.data, 'plans')
             if filename:
                 plan.image = filename

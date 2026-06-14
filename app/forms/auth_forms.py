@@ -18,7 +18,7 @@ class SchoolRegisterForm(FlaskForm):
     password = PasswordField('كلمة المرور', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('تأكيد كلمة المرور', validators=[DataRequired(), EqualTo('password')])
     plan_id = SelectField('الباقة', coerce=int, validators=[DataRequired()])
-    submit = SubmitField('تسجيل المدرسة')
+    submit = SubmitField('Register School')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
