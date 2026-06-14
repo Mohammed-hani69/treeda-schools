@@ -3,7 +3,7 @@ from flask_mail import Message
 from app import db, mail
 from app.models.home import HeroSection
 from app.models.category import Category
-from app.models.school import School
+from app.models.school import School, SchoolVisitLog
 from app.models.plan import Plan
 from app.models.user import User
 from app.models.notification import Notification
@@ -121,6 +121,9 @@ def category_detail(slug):
 @main_bp.route('/school/<slug>')
 def school_detail(slug):
     school = School.query.filter_by(slug=slug, is_active=True, is_approved=True).first_or_404()
+    school.views = (school.views or 0) + 1
+    SchoolVisitLog.record_visit(school.id)
+    db.session.commit()
     from app.models.school import SchoolMedia
     images = school.approved_media('image').order_by(SchoolMedia.created_at.desc()).all()
     videos = school.approved_media('video').order_by(SchoolMedia.created_at.desc()).all()

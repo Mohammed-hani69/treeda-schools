@@ -3,61 +3,28 @@
 
 {% block content %}
 
-{# ─── Immersive 3D Hero ─── #}
-<section class="school-3d-hero" id="top">
-  <div class="parallax-bg" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1920&auto=format&fit=crop' }}');"></div>
-  <div class="parallax-overlay"></div>
-  <div class="container h-100 d-flex align-items-end pb-5 position-relative" style="z-index:2;">
-    <div class="row w-100">
-      <div class="col-lg-8">
-        <div class="hero-3d-card glass-deep" data-tilt data-tilt-max="8" data-tilt-speed="400">
-          <div class="d-flex align-items-center gap-4 flex-wrap">
-            <div class="school-logo-3d">
-              {% if school.logo %}
-              <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) }}" alt="">
-              {% else %}
-              <div class="logo-placeholder"><i class="bi bi-building"></i></div>
-              {% endif %}
-            </div>
-            <div class="flex-fill">
-              <div class="d-flex gap-2 flex-wrap mb-2">
-                {% if school.school_type %}
-                <span class="badge-3d type">{{ school.school_type }}</span>
-                {% endif %}
-                {% if school.gender %}
-                <span class="badge-3d gender">{{ {'male':'بنين','female':'بنات','both':'مشترك'}.get(school.gender, school.gender) }}</span>
-                {% endif %}
-                {% if school.is_featured %}
-                <span class="badge-3d featured"><i class="bi bi-star-fill"></i> مميزة</span>
-                {% endif %}
-              </div>
-              <h1 class="school-title-3d">{{ school.name }}</h1>
-              <div class="d-flex gap-3 flex-wrap meta-3d">
-                {% if school.city %}
-                <span><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %}، {{ school.district }}{% endif %}</span>
-                {% endif %}
-                {% if school.founded_year %}
-                <span><i class="bi bi-calendar3"></i> {{ school.founded_year }}</span>
-                {% endif %}
-                <span><i class="bi bi-eye"></i> {{ school.views or 0 }} زيارة</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero-actions mt-3">
-            {% if school.phone %}
-            <a href="tel:{{ school.phone }}" class="btn-3d primary pulse-glow"><i class="bi bi-telephone-fill"></i> {{ school.phone }}</a>
-            {% endif %}
-            <a href="#contact-section" class="btn-3d outline scroll-link"><i class="bi bi-info-circle"></i> معلومات الاتصال</a>
-          </div>
-        </div>
+{# ─── Cover Image ─── #}
+<section style="padding:6rem 0 1.5rem;">
+  <div class="container">
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4"><i class="bi bi-arrow-right"></i> العودة</a>
+    <div class="school-cover-wrap" style="border-radius:var(--radius-xl);overflow:hidden;margin-bottom:1.5rem;">
+      <img src="{{ url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/1200x400/0F71F0/white?text=School' }}" alt="{{ school.name }}" loading="lazy" style="width:100%;aspect-ratio:3/1;object-fit:cover;display:block;background:var(--surface-secondary);">
+    </div>
+    <div class="school-info-bar" style="display:flex;align-items:center;gap:1.25rem;padding:1.25rem 0;border-bottom:1px solid var(--border-light);margin-bottom:2rem;">
+      <div style="width:72px;height:72px;border-radius:var(--radius-lg);background-size:cover;background-position:center;border:2px solid var(--border);flex-shrink:0;background-color:var(--surface-secondary);background-image:url('{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://placehold.co/72x72/e9ecef/ccc?text=' }}');"></div>
+      <div>
+        <h1 style="font-size:1.35rem;font-weight:800;margin:0 0 0.15rem;color:var(--text-primary);">{{ school.name }}</h1>
+        <p style="margin:0;color:var(--text-tertiary);font-size:0.85rem;">
+          {% if school.views %}{{ school.views }} مشاهدة{% endif %}
+          {% if school.city and school.views %} &middot; {% endif %}
+          {% if school.city %}{{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}{% endif %}
+          {% if school.founded_year %} &middot; {{ school.founded_year }}{% endif %}
+        </p>
       </div>
     </div>
+          </div>
+    </div>
   </div>
-  <div class="scroll-indicator-3d">
-    <div class="mouse"><div class="wheel"></div></div>
-  </div>
-  <div class="hero-glow-1"></div>
-  <div class="hero-glow-2"></div>
 </section>
 
 {# ─── Virtual Tour Navigation ─── #}

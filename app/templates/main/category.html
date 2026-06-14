@@ -10,29 +10,45 @@
         </div>
 
         {% if schools %}
+        <style>
+        .category-school-card {
+            display: block;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .category-school-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .category-school-card .card-img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            display: block;
+            background: var(--surface-secondary);
+        }
+        .category-school-card .card-body {
+            padding: 1rem 1.15rem 1.15rem;
+        }
+        .category-school-card .card-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+        }
+        </style>
         <div class="row g-4">
             {% for school in schools %}
             <div class="col-lg-4 col-md-6">
-                <a href="{{ url_for('main.school_detail', slug=school.slug) }}" class="text-decoration-none">
-                    <div class="school-card-modern">
-                        <div class="cover" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.image) if school.image else url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/600x400/0F71F0/white?text=School' }}');"></div>
-                        <div class="body">
-                            <div class="logo" style="background-image:url('{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://placehold.co/80x80/0F71F0/white?text=' }}');"></div>
-                            <h3>{{ school.name }}</h3>
-                            {% if school.city %}
-                            <p><i class="bi bi-geo-alt"></i> {{ school.city }}{% if school.district %} - {{ school.district }}{% endif %}</p>
-                            {% endif %}
-                            <div class="d-flex align-items-center gap-3 mt-2">
-                                {% if school.category %}
-                                <span class="badge-status badge-approved">{{ school.category.name }}</span>
-                                {% elif school.school_type %}
-                                <span class="badge-status badge-approved">{% if school.school_type == 'government' %}حكومية{% elif school.school_type == 'private' %}أهلية{% elif school.school_type == 'international' %}دولية{% else %}تحفيظ{% endif %}</span>
-                                {% endif %}
-                                {% if school.is_featured %}
-                                <span class="badge-status" style="background:var(--brand-primary);color:#fff;">مميزة</span>
-                                {% endif %}
-                            </div>
-                        </div>
+                <a href="{{ url_for('main.school_detail', slug=school.slug) }}" class="category-school-card">
+                    <img class="card-img" src="{{ url_for('static', filename='uploads/schools/' + school.image) if school.image else url_for('static', filename='uploads/schools/' + school.cover) if school.cover else 'https://placehold.co/600x400/0F71F0/white?text=School' }}" alt="{{ school.name }}" loading="lazy">
+                    <div class="card-body">
+                        <h3>{{ school.name }}</h3>
                     </div>
                 </a>
             </div>
