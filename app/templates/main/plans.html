@@ -1,35 +1,49 @@
 {% extends "layouts/base.html" %}
-{% block title %}الباقات - {{ site_name }}{% endblock %}
+{% block title %}{{ _('nav.pricing') }} - {{ site_name }}{% endblock %}
 {% block content %}
 <section class="py-5">
     <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>الباقات <span>والاشتراكات</span></h2>
-            <div class="section-divider"></div>
-            <p>اختر الباقة المناسبة لمدرستك</p>
+        <div class="section-header-custom" data-aos="fade-up">
+            <span class="section-tag">{{ _('pricing.tag') }}</span>
+            <h2>{{ _('pricing.title') }}</h2>
+            <p>{{ _('pricing.desc') }}</p>
         </div>
-        <div class="row g-4 justify-content-center">
+        {% if plans %}
+        <div class="row g-4 align-items-stretch pt-3">
             {% for plan in plans %}
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
-                <div class="plan-card {% if plan.is_featured %}featured{% endif %}" style="{% if plan.color %}border-color:{{ plan.color }}{% endif %}">
-                    {% if plan.is_featured %}<div class="plan-badge">الأكثر طلباً</div>{% endif %}
-                    <div class="plan-name">{{ plan.name }}</div>
-                    <div class="plan-price mb-2">{{ plan.price }} <span>{{ plan.currency }}</span></div>
-                    <p class="text-secondary mb-3">مدة الاشتراك: {{ plan.duration_days }} يوم</p>
-                    <ul class="plan-features">
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="plan-card-modern {% if plan.is_featured %}featured{% endif %}" style="{% if plan.color %}border-color:{{ plan.color }}{% endif %}">
+                    {% if plan.is_featured %}<span class="badge-popular">{{ _('pricing.badge_popular') }}</span>{% endif %}
+                    <h3>{{ plan.name }}</h3>
+                    <p class="sub">{{ plan.description or _('pricing.plan_desc') }}</p>
+                    <div class="price">
+                        <span class="amount">{{ plan.price }}</span>
+                        <span class="currency">{{ plan.currency or currency }}</span>
+                    </div>
+                    <div class="features">
+                        <span class="features-label">{{ _('pricing.features_label') }}</span>
                         {% for feature in plan.get_features_list() %}
-                        <li><i class="bi bi-check-circle-fill"></i> {{ feature }}</li>
+                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ feature }}</span></li>
                         {% endfor %}
-                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_images }} صورة</li>
-                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_videos }} فيديو</li>
-                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.storage_mb }} ميجابايت تخزين</li>
-                        <li><i class="bi bi-check-circle-fill"></i> {{ plan.max_employees }} موظف</li>
-                    </ul>
-                    <a href="{{ url_for('auth.register_school') }}" class="btn btn-primary w-100 py-3">اشترك الآن</a>
+                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.max_images }} {{ _('pricing.image_text') }}</span></li>
+                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.max_videos }} {{ _('pricing.video_text') }}</span></li>
+                        <li><span class="check"><i class="bi bi-check" style="font-size:0.65rem;"></i></span><span>{{ plan.storage_mb }} {{ _('pricing.mb_text') }}</span></li>
+                    </div>
+                    <a href="{{ url_for('auth.register_school') }}" class="btn-plan">{{ _('pricing.subscribe') }}</a>
+                    <p class="plan-footnote">{{ _('pricing.footnote') }}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="text-center py-5" data-aos="fade-up">
+            <div class="empty-state">
+                <i class="bi bi-box-seam"></i>
+                <h5>{{ _('pricing.tag') }}</h5>
+                <p>{% if current_user.is_authenticated and current_user.is_admin() %}<a href="{{ url_for('admin.plans') }}" class="btn btn-primary mt-3">{{ _('nav.dashboard') }}</a>{% endif %}</p>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

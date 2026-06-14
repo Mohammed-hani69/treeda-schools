@@ -98,7 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (content) {
         const header = content.querySelector('.admin-content-header');
         if (header) {
-          header.insertBefore(toggleBtn, header.firstChild);
+          const titleDiv = header.querySelector('div');
+          if (titleDiv) {
+            titleDiv.insertBefore(toggleBtn, titleDiv.firstChild);
+          } else {
+            header.insertBefore(toggleBtn, header.firstChild);
+          }
         } else {
           content.insertBefore(toggleBtn, content.firstChild);
         }

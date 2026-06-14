@@ -5,6 +5,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
 
+main {
+  padding-top: 72px;
+}
+
 :root {
   --brand-primary: #0F71F0;
   --brand-primary-dark: #0E68DD;
@@ -2741,6 +2745,23 @@ a:hover { color: var(--brand-primary-hover); }
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.admin-content-header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.admin-content-header .sidebar-toggle {
+  flex-shrink: 0;
+}
+
+.admin-content-header > a.btn,
+.admin-content-header > button.btn {
+  flex-shrink: 0;
 }
 
 .admin-content-header h4 {
