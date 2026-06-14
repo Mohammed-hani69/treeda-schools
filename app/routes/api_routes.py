@@ -1,3 +1,4 @@
+import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app import db, csrf
@@ -82,6 +83,120 @@ def reorder_sections():
     return jsonify({'error': 'Invalid data'}), 400
 
 
+def _norm_arabic(text):
+    """Normalize Arabic: unify alef, teh marbuta → heh, remove tashkeel."""
+    text = text.replace('أ', 'ا').replace('إ', 'ا').replace('آ', 'ا')
+    text = text.replace('ة', 'ه')
+    text = re.sub(r'[ًٌٍَُِّْ]', '', text)
+    return text
+
+def _words(text):
+    """Split text into lowercase word tokens."""
+    return re.findall(r'[\w]+', text.lower())
+
+def _affix_strip(word):
+    """Crude Arabic affix stripping to approximate a root (min 3 chars result)."""
+    if len(word) < 4:
+        return word
+    stripped = word
+    # Definite article
+    if stripped.startswith('ال') and len(stripped) > 5:
+        stripped = stripped[2:]
+    # Common prefixes (sorted longest first; uses bare alef ا after _norm_arabic normalization)
+    for p in ['فب', 'فل', 'فس', 'وب', 'لل', 'سا', 'سن', 'سي', 'ست',
+              'ف', 'ب', 'ل', 'ك', 'و', 'س', 'ا', 'ي', 'ت', 'ن']:
+        if stripped.startswith(p) and len(stripped) - len(p) >= 3:
+            stripped = stripped[len(p):]
+            break
+    # Common suffixes (sorted longest first)
+    for s in ['هما', 'كما', 'نتم', 'نكن', 'كما', 'ون', 'ين', 'ان', 'ات',
+              'تم', 'تن', 'نا', 'ها', 'هم', 'هن', 'كم', 'كن',
+              'ني', 'تو', 'وا', 'ته', 'تا', 'تي', 'ت', 'ي', 'ه', 'ة', 'ا', 'ن']:
+        if stripped.endswith(s) and len(stripped) - len(s) >= 3:
+            stripped = stripped[:-len(s)]
+            break
+    return stripped if len(stripped) >= 3 else word
+
+def _score_item(keywords_list, msg_lower, msg_words, msg_norm, msg_words_norm, msg_words_root):
+    """Multi-strategy keyword matching score for one knowledge item.
+    
+    Tracks which user message words have already contributed to avoid
+    the same word inflating scores across multiple similar keywords.
+    Each unique keyword word → user word pair contributes at most 1.
+    """
+    total = 0
+    used_msg_words = set()
+
+    for kw in keywords_list:
+        kw_norm = _norm_arabic(kw)
+        kw_words = _words(kw)
+        matched = False
+
+        # ── Strategy 1: Full keyword substring (original) ──
+        if kw in msg_lower:
+            # Mark all user words as used since the entire keyword matches
+            used_msg_words.update(msg_words)
+            total += 1
+            continue
+
+        # ── Strategy 2: Normalized keyword substring ──
+        if kw_norm in msg_norm:
+            used_msg_words.update(msg_words)
+            total += 1
+            continue
+
+        # ── Strategy 3: Word-level containment ──
+        for kww in kw_words:
+            if len(kww) < 3:
+                continue
+            for mw in msg_words:
+                if mw in used_msg_words:
+                    continue
+                if kww in mw or mw in kww:
+                    used_msg_words.add(mw)
+                    total += 1
+                    matched = True
+                    break
+            if matched:
+                break
+        if matched:
+            continue
+
+        # ── Strategy 4: Root overlap ──
+        for kww in kw_words:
+            if len(kww) < 4:
+                continue
+            kww_root = _affix_strip(_norm_arabic(kww))
+            if len(kww_root) < 3:
+                continue
+            for i, mw_root in enumerate(msg_words_root):
+                if msg_words[i] in used_msg_words:
+                    continue
+                if len(mw_root) < 3:
+                    continue
+                # Contiguous substring match
+                if kww_root in mw_root or mw_root in kww_root:
+                    used_msg_words.add(msg_words[i])
+                    total += 1
+                    matched = True
+                    break
+                # Character-set overlap for non-consecutive Arabic roots
+                k_set = set(kww_root)
+                m_set = set(mw_root)
+                common = len(k_set & m_set)
+                if common >= 3:
+                    overlap = common / max(len(k_set), len(m_set))
+                    if overlap >= 0.65:
+                        used_msg_words.add(msg_words[i])
+                        total += 1
+                        matched = True
+                        break
+            if matched:
+                break
+
+    return total
+
+
 @api_bp.route('/chat', methods=['POST'])
 @csrf.exempt
 def chat():
@@ -94,18 +209,24 @@ def chat():
     if not msg:
         return jsonify({'answer': None}), 200
 
+    # Pre-process message once
+    msg_words = _words(msg)
+    msg_norm = _norm_arabic(msg)
+    msg_words_norm = [_norm_arabic(w) for w in msg_words]
+    msg_words_root = [_affix_strip(w) for w in msg_words_norm]
+
     items = AiKnowledge.query.filter_by(is_active=True).order_by(AiKnowledge.sort_order).all()
     best_match = None
-    best_count = 0
+    best_score = 0
 
     for item in items:
-        keywords = item.get_keywords_list()
-        match_count = sum(1 for kw in keywords if kw in msg)
-        if match_count > best_count:
-            best_count = match_count
+        score = _score_item(item.get_keywords_list(), msg, msg_words,
+                           msg_norm, msg_words_norm, msg_words_root)
+        if score > best_score:
+            best_score = score
             best_match = item
 
-    if best_match and best_count > 0:
+    if best_match and best_score > 0:
         answer = best_match.answer_en if lang == 'en' else best_match.answer_ar
         return jsonify({'answer': answer, 'fallback': False})
 
