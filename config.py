@@ -27,3 +27,5 @@ class Config:
 
     PAGINATION_PER_PAGE = 12
     SCHOOLS_PER_PAGE = 20
+    CACHE_TYPE = "filesystem"
+    CACHE_DIR = "/tmp/flask_cache"
