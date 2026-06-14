@@ -162,7 +162,7 @@
     <div class="row g-4">
       {% for cat in categories %}
       <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
-        <a href="{{ cat.link or '#' }}" class="category-card-modern d-block">
+        <a href="{{ url_for('main.category_detail', slug=cat.slug) }}" class="category-card-modern d-block">
           <div class="bg-image" style="background-image:url('{{ url_for('static', filename='uploads/categories/' + cat.image) if cat.image else 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop' }}');"></div>
           <div class="overlay"></div>
           <span class="top-badge">— {{ _('categories.top_badge') }}</span>
