@@ -18,17 +18,12 @@ main_bp = Blueprint('main', __name__)
 def index():
     hero = HeroSection.query.filter_by(is_active=True).first()
     categories = Category.query.filter_by(is_active=True).order_by(Category.sort_order).all()
-    featured_schools = School.query.filter_by(is_featured=True, is_approved=True, is_active=True)\
-        .order_by(desc(School.views)).limit(6).all()
     recommended_schools = School.query.filter_by(is_featured=True, is_approved=True, is_active=True)\
         .order_by(desc(School.views)).limit(12).all()
-    plans = Plan.query.filter_by(is_active=True).order_by(Plan.sort_order).all()
     return render_template('main/index.html',
                          hero=hero,
                          categories=categories,
-                         featured_schools=featured_schools,
-                         recommended_schools=recommended_schools,
-                         plans=plans)
+                         recommended_schools=recommended_schools)
 
 
 @main_bp.route('/lang/<lang>')

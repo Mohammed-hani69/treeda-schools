@@ -104,6 +104,35 @@
   </div>
 </section>
 
+{# ═══════════════════ CATEGORIES ═══════════════════ #}
+{% if categories %}
+<section class="py-4" id="categories">
+  <div class="container">
+    <div class="section-header-custom" data-aos="fade-up">
+      <span class="section-tag">{{ _('categories.tag') }}</span>
+      <h2>{{ _('categories.title') }}</h2>
+      <p>{{ _('categories.desc') }}</p>
+    </div>
+    <div class="row g-4">
+      {% for cat in categories %}
+      <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
+        <a href="{{ url_for('main.category_detail', slug=cat.slug) }}" class="category-card-modern d-block">
+          <div class="bg-image" style="background-image:url('{{ url_for('static', filename='uploads/categories/' + cat.image) if cat.image else 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop' }}');"></div>
+          <div class="overlay"></div>
+          <span class="top-badge">— {{ _('categories.top_badge') }}</span>
+          <div class="bottom-content">
+            <h3>{{ cat.name }}</h3>
+            {% if cat.description %}<p>{{ cat.description[:100] }}</p>{% endif %}
+            <div class="hover-cta">{{ _('categories.cta') }} <i class="bi bi-chevron-right"></i></div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {# ═══════════════════ RECOMMENDED SCHOOLS ═══════════════════ #}
 {% if recommended_schools %}
 <section class="py-4" id="recommended-schools" style="overflow:hidden;">
@@ -132,52 +161,6 @@
           {% if school.about %}<p>{{ school.about[:100] }}{% if school.about|length > 100 %}...{% endif %}</p>{% endif %}
         </div>
       </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-{# ═══════════════════ FEATURED SCHOOLS ═══════════════════ #}
-{% if featured_schools %}
-<section class="py-4" id="featured-schools" style="background:var(--surface-secondary);">
-  <div class="container">
-    <div class="section-header-custom" data-aos="fade-up">
-      <span class="section-tag">{{ _('featured_schools.tag') }}</span>
-      <h2>{{ _('featured_schools.title') }}</h2>
-      <p>{{ _('featured_schools.desc') }}</p>
-    </div>
-    <div class="row g-4">
-      {% for school in featured_schools %}
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="school-card-modern">
-          <div class="cover">
-            <img src="{{ url_for('static', filename='uploads/schools/' + school.image if school.image else school.cover) if school.image or school.cover else 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop' }}" alt="{{ school.name }}">
-            <span class="type-badge">{{ school.category.name if school.category else (school.school_type or _('school_type_fallback')) }}</span>
-            <span class="trust-badge"><i class="bi bi-patch-check-fill"></i> {{ _('featured_schools.trust_badge') }}</span>
-          </div>
-          <div class="body">
-            <div class="logo">
-              <img src="{{ url_for('static', filename='uploads/schools/' + school.logo) if school.logo else 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69d28?q=80&w=150&auto=format&fit=crop' }}" alt="{{ school.name }}">
-            </div>
-            <div class="rating">
-              <span class="stars">{% for i in range(5) %}<i class="bi bi-star-fill"></i>{% endfor %}</span>
-              <strong>4.8</strong>
-              <span>({{ school.views or 0 }})</span>
-            </div>
-            <h3>{{ school.name }}</h3>
-            <div class="location"><i class="bi bi-geo-alt"></i><span>{{ school.city or _('city_fallback') }}</span></div>
-            <div class="tags">
-              {% if school.category %}<span>{{ school.category.name }}</span>{% elif school.school_type %}<span>{{ school.school_type }}</span>{% endif %}
-              {% if school.city %}<span>{{ school.city }}</span>{% endif %}
-            </div>
-            {% if school.about %}<p class="description">{{ school.about[:150] }}{% if school.about|length > 150 %}...{% endif %}</p>{% endif %}
-          </div>
-          <div class="footer">
-            <a href="{{ url_for('parent.school_detail', slug=school.slug) if current_user.is_authenticated and current_user.is_parent() else url_for('auth.login') }}" class="btn-view">{{ _('featured_schools.view_btn') }}</a>
-          </div>
-        </div>
-      </div>
       {% endfor %}
     </div>
   </div>

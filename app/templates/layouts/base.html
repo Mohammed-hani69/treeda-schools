@@ -37,7 +37,7 @@
                     {% if current_user.is_authenticated and current_user.is_parent() %}
                     <a class="nav-link" href="{{ url_for('parent.schools') }}">{{ _('nav.schools') }}</a>
                     {% endif %}
-                    <a class="nav-link" href="{{ url_for('main.index') }}#featured-schools">{{ _('nav.featured_schools') }}</a>
+                    <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="/pricing">{{ _('nav.pricing') }}</a>
                     <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
                 </div>
@@ -94,7 +94,7 @@
                     {% if current_user.is_authenticated and current_user.is_parent() %}
                     <a class="nav-link" href="{{ url_for('parent.schools') }}">{{ _('nav.schools') }}</a>
                     {% endif %}
-                    <a class="nav-link" href="{{ url_for('main.index') }}#featured-schools">{{ _('nav.featured_schools') }}</a>
+                    <a class="nav-link" href="{{ url_for('main.index') }}#categories">{{ _('nav.categories') }}</a>
                     <a class="nav-link" href="/pricing">{{ _('nav.pricing') }}</a>
                     <a class="nav-link" href="#footer">{{ _('nav.contact_us') }}</a>
                     <hr style="border-color:var(--border);margin:0.5rem 0;">
@@ -229,6 +229,38 @@
     {% block extra_js %}{% endblock %}
     <script>
         AOS.init({ duration: 800, once: true, offset: 100 });
+
+        // Admin sidebar toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            var header = document.querySelector('.admin-content-header > div:first-child');
+            var sbSidebar = document.getElementById('adminSidebar');
+            var sbOverlay = document.getElementById('sidebarOverlay');
+            if (header && sbSidebar && !document.getElementById('sidebarToggle')) {
+                var btn = document.createElement('button');
+                btn.id = 'sidebarToggle';
+                btn.className = 'sidebar-toggle';
+                btn.setAttribute('aria-label', 'Toggle sidebar');
+                btn.innerHTML = '<i class="bi bi-list"></i>';
+                header.prepend(btn);
+                btn.addEventListener('click', function() {
+                    sbSidebar.classList.toggle('open');
+                    if (sbOverlay) sbOverlay.classList.toggle('show');
+                });
+            }
+            if (sbOverlay && sbSidebar) {
+                sbOverlay.addEventListener('click', function() {
+                    sbSidebar.classList.remove('open');
+                    sbOverlay.classList.remove('show');
+                });
+            }
+            var sbClose = document.getElementById('sidebarClose');
+            if (sbClose && sbSidebar && sbOverlay) {
+                sbClose.addEventListener('click', function() {
+                    sbSidebar.classList.remove('open');
+                    sbOverlay.classList.remove('show');
+                });
+            }
+        });
     </script>
 </body>
 </html>
