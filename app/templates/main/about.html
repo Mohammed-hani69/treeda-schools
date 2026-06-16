@@ -1,73 +1,141 @@
 {% extends "layouts/base.html" %}
-{% block title %}عن المنصة - {{ site_name }}{% endblock %}
+{% block title %}{{ _('about.title') }} - {{ site_name }}{% endblock %}
 {% block content %}
-<section class="py-5"><div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>عن <span>المنصة</span></h2>
-            <div class="section-divider"></div>
-        </div>
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6" data-aos="fade-left">
-                <div class="bg-light rounded-4 overflow-hidden">
-                    <div style="height:400px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;">
-                        <i class="bi bi-mortarboard-fill" style="font-size:6rem;color:rgba(255,255,255,0.3);"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-right">
-                <h3 class="fw-bold mb-4">منصة المعرض الإلكتروني للمدارس</h3>
-                <p class="lead text-secondary" style="line-height:1.8;">
-                    منصة رقمية مبتكرة تهدف إلى ربط أولياء الأمور بالمدارس بطريقة عصرية وسهلة.
-                    نقدم بيئة متكاملة للمدارس لعرض إمكانياتها وبرامجها التعليمية.
-                </p>
-                <div class="row g-3 mt-4">
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width:48px;height:48px;background:rgba(99,102,241,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);">
-                                <i class="bi bi-eye"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">شفافية كاملة</h6>
-                                <small class="text-secondary">معلومات دقيقة عن المدارس</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width:48px;height:48px;background:rgba(236,72,153,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--secondary);">
-                                <i class="bi bi-shield-check"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">محتوى موثوق</h6>
-                                <small class="text-secondary">بإشراف وإدارة المنصة</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width:48px;height:48px;background:rgba(16,185,129,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--success);">
-                                <i class="bi bi-search"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">بحث متقدم</h6>
-                                <small class="text-secondary">تصفية حسب المدينة والنوع</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width:48px;height:48px;background:rgba(6,182,212,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--accent);">
-                                <i class="bi bi-phone"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">تصفح سهل</h6>
-                                <small class="text-secondary">متوافق مع جميع الأجهزة</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="py-5">
+  <div class="container">
+    <div class="section-header-custom" data-aos="fade-up">
+      <span class="section-tag">{{ _('about.title') }}</span>
+      <h2>{{ _('about.headline') }}</h2>
+      <p>{{ _('about.subtitle') }}</p>
     </div>
+  </div>
+</section>
+
+<section class="pb-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="position-relative">
+          <div class="rounded-4 overflow-hidden" style="background:linear-gradient(135deg, var(--brand-primary), #1a8aff);">
+            <div style="height:420px;display:flex;align-items:center;justify-content:center;">
+              <i class="bi bi-mortarboard-fill" style="font-size:7rem;color:rgba(255,255,255,0.2);"></i>
+            </div>
+          </div>
+          <div class="position-absolute bottom-0 end-0 translate-middle-y me-3 d-none d-md-block">
+            <div style="width:120px;height:120px;border-radius:50%;background:var(--surface);box-shadow:0 8px 32px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <i class="bi bi-star-fill" style="color:var(--brand-primary);font-size:1.5rem;"></i>
+              <span style="font-weight:800;font-size:1.1rem;color:var(--text);">4.9</span>
+              <small style="font-size:0.65rem;color:var(--text-secondary);">{{ _('about.stats_parents') }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="section-tag" style="margin-bottom:0.5rem;">{{ _('about.title') }}</div>
+        <h3 class="fw-bold mb-3" style="font-size:1.75rem;line-height:1.3;">{{ _('about.headline') }}</h3>
+        <p class="text-secondary" style="line-height:1.8;font-size:1.05rem;">{{ _('about.desc') }}</p>
+        <div class="row g-4 mt-4">
+          <div class="col-sm-6">
+            <div class="d-flex align-items-start gap-3">
+              <div style="width:44px;height:44px;min-width:44px;background:rgba(99,102,241,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--brand-primary);font-size:1.2rem;">
+                <i class="bi bi-eye"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1" style="font-size:0.9rem;">{{ _('about.feature_transparency_title') }}</h6>
+                <small class="text-secondary">{{ _('about.feature_transparency_desc') }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex align-items-start gap-3">
+              <div style="width:44px;height:44px;min-width:44px;background:rgba(236,72,153,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgb(236,72,153);font-size:1.2rem;">
+                <i class="bi bi-shield-check"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1" style="font-size:0.9rem;">{{ _('about.feature_trusted_title') }}</h6>
+                <small class="text-secondary">{{ _('about.feature_trusted_desc') }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex align-items-start gap-3">
+              <div style="width:44px;height:44px;min-width:44px;background:rgba(16,185,129,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgb(16,185,129);font-size:1.2rem;">
+                <i class="bi bi-search"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1" style="font-size:0.9rem;">{{ _('about.feature_search_title') }}</h6>
+                <small class="text-secondary">{{ _('about.feature_search_desc') }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex align-items-start gap-3">
+              <div style="width:44px;height:44px;min-width:44px;background:rgba(6,182,212,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgb(6,182,212);font-size:1.2rem;">
+                <i class="bi bi-phone"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold mb-1" style="font-size:0.9rem;">{{ _('about.feature_easy_title') }}</h6>
+                <small class="text-secondary">{{ _('about.feature_easy_desc') }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:var(--surface-secondary);">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6" data-aos="fade-up">
+        <div class="modern-card h-100">
+          <div class="card-body-custom">
+            <div style="width:56px;height:56px;border-radius:16px;background:rgba(99,102,241,0.1);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);font-size:1.5rem;margin-bottom:1rem;">
+              <i class="bi bi-bullseye"></i>
+            </div>
+            <h5 class="fw-bold mb-3">{{ _('about.mission_title') }}</h5>
+            <p class="text-secondary" style="line-height:1.8;font-size:0.95rem;">{{ _('about.mission_desc') }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="modern-card h-100">
+          <div class="card-body-custom">
+            <div style="width:56px;height:56px;border-radius:16px;background:rgba(236,72,153,0.1);display:flex;align-items:center;justify-content:center;color:rgb(236,72,153);font-size:1.5rem;margin-bottom:1rem;">
+              <i class="bi bi-binoculars"></i>
+            </div>
+            <h5 class="fw-bold mb-3">{{ _('about.vision_title') }}</h5>
+            <p class="text-secondary" style="line-height:1.8;font-size:0.95rem;">{{ _('about.vision_desc') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-3 justify-content-center">
+      <div class="col-md-4 col-6" data-aos="fade-up">
+        <div class="text-center py-4 px-3" style="background:var(--surface);border-radius:var(--radius-2xl);border:1px solid var(--border);">
+          <div style="font-size:2rem;font-weight:800;color:var(--brand-primary);">+{{ stats.schools }}</div>
+          <small class="text-secondary">{{ _('about.stats_schools') }}</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center py-4 px-3" style="background:var(--surface);border-radius:var(--radius-2xl);border:1px solid var(--border);">
+          <div style="font-size:2rem;font-weight:800;color:var(--brand-primary);">+{{ stats.parents }}</div>
+          <small class="text-secondary">{{ _('about.stats_parents') }}</small>
+        </div>
+      </div>
+      <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="text-center py-4 px-3" style="background:var(--surface);border-radius:var(--radius-2xl);border:1px solid var(--border);">
+          <div style="font-size:2rem;font-weight:800;color:var(--brand-primary);">+{{ stats.views }}</div>
+          <small class="text-secondary">{{ _('about.stats_views') }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {% endblock %}

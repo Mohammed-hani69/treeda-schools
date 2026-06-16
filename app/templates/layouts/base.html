@@ -219,7 +219,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <h5>{{ _('footer.message_us') }}</h5>
-                    <form class="footer-form" method="post" action="{{ url_for('main.contact') }}">
+                    <form class="footer-form" method="post" action="{{ url_for('main.contact_message') }}">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <input type="text" name="name" placeholder="{{ _('footer.name_placeholder') }}" required class="mb-2">
                         <input type="email" name="email" placeholder="{{ _('footer.email_placeholder') }}" required class="mb-2">

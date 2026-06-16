@@ -12,6 +12,7 @@ from app.models.notification import Notification
 from app.models.payment import Payment
 from app.models.setting import Setting
 from app.models.ai_knowledge import AiKnowledge
+from app.models.contact_message import ContactMessage
 from app.utils.decorators import admin_required
 from app.utils.helpers import save_file, delete_file, allowed_file, generate_slug
 from app.forms.admin_forms import (PlanForm, CategoryForm, HeroSectionForm, AdminSchoolCreateForm,
@@ -1192,3 +1193,32 @@ def delete_ai_knowledge(id):
     db.session.commit()
     flash('تم حذف المعرفة', 'success')
     return redirect(url_for('admin.ai_knowledge'))
+
+
+@admin_bp.route('/messages')
+@login_required
+@admin_required
+def messages():
+    msgs = ContactMessage.query.order_by(ContactMessage.created_at.desc()).all()
+    return render_template('admin/messages.html', messages=msgs)
+
+
+@admin_bp.route('/messages/read/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def mark_message_read(id):
+    msg = ContactMessage.query.get_or_404(id)
+    msg.is_read = True
+    db.session.commit()
+    return redirect(url_for('admin.messages'))
+
+
+@admin_bp.route('/messages/delete/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def delete_message(id):
+    msg = ContactMessage.query.get_or_404(id)
+    db.session.delete(msg)
+    db.session.commit()
+    flash('تم حذف الرسالة', 'success')
+    return redirect(url_for('admin.messages'))

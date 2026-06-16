@@ -35,6 +35,28 @@
     "terms": {"ar": "الشروط والأحكام", "en": "Terms & Conditions"}
   },
 
+  "about": {
+    "title": {"ar": "عن المنصة", "en": "About Us"},
+    "headline": {"ar": "منصة المعرض الإلكتروني للمدارس", "en": "Treeda Online School Expo"},
+    "subtitle": {"ar": "منصة رقمية مبتكرة تهدف إلى ربط أولياء الأمور بالمدارس بطريقة عصرية وسهلة.", "en": "An innovative digital platform connecting parents with schools in a modern and effortless way."},
+    "desc": {"ar": "نقدم بيئة متكاملة للمدارس لعرض إمكانياتها وبرامجها التعليمية، وأدوات متطورة لأولياء الأمور لاكتشاف المدرسة الأنسب لأبنائهم.", "en": "We provide an integrated environment for schools to showcase their capabilities and educational programs, with advanced tools for parents to discover the best school for their children."},
+    "mission_title": {"ar": "رسالتنا", "en": "Our Mission"},
+    "mission_desc": {"ar": "تمكين أولياء الأمور من اتخاذ قرارات مستنيرة بشأن تعليم أبنائهم من خلال منصة شاملة تعرض جميع المعلومات اللازمة عن المدارس بطريقة شفافة ومنظمة.", "en": "Empowering parents to make informed decisions about their children's education through a comprehensive platform that displays all necessary information about schools in a transparent and organized manner."},
+    "vision_title": {"ar": "رؤيتنا", "en": "Our Vision"},
+    "vision_desc": {"ar": "أن نكون المنصة الرائدة في العالم العربي لربط المدارس بأولياء الأمور، ونساهم في تطوير العملية التعليمية من خلال التكنولوجيا والابتكار.", "en": "To be the leading platform in the Arab world connecting schools with parents, and to contribute to the development of education through technology and innovation."},
+    "stats_schools": {"ar": "مدرسة مسجلة", "en": "Registered Schools"},
+    "stats_parents": {"ar": "ولي أمر", "en": "Parents"},
+    "stats_views": {"ar": "زيارة", "en": "Visits"},
+    "feature_transparency_title": {"ar": "شفافية كاملة", "en": "Full Transparency"},
+    "feature_transparency_desc": {"ar": "معلومات دقيقة ومفصلة عن كل مدرسة", "en": "Accurate and detailed information about every school"},
+    "feature_trusted_title": {"ar": "محتوى موثوق", "en": "Trusted Content"},
+    "feature_trusted_desc": {"ar": "بإشراف وإدارة المنصة", "en": "Supervised and managed by the platform"},
+    "feature_search_title": {"ar": "بحث متقدم", "en": "Advanced Search"},
+    "feature_search_desc": {"ar": "تصفية حسب المدينة والنوع والفئة", "en": "Filter by city, type, and category"},
+    "feature_easy_title": {"ar": "تصفح سهل", "en": "Easy Browsing"},
+    "feature_easy_desc": {"ar": "متوافق مع جميع الأجهزة", "en": "Compatible with all devices"}
+  },
+
   "hero": {
     "badge_fallback": {"ar": "منصة تريدا أكسبو - المعرض الأول والأكبر للمدارس بالمملكة", "en": "Treeda Expo Platform — The first and largest school exhibition in the Kingdom"},
     "title": {"ar": "مع تريدا أكسبو <br><span class=\"gradient-text\">اكتشف أفضل المدارس</span>", "en": "With Treeda Expo <br><span class=\"gradient-text\">Discover the Best Schools</span>"},

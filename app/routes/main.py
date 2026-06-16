@@ -8,6 +8,7 @@ from app.models.plan import Plan
 from app.models.user import User
 from app.models.notification import Notification
 from app.models.setting import Setting
+from app.models.contact_message import ContactMessage
 from app.utils.translations import _ as _tr
 from sqlalchemy import desc
 
@@ -35,64 +36,50 @@ def set_lang(lang):
 
 @main_bp.route('/about')
 def about():
-    return render_template('main/about.html')
+    from app.models.school import School
+    from app.models.parent import Parent
+    from sqlalchemy import func
+
+    stats = {
+        'schools': School.query.filter_by(is_approved=True, is_active=True).count(),
+        'parents': Parent.query.count(),
+        'views': db.session.query(func.coalesce(func.sum(School.views), 0)).scalar() or 0,
+    }
+    return render_template('main/about.html', stats=stats)
 
 
-@main_bp.route('/contact', methods=['GET', 'POST'])
-def contact():
-    lang = session.get('lang', 'ar')
-    if request.method == 'POST':
-        name = request.form.get('name', '').strip()
-        email = request.form.get('email', '').strip()
-        subject = request.form.get('subject', '').strip()
-        message = request.form.get('message', '').strip()
+@main_bp.route('/contact-message', methods=['POST'])
+def contact_message():
+    name = request.form.get('name', '').strip()
+    email = request.form.get('email', '').strip()
+    message = request.form.get('message', '').strip()
 
-        if not name or not email or not message:
-            flash(_tr('contact.sent_error', lang), 'danger')
-            return redirect(url_for('main.contact'))
+    if not name or not email or not message:
+        flash('يرجى ملء جميع الحقول', 'danger')
+        return redirect(request.referrer or url_for('main.index'))
 
-        body = f'''
-رسالة جديدة من نموذج الاتصال
-─────────────────────────────
-الاسم: {name}
-البريد: {email}
-الموضوع: {subject or '(بدون موضوع)'}
+    try:
+        msg = ContactMessage(name=name, email=email, message=message)
+        db.session.add(msg)
+        db.session.commit()
 
-الرسالة:
-{message}
-'''
-
-        try:
-            setting = Setting.query.first()
-            admin = User.query.filter_by(role='admin').first()
-
-            # Send email
-            msg = Message(
-                subject=f'اتصال جديد: {subject or "بدون عنوان"}',
-                recipients=[setting.contact_email] if setting and setting.contact_email else [admin.email],
-                body=body
+        admin = User.query.filter_by(role='admin').first()
+        if admin:
+            notif = Notification(
+                user_id=admin.id,
+                title='رسالة جديدة من الموقع',
+                message=f'من {name} ({email}): {message[:100]}',
+                notification_type='admin_message',
             )
-            mail.send(msg)
+            db.session.add(notif)
+            db.session.commit()
 
-            # Create notification for admin
-            if admin:
-                notif = Notification(
-                    user_id=admin.id,
-                    title='رسالة اتصال جديدة',
-                    message=f'من {name} ({email}): {message[:100]}',
-                    notification_type='admin_message',
-                )
-                db.session.add(notif)
-                db.session.commit()
+        flash('تم إرسال رسالتك بنجاح', 'success')
+    except Exception as e:
+        current_app.logger.error(f'Contact message error: {e}')
+        flash('حدث خطأ أثناء الإرسال', 'danger')
 
-            flash(_tr('contact.sent_ok', lang), 'success')
-        except Exception as e:
-            current_app.logger.error(f'Contact form error: {e}')
-            flash(_tr('contact.sent_error', lang), 'danger')
-
-        return redirect(url_for('main.contact'))
-
-    return render_template('main/contact.html')
+    return redirect(request.referrer or url_for('main.index'))
 
 
 @main_bp.route('/category/<slug>')
