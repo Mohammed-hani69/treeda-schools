@@ -2769,6 +2769,7 @@ a:hover { color: var(--brand-primary-hover); }
 .admin-layout {
   display: flex;
   min-height: calc(100vh - 72px);
+  margin-top: 72px;
 }
 
 /* ─── Sidebar ─── */
