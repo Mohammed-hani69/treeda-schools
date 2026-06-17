@@ -258,7 +258,7 @@ def edit_school(id):
     form = AdminSchoolCreateForm(obj=school)
 
     if request.method == 'GET':
-        form.username.data = school.user.username
+        form.username.data = school.admin.username
         form.password.validators = []
 
     form.category_id.choices = [(c.id, c.name) for c in Category.query.filter_by(is_active=True).order_by(Category.name).all()]
@@ -303,7 +303,7 @@ def edit_school(id):
         school.category_id = category_id
 
         if form.password.data:
-            school.user.set_password(form.password.data)
+            school.admin.set_password(form.password.data)
 
         db.session.commit()
         flash(f'تم تحديث مدرسة {school.name} بنجاح', 'success')
