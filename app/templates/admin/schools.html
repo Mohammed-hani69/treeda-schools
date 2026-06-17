@@ -85,6 +85,7 @@
                             </td>
                             <td>
                                 <div class="table-actions">
+                                    <a href="{{ url_for('admin.edit_school', id=school.id) }}" class="btn btn-sm btn-outline-primary" title="تعديل"><i class="bi bi-pencil"></i></a>
                                     {% if not school.is_approved %}
                                     <form method="POST" action="{{ url_for('admin.approve_school', id=school.id) }}">
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

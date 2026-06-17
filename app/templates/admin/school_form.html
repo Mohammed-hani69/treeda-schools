@@ -6,8 +6,8 @@
     <div class="admin-content">
         <div class="admin-content-header">
             <div>
-                <h4><i class="bi bi-building-add"></i> {{ title }}</h4>
-                <p>إنشاء حساب مدرسة جديدة مع تفعيل فوري</p>
+                <h4><i class="bi bi-{{ 'building-add' if not school else 'building-gear' }}"></i> {{ title }}</h4>
+                <p>{% if school %}تعديل بيانات المدرسة{% else %}إنشاء حساب مدرسة جديدة مع تفعيل فوري{% endif %}</p>
             </div>
             <a href="{{ url_for('admin.schools') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-right"></i> العودة</a>
         </div>
@@ -77,18 +77,21 @@
                             <label class="form-label">{{ form.logo.label.text }}</label>
                             {{ form.logo(class='form-control' + (' is-invalid' if form.logo.errors else ''), accept='image/*') }}
                             <div class="form-text">png, jpg, webp — يفضل 200×200</div>
+                            {% if school and school.logo %}<div class="mt-2"><img src="{{ url_for('static', filename='uploads/schools/' + school.logo) }}" style="height:40px;border-radius:6px;"></div>{% endif %}
                             {% for e in form.logo.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">{{ form.cover.label.text }}</label>
                             {{ form.cover(class='form-control' + (' is-invalid' if form.cover.errors else ''), accept='image/*') }}
                             <div class="form-text">png, jpg, webp — يفضل 1200×400</div>
+                            {% if school and school.cover %}<div class="mt-2"><img src="{{ url_for('static', filename='uploads/schools/' + school.cover) }}" style="height:40px;border-radius:6px;"></div>{% endif %}
                             {% for e in form.cover.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">{{ form.image.label.text }}</label>
                             {{ form.image(class='form-control' + (' is-invalid' if form.image.errors else ''), accept='image/*') }}
                             <div class="form-text">الصورة التي تظهر في بطاقة القسم — يفضل 600×400</div>
+                            {% if school and school.image %}<div class="mt-2"><img src="{{ url_for('static', filename='uploads/schools/' + school.image) }}" style="height:40px;border-radius:6px;"></div>{% endif %}
                             {% for e in form.image.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
                         </div>
                     </div>
@@ -98,11 +101,11 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">{{ form.username.label.text }}</label>
-                            {{ form.username(class='form-control' + (' is-invalid' if form.username.errors else ''), placeholder='اسم المستخدم للدخول') }}
+                            {{ form.username(class='form-control' + (' is-invalid' if form.username.errors else ''), placeholder='اسم المستخدم للدخول', readonly=school is defined) }}
                             {% for e in form.username.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">{{ form.password.label.text }}</label>
+                            <label class="form-label">{{ form.password.label.text }}{% if school %} <small class="text-secondary">(اتركه فارغاً إذا لا تريد التغيير)</small>{% endif %}</label>
                             {{ form.password(class='form-control' + (' is-invalid' if form.password.errors else ''), placeholder='كلمة المرور') }}
                             {% for e in form.password.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
                         </div>

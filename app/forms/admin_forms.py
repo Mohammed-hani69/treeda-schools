@@ -219,7 +219,7 @@ class AdminSchoolCreateForm(FlaskForm):
     cover = FileField('صورة الغلاف', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp'])])
     image = FileField('الصورة الخارجية', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp'])])
     username = StringField('اسم المستخدم', validators=[DataRequired(), Length(max=100)])
-    password = PasswordField('كلمة المرور', validators=[DataRequired(), Length(min=6)])
+    password = PasswordField('كلمة المرور', validators=[Optional(), Length(min=6)])
     submit = SubmitField('حفظ')
 
 

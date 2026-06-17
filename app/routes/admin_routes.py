@@ -195,6 +195,9 @@ def create_school():
         form.category_id.choices = [(0, '— لا توجد أقسام —')]
 
     if form.validate_on_submit():
+        if not form.password.data:
+            flash('كلمة المرور مطلوبة', 'danger')
+            return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
         if User.query.filter_by(email=form.email.data).first():
             flash('البريد الإلكتروني مستخدم بالفعل', 'danger')
             return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
@@ -244,6 +247,69 @@ def create_school():
         return redirect(url_for('admin.schools'))
 
     return render_template('admin/school_form.html', form=form, title='إضافة مدرسة جديدة')
+
+
+@admin_bp.route('/schools/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_school(id):
+    from app.models.category import Category
+    school = School.query.get_or_404(id)
+    form = AdminSchoolCreateForm(obj=school)
+
+    if request.method == 'GET':
+        form.username.data = school.user.username
+        form.password.validators = []
+
+    form.category_id.choices = [(c.id, c.name) for c in Category.query.filter_by(is_active=True).order_by(Category.name).all()]
+    if not form.category_id.choices:
+        form.category_id.choices = [(0, '— لا توجد أقسام —')]
+
+    if form.validate_on_submit():
+        old_logo = school.logo
+        old_cover = school.cover
+        old_image = school.image
+
+        form.populate_obj(school)
+
+        if form.logo.data and hasattr(form.logo.data, 'filename') and form.logo.data.filename:
+            filename = save_file(form.logo.data, 'schools')
+            if filename:
+                school.logo = filename
+                if old_logo:
+                    delete_file(old_logo, 'schools')
+        else:
+            school.logo = old_logo
+
+        if form.cover.data and hasattr(form.cover.data, 'filename') and form.cover.data.filename:
+            filename = save_file(form.cover.data, 'schools')
+            if filename:
+                school.cover = filename
+                if old_cover:
+                    delete_file(old_cover, 'schools')
+        else:
+            school.cover = old_cover
+
+        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
+            filename = save_file(form.image.data, 'schools')
+            if filename:
+                school.image = filename
+                if old_image:
+                    delete_file(old_image, 'schools')
+        else:
+            school.image = old_image
+
+        category_id = form.category_id.data if form.category_id.data and form.category_id.data > 0 else None
+        school.category_id = category_id
+
+        if form.password.data:
+            school.user.set_password(form.password.data)
+
+        db.session.commit()
+        flash(f'تم تحديث مدرسة {school.name} بنجاح', 'success')
+        return redirect(url_for('admin.schools'))
+
+    return render_template('admin/school_form.html', form=form, title='تعديل المدرسة', school=school)
 
 
 @admin_bp.route('/schools/views/<int:id>', methods=['POST'])
